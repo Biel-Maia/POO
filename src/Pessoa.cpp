@@ -1,18 +1,21 @@
-#include "pessoa.h"
+#include "../include/Pessoa.h"
+
 
 
 Pessoa::Pessoa(
-  std::string nome,
-  std::string cpf
+    std::string nome,
+    std::string documento,
+    std::string email,
+    std::string endereco,
+    std::string telefone
 ): _nome(nome),
-   _cpf(cpf) {
+   _documento(documento),
+   _email(email),
+   _endereco(endereco),
+   _telefone(telefone){
 }
 
 
 std::string Pessoa::get_nome() const {
   return this->_nome;
-}
-
-std::string Pessoa::get_cpf() const {
-  return this->_cpf;
 }

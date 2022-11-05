@@ -3,22 +3,27 @@
 
 #include <string>
 
-
 class Pessoa {
 
   private:
-    const std::string _nome;
-    const std::string _cpf;
+     std::string _nome;
+     std::string _documento;
+     std::string _email;
+     std::string _endereco;
+     std::string _telefone;
   
   public:
 
     Pessoa(
     std::string nome,
-    std::string cpf
+    std::string documento,
+    std::string email,
+    std::string endereco,
+    std::string telefone
    );
   
+  
     std::string get_nome() const;
-    std::string get_cpf() const;
 };
 
 #endif
