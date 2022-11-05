@@ -1,5 +1,7 @@
 #ifndef DEPARTAMENTO_H
-#define DEPARTAMENTO_J
+#define DEPARTAMENTO_H
+
+#include <string>
 
 class Departamento{
 

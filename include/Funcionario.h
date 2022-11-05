@@ -4,6 +4,7 @@
 
 #include "../include/Pessoa.h"
 #include "../include/Departamento.h"
+#include "../include/Cargo.h"
 #include <string>
 #include <map>
 
@@ -11,13 +12,13 @@
 class Funcionario : public Pessoa{
       
   private:
-      int                _matricula;
-      Departamento       _departamento;
-      Cargo              _cargo;
-      double             _salarioAtual;
-      map<double,double> _salario;
-      std::string        _status;
-      double             _dissidio;
+      int                     _matricula;
+      Departamento            _departamento;
+      Cargo                   _cargo;
+      double                  _salarioAtual;
+      std::map<double,double> _salario;
+      std::string             _status;
+      double                  _dissidio;
 
   public:
       Funcionario(
@@ -26,13 +27,13 @@ class Funcionario : public Pessoa{
       std::string email,
       std::string endereco,
       std::string telefone,
-      int                matricula,
-      Departamento       departamento,
-      Cargo              cargo,
-      double             salarioAtual,
-      map<double,double> salario,
-      std::string        status,
-      double             dissidio            
+      int                     matricula,
+      Departamento            departamento,
+      Cargo                   cargo,
+      double                  salarioAtual,
+      std::map<double,double> salario,
+      std::string             status,
+      double                  dissidio            
       );
 
     void alteraSalario(double Data,double salarioNovo);
