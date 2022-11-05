@@ -5,7 +5,10 @@ O projeto, requisitado pela disciplina de Programação Orientada a Objetos POO,
             NOME                 MATRÍCULA
 -   
 - 
-![Alt text](https://avatars.githubusercontent.com/u/102741330?v=4.png) Gabriel Henrique Silva Maia - 2020103197  
+<body>
+<img src="https://avatars.githubusercontent.com/u/102741330?v=4.png">
+</body>
+Gabriel Henrique Silva Maia - 2020103197  
 
 ## Requisitos
 #####
