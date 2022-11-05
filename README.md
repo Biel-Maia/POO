@@ -6,10 +6,10 @@ O projeto, requisitado pela disciplina de Programação Orientada a Objetos POO,
 -
 -
 -
-<center><a>
+<middle><a>
 <a href="https://github.com/Biel-Maia">
 <img src="https://avatars.githubusercontent.com/u/102741330?v=4.png" height="40" width="40">
-</a></center>
+</a></middle>
 <middle>Gabriel Henrique Silva Maia - 2020103197</middle>
 
 ## Requisitos
