@@ -1,12 +1,16 @@
 # Sistema de Gestão de uma Indústria
-O projeto, requisitado pela disciplina de Programação Orientada a Objetos POO, foi desenvolvido para o gerenciamento de um Centro de Serviços Automotivos.
+> O projeto, requisitado pela disciplina de Programação Orientada a Objetos POO, foi desenvolvido para o gerenciamento de gestão de uma indústria.
 
 ## Alunos
-            NOME                 MATRÍCULA
--   
-- 
-- 
-- Gabriel Henrique Silva Maia - 2020103197
+#### GIT &ensp;&ensp;&ensp;&ensp;&ensp; &ensp;  &ensp; &ensp;     NOME &ensp;&ensp;&ensp; &ensp;&ensp;&ensp; &ensp;     MATRÍCULA
+-
+-
+-
+<a>
+<a href="https://github.com/Biel-Maia">
+<img src="https://avatars.githubusercontent.com/u/102741330?v=4.png" height="40" width="40">
+</a>
+Gabriel Henrique Silva Maia - 2020103197
 
 ## Requisitos
 #####
@@ -66,5 +70,5 @@ O projeto, requisitado pela disciplina de Programação Orientada a Objetos POO,
 
 
 
-LINK DIAGRAMS.NET
+## LINK DIAGRAMS.NET
 https://app.diagrams.net/?src=about#HBiel-Maia%2FPOO%2Fmain%2FDiagrama%20sem%20nome.drawio
