@@ -1,4 +1,4 @@
->># Sistema de Gestão de uma Indústria
+<# Sistema de Gestão de uma Indústria
 + O projeto, requisitado pela disciplina de Programação Orientada a Objetos POO, foi desenvolvido para o gerenciamento de gestão de uma indústria.
 
 ## Alunos
