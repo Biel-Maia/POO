@@ -2,7 +2,7 @@
 O projeto, requisitado pela disciplina de Programação Orientada a Objetos POO, foi desenvolvido para o gerenciamento de um Centro de Serviços Automotivos.
 
 ## Alunos
-<h2>GIT            NOME                 MATRÍCULA</h2>
+<h2>GIT________________NOME___________________MATRÍCULA</h2>
 -
 -
 -
