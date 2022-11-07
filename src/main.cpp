@@ -134,7 +134,7 @@ int main(){
     Usuario usermain("Main","main","main");
     empresa.addUsuario(usermain);
     Usuario usermain2("Main2","main2","main2");
-    empresa.addUsuario(usermain);
+    empresa.addUsuario(usermain2);
 
     std::string user;
     std::string senha;
