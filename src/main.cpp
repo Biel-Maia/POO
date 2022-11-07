@@ -44,24 +44,70 @@ void case_1(){
       
     if(numx==2){
     system("clear");
-    cout << "Digite o nome do funcionário!" << endl;
+    cout << "Digite o nome do funcionário:" << endl;
     cin.ignore();
     getline(cin,nome);
-    cout << "Digite o documento do funcionário!" << endl;
+    cout << "Digite o documento do funcionário:" << endl;
     cin.ignore();
     getline(cin,documento);
-    cout << "Digite o email do funcionário!" << endl;
+    cout << "Digite o email do funcionário:" << endl;
     cin.ignore();
     getline(cin,email);
-    cout << "Digite o nome do endereço!" << endl;
+    cout << "Digite o endereço do funcionário:" << endl;
     cin.ignore();
     getline(cin,endereco);
-    cout << "Digite o telefone do funcionário!" << endl;
+    cout << "Digite o telefone do funcionário:" << endl;
     cin.ignore();
     getline(cin,telefone); 
-    cout << "Escolha o departamento do funcionário!" << endl;
     system("clear");
     cout << "Funcionário cadastrado com sucesso!" << endl;
+    a=1;
+    break;
+    }
+
+    if(numx==4){
+    bool tipo;
+    system("clear");
+    cout << "Digite o nome do cliente:" << endl;
+    cin.ignore();
+    getline(cin,nome);
+    cout << "Digite o documento do cliente:" << endl;
+    cin.ignore();
+    getline(cin,documento);
+    cout << "Digite o email do cliente:" << endl;
+    cin.ignore();
+    getline(cin,email);
+    cout << "Digite o endereço do cliente:" << endl;
+    cin.ignore();
+    getline(cin,endereco);
+    cout << "Digite o telefone do cliente:" << endl;
+    cin.ignore();
+    getline(cin,telefone); 
+    cout << "Digite o tipo do cliente:" << endl;
+    int t=0;
+    while(t==0){
+    int valor;
+    valor=0;
+    cout << "1 - Pessoa jurídica" << endl;  
+    cout << "2 - Pessoa física" << endl;  
+    cin>>valor;
+    if(valor==1){
+    tipo=false;
+    t=1;
+    }
+    else if(valor==2){
+    tipo=true;
+    t=1;
+    }
+    else{
+    cout << "Digite um valor válido:" << endl;
+    t=0;
+    }
+    }
+    Cliente cliente(nome,documento,email,endereco,telefone,tipo);
+    empresa.addCliente(cliente);
+    system("clear");
+    cout << "Cliente cadastrado com sucesso!" << endl;
     a=1;
     break;
     }
@@ -104,7 +150,6 @@ void menuPrincipal(){
       while(y==0){
     cout<<"MENU:"<<endl;
     cout<<"1- Aba com informações de usuários, funcionários, clientes, produtos, lotes e fornecedores."<<endl;
-    cout<<"5) Sair"<<endl;
     
 
     cout<<"Digite uma das opcoes:"<<endl;

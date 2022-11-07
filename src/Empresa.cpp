@@ -24,6 +24,10 @@ void Empresa::addDepartamento(Departamento departamento){
   _departamentos.push_back(departamento);
 }
 
+void Empresa::addCliente(Cliente cliente){
+  _clientes.push_back(cliente);
+}
+
 int Empresa::verificaLogin(std::string user, std::string senha){
   int tamanho;
   tamanho=_usuarios.size();
