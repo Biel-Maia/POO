@@ -13,6 +13,7 @@
 
 
 using namespace std;
+Empresa empresa;
 
 void case_1(){
     std::string nome;
@@ -64,13 +65,28 @@ void case_1(){
     a=1;
     break;
     }
-      
+
+    if(numx==5){
+    system("clear");
+    std::string nome_cargo;
+    cout << "Digite o nome do cargo:" << endl;
+    cin.ignore();
+    getline(cin,nome_cargo);
+    Cargo cargo(nome_cargo);
+    empresa.addCargo(cargo);
+    system("clear");
+    cout << "Cargo cadastrado com sucesso!" << endl;
+    }
+    
     if(numx==6){
+    system("clear");
     std::string nome_depart;
-    cout << "Digite o nome do departamento!" << endl;
+    cout << "Digite o nome do departamento:" << endl;
     cin.ignore();
     getline(cin,nome_depart);
     Departamento departamento(nome_depart);
+    empresa.addDepartamento(departamento);
+    system("clear");
     cout << "Departamento cadastrado com sucesso!" << endl;
     }
 
@@ -87,7 +103,7 @@ void menuPrincipal(){
       y=0;
       while(y==0){
     cout<<"MENU:"<<endl;
-    cout<<"1- Aba com informações de usuários, funcionários, clientes e fornecedores."<<endl;
+    cout<<"1- Aba com informações de usuários, funcionários, clientes, produtos, lotes e fornecedores."<<endl;
     cout<<"5) Sair"<<endl;
     
 
@@ -97,6 +113,7 @@ void menuPrincipal(){
     cin >> num;
 
     if(num==1){
+    system("clear");
     case_1();
     y=1;
     break;
@@ -114,7 +131,6 @@ void menuPrincipal(){
 }
 
 int main(){
-    Empresa empresa;
     Usuario usermain("Main","main","main");
     empresa.addUsuario(usermain);
 
@@ -134,10 +150,12 @@ int main(){
     empresa.verificaLogin(user,senha);
     if(empresa.verificaLogin(user,senha)==1){
     system("clear");
-    std::cout<<"Login efetuado com sucesso"<<std::endl;
+    std::cout<<"Login efetuado com sucesso!"<<std::endl;
     menuPrincipal();
     }
     else{
+    system("clear");
+    std::cout<<"Usuário e/ou senha não existem!"<<std::endl;
     y=1;
     }
     }

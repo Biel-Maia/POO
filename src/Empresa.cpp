@@ -16,6 +16,14 @@ void Empresa::addUsuario(Usuario usuario){
   _usuarios.push_back(usuario);
 }
 
+void Empresa::addCargo(Cargo cargo){
+  _cargos.push_back(cargo);
+}
+
+void Empresa::addDepartamento(Departamento departamento){
+  _departamentos.push_back(departamento);
+}
+
 int Empresa::verificaLogin(std::string user, std::string senha){
   int tamanho;
   tamanho=_usuarios.size();
@@ -28,6 +36,13 @@ int Empresa::verificaLogin(std::string user, std::string senha){
     if(senha==senhax){
     return 1;
     }
+    else{
+    return 0;
+    }
+  }
+  else{
+  return 0;  
   }
   }
+  return 0;
 }
