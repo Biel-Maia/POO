@@ -9,7 +9,6 @@ class Departamento{
     std::string _nome;
 
   public:
-
     Departamento(std::string nome);
     std::string getNome();
 
