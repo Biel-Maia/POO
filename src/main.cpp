@@ -15,6 +15,33 @@
 using namespace std;
 Empresa empresa;
 
+void cadastrarFuncionario(){
+    std::string nome;
+    std::string documento;
+    std::string email;
+    std::string endereco;
+    std::string telefone;
+
+    system("clear");
+    cout << "Digite o nome do funcionário:" << endl;
+    cin.ignore();
+    getline(cin,nome);
+    cout << "Digite o documento do funcionário:" << endl;
+    cin.ignore();
+    getline(cin,documento);
+    cout << "Digite o email do funcionário:" << endl;
+    cin.ignore();
+    getline(cin,email);
+    cout << "Digite o endereço do funcionário:" << endl;
+    cin.ignore();
+    getline(cin,endereco);
+    cout << "Digite o telefone do funcionário:" << endl;
+    cin.ignore();
+    getline(cin,telefone); 
+    system("clear");
+    cout << "Funcionário cadastrado com sucesso!" << endl; 
+}
+
 void case_1(){
     std::string nome;
     std::string documento;
@@ -22,7 +49,7 @@ void case_1(){
     std::string endereco;
     std::string telefone;
 
-  
+    
     int a=0;
     while(a==0){
     cout <<"CADASTRAR:" << endl;
@@ -43,24 +70,7 @@ void case_1(){
     }
       
     if(numx==2){
-    system("clear");
-    cout << "Digite o nome do funcionário:" << endl;
-    cin.ignore();
-    getline(cin,nome);
-    cout << "Digite o documento do funcionário:" << endl;
-    cin.ignore();
-    getline(cin,documento);
-    cout << "Digite o email do funcionário:" << endl;
-    cin.ignore();
-    getline(cin,email);
-    cout << "Digite o endereço do funcionário:" << endl;
-    cin.ignore();
-    getline(cin,endereco);
-    cout << "Digite o telefone do funcionário:" << endl;
-    cin.ignore();
-    getline(cin,telefone); 
-    system("clear");
-    cout << "Funcionário cadastrado com sucesso!" << endl;
+    cadastrarFuncionario();
     a=1;
     break;
     }
@@ -141,6 +151,7 @@ void case_1(){
     }
     }
 }
+
 void menuPrincipal(){
       int x=0;
       int y=0;
