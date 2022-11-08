@@ -1,5 +1,5 @@
 # Sistema de Gestão de uma Indústria
-> O projeto, requisitado pela disciplina de Programação Orientada a Objetos POO, foi desenvolvido para o gerenciamento de uma indústria.
+> O projeto, requisitado pela disciplina de Programação Orientada a Objetos - POO, foi desenvolvido para o gerenciamento de uma indústria.
 
 ## Alunos
 #### GIT &ensp;&ensp;&ensp;&ensp;&ensp; &ensp;  &ensp; &ensp;     NOME &ensp;&ensp;&ensp; &ensp;&ensp;&ensp; &ensp;     MATRÍCULA
