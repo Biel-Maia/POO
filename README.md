@@ -31,7 +31,7 @@ Gabriel Henrique Silva Maia - 2020103197
     ```sh
     make
     ```
-4. Em seguida, execute o comando make:
+4. Em seguida, execute o comando main:
     ```sh
     ./main
     ```
