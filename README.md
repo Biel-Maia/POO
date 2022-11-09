@@ -12,6 +12,13 @@
 </a>
 Gabriel Henrique Silva Maia - 2020103197
 
+## Objetivos
+   Neste trabalho prático desenvolvemos um modelo de classes e
+implementamos um sistema de gestão para uma indústria. O projeto
+foi desenvolvido em sprints semanais, que envolveram a modelagem das
+classes para atender ao escopo da sprint e também a implementação
+dessas classes em C++. 
+
 ## Requisitos
 #####
 
