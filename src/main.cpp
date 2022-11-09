@@ -15,6 +15,52 @@
 using namespace std;
 Empresa empresa;
 
+void cadastrarUsuario(){
+    system("clear");
+    std::string tipo;
+    std::string user;
+    std::string senha;
+
+    cout<<"Digite o tipo de Usuário:"<<endl;
+    cin>>tipo;
+    cout<<"Digite seu login:"<<endl;
+    cin>>user;
+    cout<<"Digite sua senha:"<<endl;
+    cin>>senha;
+    Usuario cadUser(tipo,user,senha);
+    empresa.addUsuario(cadUser);
+    system("clear");
+    cout << "Usuário cadastrado com sucesso!" << endl; 
+}
+
+void cadastrarCargo(){
+    system("clear");
+    std::string nome_cargo;
+    cout << "Digite o nome do cargo:" << endl;
+    cin.ignore();
+    getline(cin,nome_cargo);
+    Cargo cargo(nome_cargo);
+    empresa.addCargo(cargo);
+    system("clear");
+    cout << "Cargo cadastrado com sucesso!" << endl; 
+}
+
+void cadastrarDepartamento(){
+    system("clear");
+    std::string nome_depart;
+    cout << "Digite o nome do departamento:" << endl;
+    cin.ignore();
+    getline(cin,nome_depart);
+    Departamento departamento(nome_depart);
+    empresa.addDepartamento(departamento);
+    system("clear");
+    cout << "Departamento cadastrado com sucesso!" << endl;
+}
+
+void cadastrarFornecedor(){
+  
+}
+
 void cadastrarFuncionario(){
     std::string nome;
     std::string documento;
@@ -42,40 +88,13 @@ void cadastrarFuncionario(){
     cout << "Funcionário cadastrado com sucesso!" << endl; 
 }
 
-void case_1(){
+void cadastrarCliente(){
     std::string nome;
     std::string documento;
     std::string email;
     std::string endereco;
     std::string telefone;
 
-    
-    int a=0;
-    while(a==0){
-    cout <<"CADASTRAR:" << endl;
-    cout <<"1- Usuário" << endl;
-    cout <<"2- Funcionário" << endl;
-    cout <<"3- Fornecedor" << endl;
-    cout <<"4- Cliente"<<endl;
-    cout <<"5- Cargo"<<endl;
-    cout <<"6- Departamento"<<endl;
-    cout <<"Digite uma das opcoes:" << endl;
-  
-    int numx=0;
-    cin >> numx;
-
-    if(numx==1){
-    a=1;
-    break;
-    }
-      
-    if(numx==2){
-    cadastrarFuncionario();
-    a=1;
-    break;
-    }
-
-    if(numx==4){
     bool tipo;
     system("clear");
     cout << "Digite o nome do cliente:" << endl;
@@ -118,32 +137,64 @@ void case_1(){
     empresa.addCliente(cliente);
     system("clear");
     cout << "Cliente cadastrado com sucesso!" << endl;
-    a=1;
-    break;
+}
+
+void case_1(){
+    
+    int a=0;
+    while(a==0){
+    cout <<"CADASTRAR:" << endl;
+    cout <<"1- Usuário" << endl;
+    cout <<"2- Funcionário" << endl;
+    cout <<"3- Fornecedor" << endl;
+    cout <<"4- Cliente"<<endl;
+    cout <<"5- Cargo"<<endl;
+    cout <<"6- Departamento"<<endl;
+    cout <<"7- Voltar ao menu"<<endl;
+    cout <<"Digite uma das opcoes:" << endl;
+  
+    int numx=0;
+    cin >> numx;
+
+    if(numx==1){
+      cadastrarUsuario();
+      a=1;
+      break;
+    }
+      
+    if(numx==2){
+      cadastrarFuncionario();
+      a=1;
+      break;
+    }
+
+    if(numx==3){
+      cadastrarFornecedor();
+      a=1;
+      break;
+    }
+
+    if(numx==4){
+      cadastrarCliente();
+      a=1;
+      break;
     }
 
     if(numx==5){
-    system("clear");
-    std::string nome_cargo;
-    cout << "Digite o nome do cargo:" << endl;
-    cin.ignore();
-    getline(cin,nome_cargo);
-    Cargo cargo(nome_cargo);
-    empresa.addCargo(cargo);
-    system("clear");
-    cout << "Cargo cadastrado com sucesso!" << endl;
+      cadastrarCargo();
+      a=1;
+      break;
     }
     
     if(numx==6){
-    system("clear");
-    std::string nome_depart;
-    cout << "Digite o nome do departamento:" << endl;
-    cin.ignore();
-    getline(cin,nome_depart);
-    Departamento departamento(nome_depart);
-    empresa.addDepartamento(departamento);
-    system("clear");
-    cout << "Departamento cadastrado com sucesso!" << endl;
+      cadastrarDepartamento();
+      a=1;
+      break;
+    }
+
+    if(numx==7){
+      a=1;
+      break;
     }
 
     else{
@@ -187,6 +238,7 @@ void menuPrincipal(){
 }
 
 int main(){
+    system("clear");
     Usuario usermain("Main","main","main");
     empresa.addUsuario(usermain);
     Usuario usermain2("Main2","main2","main2");
