@@ -70,3 +70,10 @@ void Empresa::getCargos(){
   cout<<_cargos[x].getNome()<<endl;
   }
 }
+
+Departamento Empresa::getDepartamento(int posicao){
+    return this->_departamentos[posicao];
+}
+Cargo Empresa::getCargo(int posicao){
+    return this->_cargos[posicao];
+}

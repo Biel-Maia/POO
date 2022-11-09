@@ -31,5 +31,7 @@ class Empresa{
     int  verificaLogin(std::string user, std::string senha);
     void getDepartamentos();
     void getCargos();
+    Departamento getDepartamento(int posicao);
+    Cargo getCargo(int posicao);
 };
 #endif
