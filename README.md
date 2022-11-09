@@ -1,5 +1,5 @@
 # Sistema de Gestão de uma Indústria
-> O projeto, requisitado pela disciplina de Programação Orientada a Objetos POO, foi desenvolvido para o gerenciamento de gestão de uma indústria.
+> O projeto, requisitado pela disciplina de Programação Orientada a Objetos - POO, foi desenvolvido para o gerenciamento de uma indústria.
 
 ## Alunos
 #### GIT &ensp;&ensp;&ensp;&ensp;&ensp; &ensp;  &ensp; &ensp;     NOME &ensp;&ensp;&ensp; &ensp;&ensp;&ensp; &ensp;     MATRÍCULA
@@ -31,7 +31,7 @@ Gabriel Henrique Silva Maia - 2020103197
     ```sh
     make
     ```
-4. Em seguida, execute o comando make:
+4. Em seguida, execute o comando main:
     ```sh
     ./main
     ```
