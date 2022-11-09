@@ -10,6 +10,7 @@
 #include "../include/Departamento.h"
 #include "../include/Usuario.h"
 #include "../include/Empresa.h"
+#include "../include/Data.h"
 
 
 using namespace std;
@@ -62,11 +63,25 @@ void cadastrarFornecedor(){
 }
 
 void cadastrarFuncionario(){
-    std::string nome;
-    std::string documento;
-    std::string email;
-    std::string endereco;
-    std::string telefone;
+    std::string             nome;
+    std::string             documento;
+    std::string             email;
+    std::string             endereco;
+    Data                    dataNasc;
+    int                     diaNasc;
+    int                     mesNasc;
+    int                     anoNasc;
+    std::string             telefone;
+    int                     _matricula;
+    Data                    _dataAdmissao;
+    int                     diaAdmiss;
+    int                     mesAdmiss;
+    int                     anoAdmiss;
+    Departamento            _departamento;
+    Cargo                   _cargo;
+    double                  _salario;
+    std::map<Data,double>   _salarios;
+    std::string             _status;
 
     system("clear");
     cout << "Digite o nome do funcionário:" << endl;
@@ -81,11 +96,21 @@ void cadastrarFuncionario(){
     cout << "Digite o endereço do funcionário:" << endl;
     cin.ignore();
     getline(cin,endereco);
-    cout << "Digite o telefone do funcionário:" << endl;
-    cin.ignore();
-    getline(cin,telefone); 
-    system("clear");
-    cout << "Funcionário cadastrado com sucesso!" << endl; 
+    cout << "Digite o dia de nascimento do funcionário:" << endl;
+    cin>>diaNasc;
+    cout << "Digite o mês de nascimento do funcionário:" << endl;
+    cin>>mesNasc;
+    cout << "Digite o ano de nascimento do funcionário:" << endl;
+    cin>>anoNasc;
+    cout << "Digite a matrícula do funcionário:" << endl;
+    cin>>matricula;
+    cout << "Digite o dia de admissão do funcionário:" << endl;
+    cin>>diaAdmiss;
+    cout << "Digite o mês de admissão do funcionário:" << endl;
+    cin>>mesAdmiss;
+    cout << "Digite o ano de admissão do funcionário:" << endl;
+    cin>>anoAdmiss;
+    
 }
 
 void cadastrarCliente(){
@@ -93,6 +118,10 @@ void cadastrarCliente(){
     std::string documento;
     std::string email;
     std::string endereco;
+    Data        data;
+    int         dia;
+    int         mes;
+    int         ano;
     std::string telefone;
 
     bool tipo;
@@ -109,6 +138,12 @@ void cadastrarCliente(){
     cout << "Digite o endereço do cliente:" << endl;
     cin.ignore();
     getline(cin,endereco);
+    cout << "Digite o dia de nascimento do cliente:" << endl;
+    cin>>dia;
+    cout << "Digite o mês de nascimento do cliente:" << endl;
+    cin>>mes;
+    cout << "Digite o ano de nascimento do cliente:" << endl;
+    cin>>ano;
     cout << "Digite o telefone do cliente:" << endl;
     cin.ignore();
     getline(cin,telefone); 
@@ -132,8 +167,11 @@ void cadastrarCliente(){
     cout << "Digite um valor válido:" << endl;
     t=0;
     }
-    }
-    Cliente cliente(nome,documento,email,endereco,telefone,tipo);
+      }
+    data.setDia(dia);
+    data.setMes(mes);
+    data.setAno(ano);
+    Cliente cliente(nome,documento,email,endereco,data,telefone,tipo);
     empresa.addCliente(cliente);
     system("clear");
     cout << "Cliente cadastrado com sucesso!" << endl;

@@ -1,5 +1,6 @@
 #include "../include/Pessoa.h"
 
+#include "../include/Data.h"
 
 
 Pessoa::Pessoa(
@@ -7,11 +8,13 @@ Pessoa::Pessoa(
     std::string documento,
     std::string email,
     std::string endereco,
+    Data        data,
     std::string telefone
 ): _nome(nome),
    _documento(documento),
    _email(email),
    _endereco(endereco),
+   _data(data),
    _telefone(telefone){
 }
 

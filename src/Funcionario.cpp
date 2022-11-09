@@ -2,6 +2,7 @@
 #include "../include/Pessoa.h"
 #include "../include/Departamento.h"
 #include "../include/Cargo.h"
+#include "../include/Data.h"
 #include <string>
 #include <map>
 
@@ -12,25 +13,26 @@ Funcionario::Funcionario(
       std::string documento,
       std::string email,
       std::string endereco,
+      Data        data,
       std::string telefone,
       int                     matricula,
+      Data                    dataAdmissao,
       Departamento            departamento,
       Cargo                   cargo,
-      double                  salarioAtual,
-      std::map<double,double> salario,
-      std::string             status,
-      double                  dissidio):
-      Pessoa(nome,documento,email,endereco,telefone),
+      double                  salario,
+      std::map<Data,double>   salarios,
+      std::string             status):
+      Pessoa(nome,documento,email,endereco,data,telefone),
       _matricula(matricula),
+      _dataAdmissao(dataAdmissao),
       _departamento(departamento),
       _cargo(cargo),
-      _salarioAtual(salarioAtual),
       _salario(salario),
-      _status(status),
-      _dissidio(dissidio){};
+      _salarios(salarios),
+      _status(status){};
 
 
-    void Funcionario::alteraSalario(double Data,double salarioNovo){
+    void Funcionario::alteraSalario(){
       
     }
 

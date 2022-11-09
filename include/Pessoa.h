@@ -1,7 +1,9 @@
 #ifndef PESSOA_H
 #define PESSOA_H
 
+#include "../include/Data.h"
 #include <string>
+
 
 class Pessoa {
 
@@ -10,6 +12,7 @@ class Pessoa {
      std::string _documento;
      std::string _email;
      std::string _endereco;
+     Data        _data; 
      std::string _telefone;
   
   public:
@@ -19,6 +22,7 @@ class Pessoa {
     std::string documento,
     std::string email,
     std::string endereco,
+    Data        data,
     std::string telefone
    );
   
