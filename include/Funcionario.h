@@ -37,7 +37,7 @@ class Funcionario : public Pessoa{
       Cargo                   cargo,
       double                  salario,
       std::map<Data,double>   salarios,
-      std::string             status,           
+      std::string             status           
       );
 
     void alteraSalario();

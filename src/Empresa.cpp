@@ -44,3 +44,25 @@ int Empresa::verificaLogin(std::string user, std::string senha){
   }
   return 0;
 }
+
+void Empresa::getDepartamentos(){
+  int tamanho = this->_departamentos.size();
+  int num=0;
+  for(int x=0;x<tamanho;x++){
+  num++;
+  cout<<num;
+  cout<<"- ";
+  cout<<_departamentos[x].getNome()<<endl;
+  }
+}
+
+void Empresa::getCargos(){
+  int tamanho = this->_cargos.size();
+  int num=0;
+  for(int x=0;x<tamanho;x++){
+  num++;
+  cout<<num;
+  cout<<"- ";
+  cout<<_cargos[x].getNome()<<endl;
+  }
+}

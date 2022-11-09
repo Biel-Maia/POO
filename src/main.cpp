@@ -16,6 +16,10 @@
 using namespace std;
 Empresa empresa;
 
+Departamento consultarDepartamentos(){
+  Departamento departamento("abc");
+  return departamento;
+}
 void cadastrarUsuario(){
     system("clear");
     std::string tipo;
@@ -72,16 +76,15 @@ void cadastrarFuncionario(){
     int                     mesNasc;
     int                     anoNasc;
     std::string             telefone;
-    int                     _matricula;
-    Data                    _dataAdmissao;
+    int                     matricula;
+    Data                    dataAdmissao;
     int                     diaAdmiss;
     int                     mesAdmiss;
     int                     anoAdmiss;
-    Departamento            _departamento;
-    Cargo                   _cargo;
-    double                  _salario;
-    std::map<Data,double>   _salarios;
-    std::string             _status;
+    int                     escolheDepartamento;
+    int                     escolheCargo;
+    double                  salario;
+    std::string             status;
 
     system("clear");
     cout << "Digite o nome do funcionário:" << endl;
@@ -110,7 +113,20 @@ void cadastrarFuncionario(){
     cin>>mesAdmiss;
     cout << "Digite o ano de admissão do funcionário:" << endl;
     cin>>anoAdmiss;
-    
+    cout << "Escolha um departamento:" << endl;
+    empresa.getDepartamentos();
+    cin>>escolheDepartamento;
+    escolheDepartamento--;
+    cout << "Escolha um cargo" << endl;
+    empresa.getCargos();
+    cin>>escolheCargos;
+    escolheDepartamento--;
+    cout << "Digite o salário do funcionário:" << endl;
+    cin>>salario;
+    cout << "Digite o status do funcionário:" << endl;
+    cin.ignore();
+    getline(cin,status);
+    dataNasc.setDia(diaNasc);
 }
 
 void cadastrarCliente(){

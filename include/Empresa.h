@@ -28,5 +28,7 @@ class Empresa{
     void addCliente(Cliente cliente);
     void addDepartamento(Departamento departamento);
     int  verificaLogin(std::string user, std::string senha);
+    void getDepartamentos();
+    void getCargos();
 };
 #endif
