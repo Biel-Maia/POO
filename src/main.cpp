@@ -138,6 +138,7 @@ void cadastrarFuncionario(){
     empresa.getDepartamento(escolheDepartamento),
     empresa.getCargo(escolheCargo),
     salario,status);
+    funcionario.setSalarios(dataAdmissao,salario);
     empresa.addFuncionario(funcionario);
     system("clear");
     cout << "Funcionário cadastrado com sucesso!" << endl;
