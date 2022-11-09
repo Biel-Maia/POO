@@ -20,7 +20,6 @@ Funcionario::Funcionario(
       Departamento            departamento,
       Cargo                   cargo,
       double                  salario,
-      std::map<Data,double>   salarios,
       std::string             status):
       Pessoa(nome,documento,email,endereco,data,telefone),
       _matricula(matricula),
@@ -28,7 +27,6 @@ Funcionario::Funcionario(
       _departamento(departamento),
       _cargo(cargo),
       _salario(salario),
-      _salarios(salarios),
       _status(status){};
 
 

@@ -119,14 +119,28 @@ void cadastrarFuncionario(){
     escolheDepartamento--;
     cout << "Escolha um cargo" << endl;
     empresa.getCargos();
-    cin>>escolheCargos;
-    escolheDepartamento--;
+    cin>>escolheCargo;
+    escolheCargo--;
     cout << "Digite o salário do funcionário:" << endl;
     cin>>salario;
     cout << "Digite o status do funcionário:" << endl;
     cin.ignore();
     getline(cin,status);
     dataNasc.setDia(diaNasc);
+    dataNasc.setMes(mesNasc);
+    dataNasc.setAno(anoNasc);
+    dataAdmissao.setDia(diaAdmiss);
+    dataAdmissao.setMes(mesAdmiss);
+    dataAdmissao.setAno(anoAdmiss);
+    Funcionario funcionario(
+    nome,documento,email,endereco,dataNasc,telefone,
+    matricula,dataAdmissao,
+    empresa._departamentos[escolheDepartamento],
+    empresa._cargos[escolheCargo],
+    salario,status);
+    empresa.addFuncionario(funcionario);
+    system("clear");
+    cout << "Funcionário cadastrado com sucesso!" << endl;
 }
 
 void cadastrarCliente(){

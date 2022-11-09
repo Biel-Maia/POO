@@ -36,7 +36,6 @@ class Funcionario : public Pessoa{
       Departamento            departamento,
       Cargo                   cargo,
       double                  salario,
-      std::map<Data,double>   salarios,
       std::string             status           
       );
 

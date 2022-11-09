@@ -28,6 +28,10 @@ void Empresa::addCliente(Cliente cliente){
   _clientes.push_back(cliente);
 }
 
+void Empresa::addFuncionario(Funcionario funcionario){
+  _funcionarios.push_back(funcionario);
+}
+
 int Empresa::verificaLogin(std::string user, std::string senha){
   int tamanho;
   tamanho=_usuarios.size();
