@@ -135,8 +135,8 @@ void cadastrarFuncionario(){
     Funcionario funcionario(
     nome,documento,email,endereco,dataNasc,telefone,
     matricula,dataAdmissao,
-    empresa._departamentos[escolheDepartamento],
-    empresa._cargos[escolheCargo],
+    empresa.getDepartamento(escolheDepartamento),
+    empresa.getCargo(escolheCargo),
     salario,status);
     empresa.addFuncionario(funcionario);
     system("clear");
