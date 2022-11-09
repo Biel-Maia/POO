@@ -20,7 +20,6 @@ classes para atender ao escopo da sprint e também a implementação
 dessas classes em C++. 
 
 ## Requisitos
-#####
 
 ## Como instalar o programa
 - É necessário instalar em sua máquina um compilador c++, o cmake (gerador de sistema de compilação) e o git.
