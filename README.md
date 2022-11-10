@@ -8,7 +8,6 @@
 <img src="https://avatars.githubusercontent.com/u/35573220?v=4" height="40" width="40">
 </a>Caique Claro Luiz de Morais - 2021072309 
 <br>
-<br>
 <a href="https://github.com/marcelaabreuu">
 <img src="https://avatars.githubusercontent.com/u/89107948?v=4" height="40" width="40">
 </a>Marcela Fontes Abreu - 2018013798 
