@@ -20,6 +20,7 @@ Departamento consultarDepartamentos(){
   Departamento departamento("abc");
   return departamento;
 }
+
 void cadastrarUsuario(){
     system("clear");
     std::string tipo;
@@ -138,7 +139,6 @@ void cadastrarFuncionario(){
     empresa.getDepartamento(escolheDepartamento),
     empresa.getCargo(escolheCargo),
     salario,status);
-    funcionario.setSalarios(dataAdmissao,salario);
     empresa.addFuncionario(funcionario);
     system("clear");
     cout << "Funcionário cadastrado com sucesso!" << endl;
@@ -208,8 +208,93 @@ void cadastrarCliente(){
     cout << "Cliente cadastrado com sucesso!" << endl;
 }
 
-void case_1(){
+void alterarSalario(){
+  
+}
+
+void historicoSalarios(){
+  
+}
+
+void consultarFuncionarios(){
+  
+}
+
+void aplicarDissidio(){
+  
+}
+
+void demitirFuncionario(){
+  
+}
+
+void menuFuncionario(){
+  system("clear");
+  int a=0;
+    while(a==0){
+    cout <<"FUNCIONÁRIO:"<< endl;
+    cout <<"1- Cadastrar"<< endl;
+    cout <<"2- Demitir"<< endl;
+    cout <<"3- Alterar salário"<< endl;
+    cout <<"4- Aplicar dissídio"<<endl;
+    cout <<"5- Consultar histórico de salários"<<endl;
+    cout <<"6- Consultar funcionários"<<endl;
+    cout <<"7- Voltar ao menu"<<endl;
+    cout <<"Digite uma das opcoes:" << endl;
+  
+    int numx=0;
+    cin >> numx;
+
+    if(numx==1){
+      cadastrarFuncionario();
+      a=1;
+      break;
+    }
+      
+    if(numx==2){
+      demitirFuncionario();
+      a=1;
+      break;
+    }
+
+    if(numx==3){
+      alterarSalario();
+      a=1;
+      break;
+    }
+
+    if(numx==4){
+      aplicarDissidio();
+      a=1;
+      break;
+    }
+
+    if(numx==5){
+      historicoSalarios();
+      a=1;
+      break;
+    }
     
+    if(numx==6){
+      consultarFuncionarios();
+      a=1;
+      break;
+    }
+
+    if(numx==7){
+      system("clear");
+      a=1;
+      break;
+    }
+
+    else{
+    cout << "Digite um valor valido!" << endl;
+    }
+    }
+}
+
+void case_1(){
+  
     int a=0;
     while(a==0){
     cout <<"CADASTRAR:" << endl;
@@ -219,7 +304,7 @@ void case_1(){
     cout <<"4- Cliente"<<endl;
     cout <<"5- Cargo"<<endl;
     cout <<"6- Departamento"<<endl;
-    cout <<"7- Voltar ao menu"<<endl;
+    cout <<"7- Voltar ao menu principal"<<endl;
     cout <<"Digite uma das opcoes:" << endl;
   
     int numx=0;
@@ -232,7 +317,7 @@ void case_1(){
     }
       
     if(numx==2){
-      cadastrarFuncionario();
+      menuFuncionario();
       a=1;
       break;
     }
@@ -308,7 +393,7 @@ void menuPrincipal(){
 
 int main(){
     system("clear");
-    Usuario usermain("Main","main","main");
+    Usuario usermain("Main","admin","admin");
     empresa.addUsuario(usermain);
     Usuario usermain2("Main2","main2","main2");
     empresa.addUsuario(usermain2);
