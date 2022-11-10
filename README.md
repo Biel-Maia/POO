@@ -8,6 +8,7 @@
 <a href="https://github.com/eduardorc14">
 <img src="https://avatars.githubusercontent.com/u/74201194?v=4" height="40" width="40">
 </a>
+Eduardo Rodrigues Cordeiro - 2020103197
 <a href="https://github.com/Biel-Maia">
 <img src="https://avatars.githubusercontent.com/u/102741330?v=4.png" height="40" width="40">
 </a>
