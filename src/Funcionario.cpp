@@ -30,17 +30,22 @@ Funcionario::Funcionario(
       _status(status){};
 
 
-    void Funcionario::alteraSalario(){
-      
+    void Funcionario::setSalario(double salario){
+      this->_salario=salario;
     }
 
-    void Funcionario::demiteFuncionario(){
-
+    void Funcionario::demiteFuncionario(Data dataDemissao){
+       this->_dataDemissao=dataDemissao;   
     }
 
     std::string Funcionario::getStatus(){
       return this->_status;
     }
 
+      
+    
+    /*void Funcionario::setSalarios(Data data,double salario){
+      this->_salarios.insert({data,salario});
+    }*/
     
     

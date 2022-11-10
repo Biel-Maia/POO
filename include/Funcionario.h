@@ -39,10 +39,12 @@ class Funcionario : public Pessoa{
       std::string             status           
       );
 
-    void alteraSalario();
-    void demiteFuncionario();
+    void setSalario(double salario);
+    void demiteFuncionario(Data dataDemissao);
     std::string getStatus();
-
+    //void setSalarios(Data data,double salario);
+  
+      
 
 };
 

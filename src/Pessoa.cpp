@@ -1,7 +1,7 @@
 #include "../include/Pessoa.h"
 
 #include "../include/Data.h"
-
+#include <string>
 
 Pessoa::Pessoa(
     std::string nome,
@@ -19,6 +19,6 @@ Pessoa::Pessoa(
 }
 
 
-std::string Pessoa::get_nome() const {
+std::string Pessoa::get_nome(){
   return this->_nome;
 }

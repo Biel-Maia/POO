@@ -27,7 +27,7 @@ class Pessoa {
    );
   
   
-    std::string get_nome() const;
+    std::string get_nome();
 };
 
 #endif

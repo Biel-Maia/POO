@@ -140,6 +140,7 @@ void cadastrarFuncionario(){
     empresa.getCargo(escolheCargo),
     salario,status);
     empresa.addFuncionario(funcionario);
+    //empresa.setSalarios(dataAdmissao,salario);
     system("clear");
     cout << "Funcionário cadastrado com sucesso!" << endl;
 }
@@ -209,7 +210,14 @@ void cadastrarCliente(){
 }
 
 void alterarSalario(){
-  
+  consultarFuncionarios();
+  double salario;
+  int    funcionario;
+  cout <<"Escolha o funcionário<< endl";
+  cin>>funcionario;
+  cout <<"Digite um novo salario<< endl";
+  cin>>salario;
+  empresa.alterarSalario(funcionario,salario);
 }
 
 void historicoSalarios(){
@@ -217,7 +225,7 @@ void historicoSalarios(){
 }
 
 void consultarFuncionarios(){
-  
+  empresa.getFuncionarios();
 }
 
 void aplicarDissidio(){
@@ -225,7 +233,8 @@ void aplicarDissidio(){
 }
 
 void demitirFuncionario(){
-  
+  empresa.getFuncionarios();
+  cout <<"Digite a data de demissão"<< endl;
 }
 
 void menuFuncionario(){
@@ -297,7 +306,7 @@ void case_1(){
   
     int a=0;
     while(a==0){
-    cout <<"CADASTRAR:" << endl;
+    cout <<"." << endl;
     cout <<"1- Usuário" << endl;
     cout <<"2- Funcionário" << endl;
     cout <<"3- Fornecedor" << endl;

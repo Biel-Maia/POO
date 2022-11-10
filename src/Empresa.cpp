@@ -71,9 +71,25 @@ void Empresa::getCargos(){
   }
 }
 
+void Empresa::getFuncionarios(){
+  /*int tamanho = this->_funcionarios.size();
+  int num=0;
+  for(int x=0;x<tamanho;x++){
+  num++;
+  cout<<num;
+  cout<<"- ";
+  cout<<_funcionarios[x].getNome()<<endl;
+  }*/
+}
+
 Departamento Empresa::getDepartamento(int posicao){
     return this->_departamentos[posicao];
 }
+
 Cargo Empresa::getCargo(int posicao){
     return this->_cargos[posicao];
+}
+
+void Empresa::alterarSalario(int funcionario, double salario){
+  this->_funcionarios[funcionario].setSalario(salario);
 }
