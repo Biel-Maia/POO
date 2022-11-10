@@ -5,7 +5,7 @@
 #### GIT &ensp;&ensp;&ensp;&ensp;&ensp; &ensp;  &ensp; &ensp;     NOME &ensp;&ensp;&ensp; &ensp;&ensp;&ensp; &ensp;     MATRÍCULA
 
 <br>
-<a href="[https://github.com/eduardorc14](https://github.com/marcelaabreuu)">
+<a href="https://github.com/eduardorc14](https://github.com/marcelaabreuu)">
 <img src="https://avatars.githubusercontent.com/u/89107948?v=4" height="40" width="40">
 </a>Marcela Fontes Abreu - 2018013798 
 <br>
