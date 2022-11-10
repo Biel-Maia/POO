@@ -6,14 +6,12 @@
 -
 <a href="[https://github.com/eduardorc14](https://github.com/marcelaabreuu)">
 <img src="https://avatars.githubusercontent.com/u/89107948?v=4" height="40" width="40">
-</a>
-Marcela Fontes Abreu - 2018013798 
+</a>Marcela Fontes Abreu - 2018013798 
 <br>
 <a href="https://github.com/eduardorc14">
 <img src="https://avatars.githubusercontent.com/u/74201194?v=4" height="40" width="40">
-</a>
+</a>Eduardo Rodrigues Cordeiro - 2020103197
 <br>
-Eduardo Rodrigues Cordeiro - 2020103197
 <a href="https://github.com/Biel-Maia">
    
 <img src="https://avatars.githubusercontent.com/u/102741330?v=4.png" height="40" width="40">
