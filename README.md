@@ -5,11 +5,11 @@
 #### GIT &ensp;&ensp;&ensp;&ensp;&ensp; &ensp;  &ensp; &ensp;     NOME &ensp;&ensp;&ensp; &ensp;&ensp;&ensp; &ensp;     MATRÍCULA
 -
 -
-<a href="https://github.com/eduardorc14">
+-<a href="https://github.com/eduardorc14">
 <img src="https://avatars.githubusercontent.com/u/74201194?v=4" height="40" width="40">
 </a>
 Eduardo Rodrigues Cordeiro - 2020103197
-<a href="https://github.com/Biel-Maia">
+-<a href="https://github.com/Biel-Maia">
 <img src="https://avatars.githubusercontent.com/u/102741330?v=4.png" height="40" width="40">
 </a>
 Gabriel Henrique Silva Maia - 2020103197
