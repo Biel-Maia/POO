@@ -4,6 +4,10 @@
 ## Alunos
 #### GIT &ensp;&ensp;&ensp;&ensp;&ensp; &ensp;  &ensp; &ensp;     NOME &ensp;&ensp;&ensp; &ensp;&ensp;&ensp; &ensp;     MATRÍCULA
 
+<a href="https://github.com/Stephanie7l">
+<img src="https://avatars.githubusercontent.com/u/100887395?v=4" height="40" width="40">
+</a>Stéphanie Barbosa - 2021088965 
+<br>
 <a href="https://github.com/caiquemorais">
 <img src="https://avatars.githubusercontent.com/u/35573220?v=4" height="40" width="40">
 </a>Caique Claro Luiz de Morais - 2021072309 
