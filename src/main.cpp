@@ -118,8 +118,17 @@ void cadastrarFuncionario(){
     cout << "Digite o endereço do funcionário:" << endl;
     cin.ignore();
     getline(cin,endereco);
+    int d=0;
+    while(d==0){
     cout << "Digite o dia de nascimento do funcionário:" << endl;
     cin>>diaNasc;
+    if(diaNasc>31){
+    cout << "Digite um dia válido:" << endl;  
+    }
+    else{
+    d=1;  
+    }  
+    }
     cout << "Digite o mês de nascimento do funcionário:" << endl;
     cin>>mesNasc;
     cout << "Digite o ano de nascimento do funcionário:" << endl;
