@@ -7,13 +7,23 @@
 #include "../include/Cliente.h"
 #include "../include/Cargo.h"  
 #include "../include/Departamento.h"
+#include "../include/Categoria.h"
 #include <vector>
 
+
+
+Empresa *Empresa::ptr = 0; 
+
 Empresa::Empresa(){
+  std::cout << "Singleton Carregado." << std::endl;
 }
 
 void Empresa::addUsuario(Usuario usuario){
   _usuarios.push_back(usuario);
+}
+
+void Empresa::addCategoria(Categoria categoria){
+  _categorias.push_back(categoria);
 }
 
 void Empresa::addCargo(Cargo cargo){

@@ -11,10 +11,16 @@
 #include "../include/Usuario.h"
 #include "../include/Empresa.h"
 #include "../include/Data.h"
+#include "../include/Categoria.h"
 
 
 using namespace std;
-Empresa empresa;
+Empresa * empresa = Empresa::Instance();
+
+
+bool validaCPF(std::string documento){
+  return true;
+}
 
 Departamento consultarDepartamentos(){
   Departamento departamento("abc");
@@ -34,9 +40,21 @@ void cadastrarUsuario(){
     cout<<"Digite sua senha:"<<endl;
     cin>>senha;
     Usuario cadUser(tipo,user,senha);
-    empresa.addUsuario(cadUser);
+    empresa->addUsuario(cadUser);
     system("clear");
     cout << "Usuário cadastrado com sucesso!" << endl; 
+}
+
+void cadastrarCategoria(){
+    system("clear");
+    std::string nome_categoria;
+    cout << "Digite o nome da categoria:" << endl;
+    cin.ignore();
+    getline(cin,nome_categoria);
+    Categoria categoria(nome_categoria);
+    empresa->addCategoria(categoria);
+    system("clear");
+    cout << "Categoria cadastrada com sucesso!" << endl; 
 }
 
 void cadastrarCargo(){
@@ -46,7 +64,7 @@ void cadastrarCargo(){
     cin.ignore();
     getline(cin,nome_cargo);
     Cargo cargo(nome_cargo);
-    empresa.addCargo(cargo);
+    empresa->addCargo(cargo);
     system("clear");
     cout << "Cargo cadastrado com sucesso!" << endl; 
 }
@@ -58,7 +76,7 @@ void cadastrarDepartamento(){
     cin.ignore();
     getline(cin,nome_depart);
     Departamento departamento(nome_depart);
-    empresa.addDepartamento(departamento);
+    empresa->addDepartamento(departamento);
     system("clear");
     cout << "Departamento cadastrado com sucesso!" << endl;
 }
@@ -115,11 +133,11 @@ void cadastrarFuncionario(){
     cout << "Digite o ano de admissão do funcionário:" << endl;
     cin>>anoAdmiss;
     cout << "Escolha um departamento:" << endl;
-    empresa.getDepartamentos();
+    empresa->getDepartamentos();
     cin>>escolheDepartamento;
     escolheDepartamento--;
     cout << "Escolha um cargo" << endl;
-    empresa.getCargos();
+    empresa->getCargos();
     cin>>escolheCargo;
     escolheCargo--;
     cout << "Digite o salário do funcionário:" << endl;
@@ -136,11 +154,11 @@ void cadastrarFuncionario(){
     Funcionario funcionario(
     nome,documento,email,endereco,dataNasc,telefone,
     matricula,dataAdmissao,
-    empresa.getDepartamento(escolheDepartamento),
-    empresa.getCargo(escolheCargo),
+    empresa->getDepartamento(escolheDepartamento),
+    empresa->getCargo(escolheCargo),
     salario,status);
-    empresa.addFuncionario(funcionario);
-    //empresa.setSalarios(dataAdmissao,salario);
+    empresa->addFuncionario(funcionario);
+    //empresa->setSalarios(dataAdmissao,salario);
     system("clear");
     cout << "Funcionário cadastrado com sucesso!" << endl;
 }
@@ -204,9 +222,13 @@ void cadastrarCliente(){
     data.setMes(mes);
     data.setAno(ano);
     Cliente cliente(nome,documento,email,endereco,data,telefone,tipo);
-    empresa.addCliente(cliente);
+    empresa->addCliente(cliente);
     system("clear");
     cout << "Cliente cadastrado com sucesso!" << endl;
+}
+
+void consultarFuncionarios(){
+  empresa->getFuncionarios();
 }
 
 void alterarSalario(){
@@ -217,23 +239,21 @@ void alterarSalario(){
   cin>>funcionario;
   cout <<"Digite um novo salario<< endl";
   cin>>salario;
-  empresa.alterarSalario(funcionario,salario);
+  empresa->alterarSalario(funcionario,salario);
 }
 
 void historicoSalarios(){
   
 }
 
-void consultarFuncionarios(){
-  empresa.getFuncionarios();
-}
+
 
 void aplicarDissidio(){
   
 }
 
 void demitirFuncionario(){
-  empresa.getFuncionarios();
+  empresa->getFuncionarios();
   cout <<"Digite a data de demissão"<< endl;
 }
 
@@ -313,7 +333,8 @@ void case_1(){
     cout <<"4- Cliente"<<endl;
     cout <<"5- Cargo"<<endl;
     cout <<"6- Departamento"<<endl;
-    cout <<"7- Voltar ao menu principal"<<endl;
+    cout <<"7- Categoria" <<endl;
+    cout <<"8- Voltar ao menu principal"<<endl;
     cout <<"Digite uma das opcoes:" << endl;
   
     int numx=0;
@@ -354,8 +375,14 @@ void case_1(){
       a=1;
       break;
     }
-
+      
     if(numx==7){
+      cadastrarCategoria();
+      a=1;
+      break;
+    }
+
+    if(numx==8){
       a=1;
       break;
     }
@@ -401,11 +428,15 @@ void menuPrincipal(){
 }
 
 int main(){
+    
+   
+   std::cout << "p: " << empresa << std::endl;
+  
     system("clear");
     Usuario usermain("Main","admin","admin");
-    empresa.addUsuario(usermain);
+    empresa->addUsuario(usermain);
     Usuario usermain2("Main2","main2","main2");
-    empresa.addUsuario(usermain2);
+    empresa->addUsuario(usermain2);
 
     std::string user;
     std::string senha;
@@ -420,8 +451,8 @@ int main(){
     cin>>user;
     cout<<"Digite sua senha:"<<endl;
     cin>>senha;
-    empresa.verificaLogin(user,senha);
-    if(empresa.verificaLogin(user,senha)==1){
+    empresa->verificaLogin(user,senha);
+    if(empresa->verificaLogin(user,senha)==1){
     system("clear");
     std::cout<<"Login efetuado com sucesso!"<<std::endl;
     menuPrincipal();
@@ -433,5 +464,6 @@ int main(){
     }
     }
     }
+  
     return 0;
 }

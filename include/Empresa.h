@@ -7,23 +7,35 @@
 #include "../include/Cliente.h"
 #include "../include/Cargo.h"  
 #include "../include/Departamento.h"
+#include "../include/Categoria.h"
 #include <vector>
 #include <string>
 
 class Empresa{
 
   private:
+    Empresa();
+    static Empresa *ptr; 
+
     std::vector<Usuario> _usuarios;
     std::vector<Pessoa> _pessoas;
     std::vector<Funcionario> _funcionarios;
     std::vector<Cliente> _clientes;
     std::vector<Cargo>    _cargos;
     std::vector<Departamento> _departamentos;
-    
+    std::vector<Categoria>    _categorias;
+  
   public:
-    Empresa();
-
+     
+    static Empresa *Instance( void ){
+      if( !ptr){
+          ptr = new Empresa();
+        }
+      return ptr;
+    } 
+    
     void addUsuario(Usuario usuario);
+    void addCategoria(Categoria categoria);
     void addCargo(Cargo cargo);
     void addCliente(Cliente cliente);
     void addFuncionario(Funcionario funcionario);
