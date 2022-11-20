@@ -1,6 +1,7 @@
-#include <iostream>
+ #include <iostream>
 #include <vector>
 #include <string>
+#include <map>
 #include <stdio.h>
 #include <cmath>
 #include "../include/Pessoa.h"
@@ -12,14 +13,91 @@
 #include "../include/Empresa.h"
 #include "../include/Data.h"
 #include "../include/Categoria.h"
+#include "../include/Usuario.h"
+#include "../include/LogAcessoNegado.h"
+#include "../include/LogLeitura.h"
+#include "../include/LogEscrita.h"
+#include "../include/ExcecaoAcessoNegado.h"
 
 
 using namespace std;
 Empresa * empresa = Empresa::Instance();
 
+void realizarOperacaoEscolhida(Usuario *usuario, Data *data, string tipo_operacao,
+    string classe, string metodo, string atributo = ""){
+    try {
+            if(usuario->getPermissao(classe, metodo) == false)
+                throw ExcecaoAcessoNegado(); // lança exceção se usuário tenta acessar método sem permissão
+            else{
+                *data = data->getDataAtual(); // atualiza hora
+
+                if(tipo_operacao == "acessar"){
+                    // Realiza operação necessária e salva o log
+                    // ...
+
+                    LogLeitura log_leitura(usuario->getUser(), data, classe, atributo);
+                    bool salvou = log_leitura.salvarLog();
+                    log_leitura.~LogLeitura();
+                }else{ // alterar
+                    // Realiza operação necessária e salva o log
+                    // ...
+                    // TODO: Definir maneira de invocar o método correto que fará a atualização do atributo
+
+                    LogEscrita log_escrita(usuario->getUser(), data, classe, atributo, "Mariana", "Marianna");
+                    bool salvou = log_escrita.salvarLog();
+                    log_escrita.~LogEscrita();
+                }
+            }
+
+        } catch (ExcecaoAcessoNegado& e) {
+            // Exemplo:
+            // Se usuário quer alterar nome de cliente, e não é permitido,
+            // Ou seja: permissoes_de_acesso[Cliente][setNome] = false;
+            // i.e, usuario.getPermissao("Cliente", "setNome") retorna false
+            // Então, a exceção será lançada e o log de acesso negado será chamado
+            cout<<endl<<"Usuário não pode acessar essa funcionalidade"<<endl;
+            LogAcessoNegado log_acesso_negado(usuario->getUser(), data, classe, metodo);
+            bool salvou = log_acesso_negado.salvarLog();
+            if(salvou != true)
+                cout << "Erro ao salvar o arquivo" << endl; // mensagem genérica e arbitrária
+            log_acesso_negado.~LogAcessoNegado();
+        }
+}
 
 bool validaCPF(std::string documento){
-  return true;
+int multiplicador = 10;
+    int soma = 0, aux, resto, cod_1, cod_2;
+    for(int i = 0; i<9; i++){
+        aux = documento[i]-'0';
+        soma+= aux*(multiplicador-i);
+    }
+    resto = soma%11;
+    if(resto < 2){
+        cod_1 = 0;
+    } else {
+        cod_1 = 11 - resto;
+    }
+    if(cod_1 != (documento[9]-'0')){
+        return false;
+    } else {
+        soma = 0;
+        multiplicador = 11;
+        for(int i = 0; i<10; i++){
+            aux = documento[i]-'0';
+            soma+= aux*(multiplicador-i);
+        }
+        resto = soma%11;
+        if(resto < 2){
+            cod_2 = 0;
+        } else {
+            cod_2 = 11 - resto;
+        }
+        if(cod_2 != (cpf[10]-'0')){
+            return false;
+        } else {
+            return true;
+        }
+    }
 }
 
 Departamento consultarDepartamentos(){

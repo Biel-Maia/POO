@@ -1,6 +1,8 @@
 #include "../include/Usuario.h"
 #include <string>
 
+Usuario* Usuario::instancia_unica = nullptr;
+
 Usuario::Usuario(
     std::string tipo,
     std::string user,
@@ -15,4 +17,22 @@ std::string Usuario::getUser(){
 }
 std::string Usuario::getSenha(){
   return this->_senha;
+}
+
+void Usuario::setSenha(std::string senha){
+    this->_senha = senha;
+}
+
+// Adiciona nova permissao de uso para classe e método
+void Usuario::setPermissao(string classe, string metodo, bool permissao){
+    this->permissoes_de_acesso[classe][metodo] = permissao;
+}
+
+// Obtém a permissao de uso para classe e método
+bool Usuario::getPermissao(string classe, string metodo){
+    return this->permissoes_de_acesso[classe][metodo];
+}
+
+Usuario::~Usuario() {
+    delete instancia_unica;
 }
