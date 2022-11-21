@@ -9,7 +9,7 @@ class LogLeitura: public Log{
         string informacao_acessada;
     public:
         LogLeitura();
-        LogLeitura(int Data*, string, string);
+        LogLeitura(std::string, Data*, string, string);
         ~LogLeitura();
         // true se log foi salvo, false se houve erro.
         bool salvarLog();

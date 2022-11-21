@@ -9,7 +9,7 @@ class LogAcessoNegado: public Log{
         string funcionalidade_acessada;
     public:
         LogAcessoNegado();
-        LogAcessoNegado(int, Data*, string, string);
+        LogAcessoNegado(std::string, Data*, string, string);
         ~LogAcessoNegado();
         // true se log foi salvo, false se houve erro.
         bool salvarLog();

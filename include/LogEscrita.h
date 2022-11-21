@@ -9,7 +9,7 @@ class LogEscrita: public Log{
         string nome_atributo, atributo_antigo, atributo_novo;
     public:
         LogEscrita();
-        LogEscrita(int, Data*, string, string, string, string);
+        LogEscrita(std::string, Data*, string, string, string, string);
         ~LogEscrita();
         // true se log foi salvo, false se houve erro.
         bool salvarLog();

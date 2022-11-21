@@ -13,7 +13,7 @@ class Log {
         Data *data;
     public:
         Log();
-        Log(int, Data*);
+        Log(string, Data*);
         virtual ~Log();
         // true se log foi salvo, false se houve erro.
         virtual bool salvarLog() = 0;
