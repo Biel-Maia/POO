@@ -1,4 +1,5 @@
 #include "Log.h"
+#include "../include/Data.h"
 
 Log::Log(){}
 

@@ -1,4 +1,5 @@
 #include "../include/LogAcessoNegado.h"
+#include "../include/Data.h"
 
 LogAcessoNegado::LogAcessoNegado(){}
 

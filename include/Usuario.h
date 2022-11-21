@@ -22,7 +22,7 @@ class Usuario{
   std::string _user;
   std::string _senha;
   static Usuario* instancia_unica;
-  map<string, map<string, bool>> permissoes_de_acesso;
+  std::map<std::string, bool> permissoes_de_acesso;
 
   public:
   Usuario(
@@ -33,10 +33,10 @@ class Usuario{
 
   std::string getUser();
   std::string getSenha();
-  void setSenha(std::senha);
+  void setSenha(std::string senha);
   static Usuario* getInstance();
   bool login(int, int);
-  void setPermissao(string, string, bool);
-  bool getPermissao(string, string);
+  void setPermissao(std::string, std::string, bool);
+  bool getPermissao(std::string, std::string);
 };
 #endif

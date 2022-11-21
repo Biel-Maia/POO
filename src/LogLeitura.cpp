@@ -1,4 +1,5 @@
 #include "../include/LogLeitura.h"
+#include "../include/Data.h"
 
 using namespace std;
 

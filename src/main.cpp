@@ -187,9 +187,19 @@ void cadastrarFuncionario(){
     cout << "Digite o nome do funcionário:" << endl;
     cin.ignore();
     getline(cin,nome);
+    int z=0;
+    while(z=0){
     cout << "Digite o documento do funcionário:" << endl;
     cin.ignore();
     getline(cin,documento);
+    if(validaCPF(documento)=true){
+    z=1; 
+    }
+    else{
+    cout << "Digite um CPF válido" << endl;  
+    z=0;
+    }  
+    }
     cout << "Digite o email do funcionário:" << endl;
     cin.ignore();
     getline(cin,email);
@@ -202,13 +212,24 @@ void cadastrarFuncionario(){
     cin>>diaNasc;
     if(diaNasc>31){
     cout << "Digite um dia válido:" << endl;  
+    d=0;
     }
     else{
     d=1;  
     }  
     }
+    int e=0;
+    while(e=0){
     cout << "Digite o mês de nascimento do funcionário:" << endl;
     cin>>mesNasc;
+    if(mesNasc>12){
+    cout << "Digite um mês válido:" << endl;
+    e=0;
+    }
+    else{
+    e=1;  
+    }
+    }
     cout << "Digite o ano de nascimento do funcionário:" << endl;
     cin>>anoNasc;
     cout << "Digite a matrícula do funcionário:" << endl;
@@ -517,7 +538,7 @@ void menuPrincipal(){
 int main(){
     
    
-   std::cout << "p: " << empresa << std::endl;
+   //std::cout << "p: " << empresa << std::endl; // teste singleton
   
     system("clear");
     Usuario usermain("Main","admin","admin");
