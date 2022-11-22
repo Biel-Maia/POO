@@ -431,6 +431,8 @@ void alterarSalario(){
     }
     }
   empresa->alterarSalario(funcionario,salario,data);
+  system("clear");
+  cout << "Salário alterado com sucesso!" << endl;
 }
 
 void historicoSalarios(){
