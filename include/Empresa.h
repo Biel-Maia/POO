@@ -49,5 +49,6 @@ class Empresa{
     void alterarSalario(int funcionario,double salario, Data data);
     bool getTamDepartamentos();
     bool getTamCargos();
+    void demiteFuncionario(int funcionario,Data data);
 };
 #endif

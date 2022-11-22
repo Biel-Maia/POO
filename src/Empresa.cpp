@@ -129,3 +129,7 @@ bool Empresa::getTamCargos(){
   return true;  
   }
 }
+
+void Empresa::demiteFuncionario(int funcionario,Data data){
+  this->_funcionarios[funcionario].demiteFuncionario(data);
+}

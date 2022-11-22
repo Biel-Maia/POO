@@ -392,7 +392,7 @@ void alterarSalario(){
   cout <<"Escolha o funcionário<< endl";
   cin>>funcionario;
   funcionario--;
-  cout <<"Digite um novo salario<< endl";
+  cout <<"Digite um novo salário<< endl";
   cin>>salario;
   int d=0;
     while(d==0){
@@ -446,6 +446,55 @@ void aplicarDissidio(){
 }
 
 void demitirFuncionario(){
+    empresa->getFuncionarios();
+
+    int    funcionario;
+    Data   data;
+    int    dia,mes,ano;
+
+    out <<"Escolha o funcionário<< endl";
+    cin>>funcionario;
+    funcionario--;
+  
+    int d=0;
+    while(d==0){
+    cout << "Digite o dia de demissão do funcionário:" << endl;
+    cin>>dia;
+    if(dia>31){
+    cout << "Digite um dia válido:" << endl;  
+    d=0;
+    }
+    else{
+    d=1;  
+    }  
+    }
+    int e=0;
+    while(e=0){
+    cout << "Digite o mês de demissão do funcionário:" << endl;
+    cin>>mes;
+    if(mes>12){
+    cout << "Digite um mês válido:" << endl;
+    e=0;
+    }
+    else{
+    e=1;  
+    }
+    }
+    int f=0;
+    while(f=0){
+    cout << "Digite o ano de demissão do funcionário:" << endl;
+    cin>>ano;
+    if(ano<1900){
+    cout << "Digite um ano válido" << endl;  
+    f=0;
+    }
+    else{
+    f=1;
+    }
+    }
+  
+  system("clear");
+  cout << "Funcionário demitido com sucesso!" << endl;
 }
 
 void menuFuncionario(){
