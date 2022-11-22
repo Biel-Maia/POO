@@ -9,6 +9,7 @@
 #include "../include/Departamento.h"
 #include "../include/Categoria.h"
 #include <vector>
+#include <string>
 
 
 
@@ -82,14 +83,16 @@ void Empresa::getCargos(){
 }
 
 void Empresa::getFuncionarios(){
-  /*int tamanho = this->_funcionarios.size();
+  int tamanho = this->_funcionarios.size();
   int num=0;
   for(int x=0;x<tamanho;x++){
   num++;
   cout<<num;
   cout<<"- ";
-  cout<<_funcionarios[x].getNome()<<endl;
-  }*/
+  std::string nome;
+  nome=_funcionarios[x].getNome();
+  cout<<nome<<endl;
+  }
 }
 
 Departamento Empresa::getDepartamento(int posicao){
@@ -100,8 +103,9 @@ Cargo Empresa::getCargo(int posicao){
     return this->_cargos[posicao];
 }
 
-void Empresa::alterarSalario(int funcionario, double salario){
+void Empresa::alterarSalario(int funcionario, double salario, Data data){
   this->_funcionarios[funcionario].setSalario(salario);
+  this->_funcionarios[funcionario].setSalarios(data,salario);
 }
 
 bool Empresa::getTamDepartamentos(){

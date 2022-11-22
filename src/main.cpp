@@ -383,19 +383,54 @@ void cadastrarCliente(){
     cout << "Cliente cadastrado com sucesso!" << endl;
 }
 
-void consultarFuncionarios(){
-  empresa->getFuncionarios();
-}
-
 void alterarSalario(){
-  consultarFuncionarios();
+  empresa->getFuncionarios();
   double salario;
   int    funcionario;
+  Data   data;
+  int    dia,mes,ano;
   cout <<"Escolha o funcionário<< endl";
   cin>>funcionario;
+  funcionario--;
   cout <<"Digite um novo salario<< endl";
   cin>>salario;
-  empresa->alterarSalario(funcionario,salario);
+  int d=0;
+    while(d==0){
+    cout << "Digite o dia de alteração de salário:" << endl;
+    cin>>dia;
+    if(dia>31){
+    cout << "Digite um dia válido:" << endl;  
+    d=0;
+    }
+    else{
+    d=1;  
+    }  
+    }
+    int e=0;
+    while(e=0){
+    cout << "Digite o mês de alteração de salário:" << endl;
+    cin>>mes;
+    if(mes>12){
+    cout << "Digite um mês válido:" << endl;
+    e=0;
+    }
+    else{
+    e=1;  
+    }
+    }
+    int f=0;
+    while(f=0){
+    cout << "Digite o ano de alteração de salário:" << endl;
+    cin>>ano;
+    if(ano<1900){
+    cout << "Digite um ano válido" << endl;  
+    f=0;
+    }
+    else{
+    f=1;
+    }
+    }
+  empresa->alterarSalario(funcionario,salario,data);
 }
 
 void historicoSalarios(){
@@ -409,8 +444,6 @@ void aplicarDissidio(){
 }
 
 void demitirFuncionario(){
-  empresa->getFuncionarios();
-  cout <<"Digite a data de demissão"<< endl;
 }
 
 void menuFuncionario(){
