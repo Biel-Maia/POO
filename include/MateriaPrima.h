@@ -1,5 +1,5 @@
-#ifndef MATERIA_H
-#define MATERIA_H
+#ifndef MATERIAPRIMA_H
+#define MATERIAPRIMA_H
 
 #include "../include/Fornecedor.h"
 #include "../include/Orcamento.h"
@@ -8,7 +8,7 @@
 #include <string>
 #include <vector>
 
-class Materiaprima{
+class MateriaPrima{
   private:
     std::string _nome;
     int _unidade_medida;

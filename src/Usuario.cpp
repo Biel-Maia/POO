@@ -25,7 +25,7 @@ void Usuario::setSenha(std::string senha){
 
 // Adiciona nova permissao de uso para classe e método
 void Usuario::setPermissao(std::string classe, std::string metodo, bool permissao){
-    this->permissoes_de_acesso.insert({[classe][metodo],permissao});
+    this->permissoes_de_acesso[classe][metodo] = permissao;
 }
 
 // Obtém a permissao de uso para classe e método

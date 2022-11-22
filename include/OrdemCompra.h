@@ -2,7 +2,7 @@
 #define ORDEMCOMPRA_H
 
 #include "../include/Data.h"
-#include "../include/Materiaprima.h"
+#include "../include/MateriaPrima.h"
 #include "../include/Orcamento.h"
 
 #include <string>
@@ -11,14 +11,14 @@
 class OrdemCompra{
   private:
     Data _data;
-    Materiaprima _materiaprima;
+    MateriaPrima _materiaprima;
     std::vector<Orcamento> _orcamento;
 
   public:
     OrdemCompra
     (
       Data data,
-      Materiaprima materiaprima,
+      MateriaPrima materiaprima,
       std::vector<Orcamento> orcamento,
     );
 };
