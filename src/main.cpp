@@ -545,7 +545,7 @@ void menuFuncionario(){
     }
     
     if(numx==6){
-      consultarFuncionarios();
+      empresa->getFuncionarios();
       a=1;
       break;
     }
