@@ -3,14 +3,13 @@
 
 #include "../include/Data.h"
 #include "../include/Fornecedor.h"
-#include "../include/MateriaPrima.h"
+#include "../include/Materiaprima.h"
 
-class Orcamento
-{
+class Orcamento{
   private:
     Data _data;
     int _quantidade;
-    MateriaPrima _materiaprima;
+    Materiaprima _materiaprima;
     double _valor_unitario;
     double _valor_total;
     Fornecedor _fornecedor;
@@ -20,13 +19,13 @@ class Orcamento
     (
        Data _data,
       int _quantidade,
-      MateriaPrima _materiaprima,
+      Materiaprima _materiaprima,
       double _valor_unitario,
       double _valor_total,
-      Fornecedor _fornecedor,
+      Fornecedor _fornecedor
     );
 
-    double calculaValor()
+    double calculaValor();
 };
 
 #endif

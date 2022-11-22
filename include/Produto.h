@@ -3,7 +3,7 @@
 
 #include "../include/Categoria.h"
 #include "../include/Data.h"
-#include "../include/MateriaPrima.h"
+#include "../include/Materia.h"
 
 #include <string>
 #include <map>
@@ -18,7 +18,7 @@ class Produto
     int _lote_min;
     int _estoque_min;
     std::map<double, Data> _precos;
-    std::map<int, MateriaPrima> _materiaprima;
+    std::map<int, Materia> _materiaprima;
 
   public:
     Produto(

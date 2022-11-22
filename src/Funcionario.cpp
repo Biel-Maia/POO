@@ -45,7 +45,7 @@ Funcionario::Funcionario(
       
     
     void Funcionario::setSalarios(Data data,double salario){
-      this->_salarios.insert({data,salario});
+      //this->_salarios.insert({data,salario});
     }
     
     

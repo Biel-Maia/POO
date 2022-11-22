@@ -1,7 +1,7 @@
 #include "../include/Produto.h"
 #include "../include/Categoria.h"
 #include "../include/Data.h"
-#include "../include/MateriaPrima.h"
+#include "../include/Materia.h"
 
 Produto::Produto(std::string nome,
     int codigo,

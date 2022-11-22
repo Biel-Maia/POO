@@ -9,7 +9,7 @@ Log::Log(std::string _user, Data* data){
     this->data = data;
 }
 
-int Log::getUser(){
+std::string Log::getUser(){
     return this->user_usuario;
 }
 

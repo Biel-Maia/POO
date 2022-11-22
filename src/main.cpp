@@ -29,7 +29,7 @@ void realizarOperacaoEscolhida(Usuario *usuario, Data *data, string tipo_operaca
             if(usuario->getPermissao(classe, metodo) == false)
                 throw ExcecaoAcessoNegado(); // lança exceção se usuário tenta acessar método sem permissão
             else{
-                *data = data->getDataAtual(); // atualiza hora
+                *data = data->getData(); // atualiza hora
 
                 if(tipo_operacao == "acessar"){
                     // Realiza operação necessária e salva o log

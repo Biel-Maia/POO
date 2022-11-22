@@ -18,6 +18,7 @@ class Log{
         // true se log foi salvo, false se houve erro.
         virtual bool salvarLog() = 0;
         int getMatricula();
+        std::string getUser();
 };
 
 #endif
