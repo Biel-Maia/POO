@@ -100,6 +100,24 @@ Cargo Empresa::getCargo(int posicao){
     return this->_cargos[posicao];
 }
 
-void Empresa::alterarSalario(int funcionario, double salario){
-  this->_funcionarios[funcionario].setSalario(salario);
+bool Empresa::getTamDepartamentos(){
+  int x=0;
+  x=this->_departamentos.size();
+  if(x==0){
+  return false;  
+  }
+  else{
+  return true;  
+  }
+}
+
+bool Empresa::getTamCargos(){
+  int x=0;
+   x=this->_cargos.size();
+  if(x==0){
+  return false;  
+  }
+  else{
+  return true;  
+  }
 }

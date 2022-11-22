@@ -46,6 +46,7 @@ class Empresa{
     void getFuncionarios();
     Departamento getDepartamento(int posicao);
     Cargo getCargo(int posicao);
-    void alterarSalario(int funcionario,double salario);
+    bool getTamDepartamentos();
+    bool getTamCargos();
 };
 #endif

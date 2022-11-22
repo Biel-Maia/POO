@@ -230,20 +230,68 @@ void cadastrarFuncionario(){
     e=1;  
     }
     }
+    int f=0;
+    while(f=0){
     cout << "Digite o ano de nascimento do funcionário:" << endl;
     cin>>anoNasc;
+    if(anoNasc<1900){
+    cout << "Digite um ano válido" << endl;  
+    f=0;
+    }
+    else{
+    f=1;
+    }
+    }
     cout << "Digite a matrícula do funcionário:" << endl;
     cin>>matricula;
+    int g=0;
+    while(g=0){
     cout << "Digite o dia de admissão do funcionário:" << endl;
     cin>>diaAdmiss;
+    if(diaAdmiss>31){
+    cout << "Digite um dia válido" << endl;
+    g=0;
+    }
+    else{
+    g=1; 
+    }
+    }
+    int h=0;
+    while(h=0){
     cout << "Digite o mês de admissão do funcionário:" << endl;
     cin>>mesAdmiss;
+    if(mesAdmiss>12){
+    cout << "Digite um mês válido:" << endl;
+    h=0;
+    }
+    else{
+    h=1; 
+    }
+    }
+    int i=0;
+    while(i=0){
     cout << "Digite o ano de admissão do funcionário:" << endl;
     cin>>anoAdmiss;
+    if(anoAdmiss>1900){
+    i=1;  
+    }
+    else{
+    cout << "Digite um ano válido" << endl;  
+    i=0;
+    }
+    }
+    if(empresa->getTamDepartamentos()=false){
+    break;
+    cout << "Não existe nenhum departamento cadastrado" << endl;  
+    } 
     cout << "Escolha um departamento:" << endl;
     empresa->getDepartamentos();
     cin>>escolheDepartamento;
     escolheDepartamento--;
+    if(empresa->getTamCargos()=false){
+    break;
+    cout << "Não existe nenhum cargo cadastrado" << endl;  
+    } 
     cout << "Escolha um cargo" << endl;
     empresa->getCargos();
     cin>>escolheCargo;
@@ -266,7 +314,7 @@ void cadastrarFuncionario(){
     empresa->getCargo(escolheCargo),
     salario,status);
     empresa->addFuncionario(funcionario);
-    //empresa->setSalarios(dataAdmissao,salario);
+    funcionario.setSalarios(dataAdmissao,salario);
     system("clear");
     cout << "Funcionário cadastrado com sucesso!" << endl;
 }
@@ -325,7 +373,7 @@ void cadastrarCliente(){
     cout << "Digite um valor válido:" << endl;
     t=0;
     }
-      }
+    }
     data.setDia(dia);
     data.setMes(mes);
     data.setAno(ano);
