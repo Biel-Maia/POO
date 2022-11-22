@@ -29,7 +29,7 @@ void realizarOperacaoEscolhida(Usuario *usuario, Data *data, string tipo_operaca
             if(usuario->getPermissao(classe, metodo) == false)
                 throw ExcecaoAcessoNegado(); // lança exceção se usuário tenta acessar método sem permissão
             else{
-                *data = data->getDataAtual(); // atualiza hora
+                *data = data->getData(); // atualiza hora
 
                 if(tipo_operacao == "acessar"){
                     // Realiza operação necessária e salva o log
@@ -92,7 +92,7 @@ int multiplicador = 10;
         } else {
             cod_2 = 11 - resto;
         }
-        if(cod_2 != (cpf[10]-'0')){
+        if(cod_2 != (documento[10]-'0')){
             return false;
         } else {
             return true;

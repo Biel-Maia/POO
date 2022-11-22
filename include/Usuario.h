@@ -22,7 +22,7 @@ class Usuario{
   std::string _user;
   std::string _senha;
   static Usuario* instancia_unica;
-  std::map<std::string, bool> permissoes_de_acesso;
+  std::map<std::string, std::string> permissoes_de_acesso;
 
   public:
   Usuario(
