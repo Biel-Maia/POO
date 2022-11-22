@@ -3,7 +3,7 @@
 
 #include "../include/Categoria.h"
 #include "../include/Data.h"
-#include "../include/Materiaprima.h"
+#include "../include/MateriaPrima.h"
 
 #include <string>
 #include <map>
@@ -31,6 +31,7 @@ class Produto
     std::map<double, Data> precos,
     std::map<int, MateriaPrima> materiaprima
     );  
+
     void setPreco(double preco);
 };
 

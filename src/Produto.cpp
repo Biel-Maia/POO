@@ -19,3 +19,8 @@ Produto::Produto(std::string nome,
         _precos(precos),
         _materiaprima(materiaprima) {}
 
+void Produto::setPreco(double preco)
+{
+  _preco = preco;
+}
+
