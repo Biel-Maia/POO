@@ -192,7 +192,7 @@ void cadastrarFuncionario(){
     cout << "Digite o documento do funcionário:" << endl;
     cin.ignore();
     getline(cin,documento);
-    if(validaCPF(documento)=true){
+    if(validaCPF(documento)==true){
     z=1; 
     }
     else{
@@ -570,7 +570,7 @@ void case_1(){
     cout <<"1- Usuário" << endl;
     cout <<"2- Funcionário" << endl;
     cout <<"3- Fornecedor" << endl;
-    cout <<"4- Cliente"<<endl;
+    cout <<"4- Cadastrar cliente"<<endl;
     cout <<"5- Cargo"<<endl;
     cout <<"6- Departamento"<<endl;
     cout <<"7- Categoria" <<endl;

@@ -7,13 +7,13 @@
 #include <fstream>
 using namespace std;
 
-class Log {
+class Log{
     protected:
-        int user_usuario;
+        std::string user_usuario;
         Data *data;
     public:
         Log();
-        Log(string, Data*);
+        Log(std::string, Data*);
         virtual ~Log();
         // true se log foi salvo, false se houve erro.
         virtual bool salvarLog() = 0;

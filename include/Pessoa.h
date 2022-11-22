@@ -25,7 +25,7 @@ class Pessoa {
     Data        data,
     std::string telefone
    );
-    std::string get_nome();
+    std::string getNome();
 };
 
 #endif

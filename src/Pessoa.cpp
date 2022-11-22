@@ -19,6 +19,6 @@ Pessoa::Pessoa(
 }
 
 
-std::string Pessoa::get_nome(){
+std::string Pessoa::getNome(){
   return this->_nome;
 }

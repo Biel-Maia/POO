@@ -1,12 +1,14 @@
 #include "../include/LogEscrita.h"
 #include "../include/Data.h"
 
+#include <string>
+
 using namespace std;
 
 LogEscrita::LogEscrita(){}
 
-LogEscrita::LogEscrita(std::string _user, Data* data, string entidade,
-    string atributo, string atributo_anterior, string atributo_alterado) :
+LogEscrita::LogEscrita(std::string _user, Data* data, std::string entidade,
+    std::string atributo, std::string atributo_anterior, std::string atributo_alterado) :
     Log(_user, data){
     this->entidade_alterada = entidade;
     this->nome_atributo = atributo;
@@ -24,7 +26,7 @@ bool LogEscrita::salvarLog(){
 
     arquivo << getUser() << ",";
     arquivo << this->data->getDia() <<"/"<< this->data->getMes() <<"/"<< this->data->getAno() <<" ";
-    arquivo << data->getHora()<<":"<<data->getMinuto()<<":"<<data->getSegundo()<<",";
+    arquivo << data->getHora()<<":"<<data->getMin()<<":"<<data->getSeg()<<",";
     arquivo << this->entidade_alterada <<",";
     arquivo << this->nome_atributo << ":" << this->atributo_antigo << ";";
     arquivo << this->nome_atributo << ":" << this->atributo_novo << endl;

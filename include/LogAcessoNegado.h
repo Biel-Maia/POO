@@ -2,18 +2,19 @@
 #define LOGACESSONEGADO_H
 
 #include "../include/Log.h"
+#include <string>
 
 class LogAcessoNegado: public Log{
     private:
-        string entidade_acessada;
-        string funcionalidade_acessada;
+        std::string entidade_acessada;
+        std::string funcionalidade_acessada;
     public:
         LogAcessoNegado();
-        LogAcessoNegado(std::string, Data*, string, string);
+        LogAcessoNegado(std::string, Data*, std::string, std::string);
         ~LogAcessoNegado();
         // true se log foi salvo, false se houve erro.
         bool salvarLog();
-        int getUser();
+        std::string getUser();
 };
 
 #endif

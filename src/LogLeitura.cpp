@@ -1,11 +1,12 @@
 #include "../include/LogLeitura.h"
 #include "../include/Data.h"
+#include <string>
 
 using namespace std;
 
 LogLeitura::LogLeitura(){}
 
-LogLeitura::LogLeitura(std::string _user, Data* data, string entidade, string atributo) :
+LogLeitura::LogLeitura(std::string _user, Data* data, std::string entidade, std::string atributo) :
     Log(_user, data){
     this->entidade_acessada = entidade;
     this->informacao_acessada = atributo;
@@ -21,7 +22,7 @@ bool LogLeitura::salvarLog(){
 
     arquivo << getUser() << ",";
     arquivo << this->data->getDia() <<"/"<< this->data->getMes() <<"/"<< this->data->getAno() <<" ";
-    arquivo << data->getHora()<<":"<<data->getMinuto()<<":"<<data->getSegundo()<<",";
+    arquivo << data->getHora()<<":"<<data->getMin()<<":"<<data->getSeg()<<",";
     arquivo << this->entidade_acessada <<",";
     arquivo << this->informacao_acessada << endl;
 
