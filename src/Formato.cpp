@@ -8,36 +8,37 @@
 
 using namespace std;
 
+
 Formato::Formato()
 {
-    nome= "PT-BR";
-    separadorData= '/';
-    separadorHorario= ':';
+  nome= "PT-BR";
+  separadorData= '/';
+  separadorHorario= ':';
 }
 
 Formato::Formato(string valNome)
 {
-    nome= valNome;
-    if (strcmp(valNome.c_str(),"PT-BR")==0)
-        separadorData= '/';
-    else if (strcmp(valNome.c_str(),"EN-US")==0)
-        separadorData= '-';
-    separadorHorario= ':';
+  nome= valNome;
+  if (strcmp(valNome.c_str(),"PT-BR")==0)
+    separadorData= '/';
+  else if (strcmp(valNome.c_str(),"EN-US")==0)
+    separadorData= '-';
+  separadorHorario= ':';
 }
 
 Formato::~Formato(){}
 
 string Formato::getNome()
 {
-    return nome;
+  return nome;
 }
 
 string Formato::getSeparadorData()
 {
-    return separadorData;
+  return separadorData;
 }
 
 string Formato::getSeparadorHorario()
 {
-    return separadorHorario;
+  return separadorHorario;
 }

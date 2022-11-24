@@ -6,10 +6,11 @@
 
 using namespace std;
 
-class ExcecaoAcessoNegado : public exception{
-    public:
-        ExcecaoAcessoNegado();
-        ~ExcecaoAcessoNegado();
+class ExcecaoAcessoNegado : public exception
+{
+  public:
+    ExcecaoAcessoNegado();
+    ~ExcecaoAcessoNegado();
 };
 
 #endif

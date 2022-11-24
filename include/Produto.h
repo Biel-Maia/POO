@@ -21,17 +21,18 @@ class Produto
     std::map<int, MateriaPrima> _materiaprima;
 
   public:
-    Produto(
-    std::string nome,
-    int codigo,
-    double preco,
-    Categoria categoria,
-    int lote_min,
-    int estoque_min,
-    std::map<double, Data> precos,
-    std::map<int, MateriaPrima> materiaprima
+    Produto
+    (
+      std::string nome,
+      int codigo,
+      double preco,
+      Categoria categoria,
+      int lote_min,
+      int estoque_min,
+      std::map<double, Data> precos,
+      std::map<int, MateriaPrima> materiaprima
     );  
-
+    int get_codigo();
     void setPreco(double preco);
 };
 

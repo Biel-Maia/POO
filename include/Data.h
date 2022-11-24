@@ -14,7 +14,7 @@ using namespace std;
 
 class Data
 {
-private:
+  private:
     int ano;
     int mes;
     int dia;
@@ -27,7 +27,7 @@ private:
     void ticksToDate();
     void dateToTicks();
 
-public:
+  public:
     Data();     //Construtor default(PT-BR)
     Data(Formato valFormato);       //Construtor default de formato de data especifico
     Data(int valAno, int valMes, int valDia, int valHora=0, int valMin=0, int valSeg=0);      //Construtor com argumentos e formato default

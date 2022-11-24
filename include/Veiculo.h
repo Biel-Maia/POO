@@ -1,19 +1,24 @@
 #ifndef VEICULO_H
 #define VEICULO_H
 
-#include "../include/Rota.h"
+
 #include <string>
 
-class Veiculo {
+class Veiculo 
+{
   private:
     std::string _tipo;
     int _capacidade;
-    Rota _rota;
-  public:
-    Veiculo(
+    float _velocidade;
+  
+public:
+    Veiculo
+    (
       std::string tipo,
       int capacidade,
-      Rota rota
+      float velocidade
     );
+    float get_velocidade();
 };
+
 #endif

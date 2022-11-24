@@ -3,16 +3,15 @@
 
 #include <string>
 
-class Departamento{
-
+class Departamento
+{
   private:
     std::string _nome;
 
   public:
     Departamento(std::string nome);
+    
     std::string getNome();
-
-
 };
 
 #endif

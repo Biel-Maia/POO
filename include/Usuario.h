@@ -15,28 +15,31 @@ permissoes_de_acesso[VendaProduto][setProdutoVendido] = true;
 permissoes_de_acesso[Cliente][setTelefone] = false;
 */
 
-class Usuario{
-
+class Usuario
+{
   private:
-  std::string _tipo;
-  std::string _user;
-  std::string _senha;
-  static Usuario* instancia_unica;
-  std::map<std::string, std::string> permissoes_de_acesso;
+    std::string _tipo;
+    std::string _user;
+    std::string _senha;
+    static Usuario* instancia_unica;
+    std::map<std::string, std::string> permissoes_de_acesso;
 
   public:
-  Usuario(
-    std::string tipo,
-    std::string user,
-    std::string senha
-  );
+    Usuario
+    (
+      std::string tipo,
+      std::string user,
+      std::string senha
+    );
 
-  std::string getUser();
-  std::string getSenha();
-  void setSenha(std::string senha);
-  static Usuario* getInstance();
-  bool login(int, int);
-  void setPermissao(std::string, std::string, bool);
-  bool getPermissao(std::string, std::string);
+    std::string getUser();
+    std::string getSenha();
+    void setSenha(std::string senha);
+    static Usuario* getInstance();
+    bool login(int, int);
+    void setPermissao(std::string classe, std::string metodo, bool permissao);
+    bool getPermissao(std::string classe, std::string metodo);
+    ~Usuario();
 };
+
 #endif

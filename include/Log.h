@@ -7,18 +7,19 @@
 #include <fstream>
 using namespace std;
 
-class Log{
-    protected:
-        std::string user_usuario;
-        Data *data;
-    public:
-        Log();
-        Log(std::string, Data*);
-        virtual ~Log();
-        // true se log foi salvo, false se houve erro.
-        virtual bool salvarLog() = 0;
-        int getMatricula();
-        std::string getUser();
+class Log
+{
+  protected:
+    std::string user_usuario;
+    Data *data;
+    
+  public:
+    Log();
+    Log(std::string, Data*);
+    virtual ~Log();
+    virtual bool salvarLog() = 0;  // true se log foi salvo, false se houve erro.
+    int getMatricula();
+    std::string getUser();
 };
 
 #endif

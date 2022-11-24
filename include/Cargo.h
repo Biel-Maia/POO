@@ -3,13 +3,14 @@
 
 #include <string>
 
-class Cargo{
-
+class Cargo
+{
   private:
     std::string _nome;
 
   public:
     Cargo(std::string nome);
+    
     std::string getNome();
 };
 

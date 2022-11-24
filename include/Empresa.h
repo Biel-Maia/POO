@@ -11,26 +11,25 @@
 #include <vector>
 #include <string>
 
-class Empresa{
-
+class Empresa
+{
   private:
     Empresa();
     static Empresa *ptr; 
-
     std::vector<Usuario> _usuarios;
     std::vector<Pessoa> _pessoas;
     std::vector<Funcionario> _funcionarios;
     std::vector<Cliente> _clientes;
-    std::vector<Cargo>    _cargos;
+    std::vector<Cargo> _cargos;
     std::vector<Departamento> _departamentos;
-    std::vector<Categoria>    _categorias;
+    std::vector<Categoria> _categorias;
   
   public:
-     
-    static Empresa *Instance( void ){
-      if( !ptr){
-          ptr = new Empresa();
-        }
+    static Empresa *Instance(void)
+    {
+      if(!ptr)
+        ptr = new Empresa();
+
       return ptr;
     } 
     
@@ -40,15 +39,16 @@ class Empresa{
     void addCliente(Cliente cliente);
     void addFuncionario(Funcionario funcionario);
     void addDepartamento(Departamento departamento);
-    int  verificaLogin(std::string user, std::string senha);
+    int verificaLogin(std::string user, std::string senha);
     void getDepartamentos();
     void getCargos();
     void getFuncionarios();
     Departamento getDepartamento(int posicao);
     Cargo getCargo(int posicao);
-    void alterarSalario(int funcionario,double salario, Data data);
+    void alterarSalario(int funcionario, double salario, Data data);
     bool getTamDepartamentos();
     bool getTamCargos();
-    void demiteFuncionario(int funcionario,Data data);
+    void demiteFuncionario(int funcionario, Data data);
 };
+
 #endif

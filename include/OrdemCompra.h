@@ -8,7 +8,8 @@
 #include <string>
 #include <vector>
 
-class OrdemCompra{
+class OrdemCompra
+{
   private:
     Data _data;
     MateriaPrima _materiaprima;
@@ -19,7 +20,7 @@ class OrdemCompra{
     (
       Data data,
       MateriaPrima materiaprima,
-      std::vector<Orcamento> orcamento,
+      std::vector<Orcamento> orcamento
     );
 };
 

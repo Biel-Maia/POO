@@ -3,31 +3,37 @@
 
 #include "../include/Funcionario.h"
 #include "../include/Data.h"
+#include "../include/Veiculo.h"
 
 #include <vector>
 #include <string>
 
-class Rota {
+class Rota 
+{
   private:
     std::vector<Funcionario> _rota;
-    int _distancia;
+    std::vector<float> _distancia;
+    std::vector<float> _tempo;
+    Veiculo _veiculo;
     std::string _turno;
     Data _horario;
     float _xempresa;
     float _yempresa;
+  
   public:
-    Rota(
-      int distancia,
+    Rota
+    ( 
+      Veiculo veiculo,
       std:: string turno,
       Data horario,
       float xempresa,
       float yempresa
     );
-    calculaDistancia(float xfuncionario, float yfuncionario);
-    calculaHorarioSaida();
-    calculaTempoPercurso();
-    alteraHorario();
-    listaSequenciaEmbarqueFuncionarios();
+
+    void calculaDistancia();
+    void calculaHorarioSaida();
+    void calculaTempoPercurso();
+    void listaSequenciaEmbarqueFuncionarios();
 };
 
 #endif

@@ -8,7 +8,8 @@
 #include <string>
 #include <vector>
 
-class MateriaPrima{
+class MateriaPrima
+{
   private:
     std::string _nome;
     int _unidade_medida;
@@ -18,8 +19,7 @@ class MateriaPrima{
     std::vector<Orcamento> _orcamento;
 
   public:
-    Materia
-    (
+    MateriaPrima(
       std::string nome,
       int unidade_medida,
       int quantidade_estoque,
@@ -27,6 +27,7 @@ class MateriaPrima{
       std::vector<Fornecedor> fornecedor,
       std::vector<Orcamento> orcamento
     );
+
     int verificaQuantidade();
     void atualizaQuantidade();
     void cadastraFornecedor();
