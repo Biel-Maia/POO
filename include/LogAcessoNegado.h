@@ -11,7 +11,6 @@ class LogAcessoNegado: public Log
     std::string funcionalidade_acessada;
     
   public:
-    LogAcessoNegado();
     LogAcessoNegado(std::string, Data*, std::string, std::string);
     ~LogAcessoNegado();
     bool salvarLog();   //true se log foi salvo, false se houve erro.

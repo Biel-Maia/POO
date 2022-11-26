@@ -2,10 +2,7 @@
 #include "../include/Data.h"
 #include <string>
 
-using namespace std;
 
-
-LogLeitura::LogLeitura(){}
 
 LogLeitura::LogLeitura(
   std::string _user, 
@@ -26,7 +23,7 @@ std::string LogLeitura::getUser()
 bool LogLeitura::salvarLog()
 {
   ofstream arquivo;
-  arquivo.open("../src/log_leitura.txt", ios::app);
+  arquivo.open("../log_leitura.txt", ios::app);
 
   arquivo << getUser() << ",";
   arquivo << this->data->getDia() <<"/"<< this->data->getMes() <<"/"<< this->data->getAno() <<" ";

@@ -11,14 +11,15 @@ class OrdemCompra
 {
   private:
     Data _data;
+    std::string _nome_materiaprima;
     std::vector<Orcamento> _orcamento;
 
   public:
     OrdemCompra
-    (
-      Data data,
-      std::vector<Orcamento> orcamento
+    (     
+      Data data
     );
+    void setMateria(std::string nome_materiaprima);
 };
 
 #endif

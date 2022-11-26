@@ -1,16 +1,19 @@
 #include "../include/Veiculo.h"
 #include "../include/Rota.h"
 
-
+#include <string>
 
 Veiculo::Veiculo(
+  std::string placa,
   std::string tipo, 
-  int capacidade,
-  float velocidade): 
+  int capacidade):
+    _placa(placa),
     _tipo(tipo),
-     _capacidade(capacidade),
-     _velocidade(velocidade){}
+     _capacidade(capacidade){}
 
-float Veiculo::get_velocidade(){
-  return this-> _velocidade;
+std::string Veiculo::getPlaca(){
+  return this->_placa;
+}
+std::string Veiculo::getTipo(){
+  return this->_tipo;
 }

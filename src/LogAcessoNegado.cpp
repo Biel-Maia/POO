@@ -3,8 +3,6 @@
 #include <string>
 
 
-LogAcessoNegado::LogAcessoNegado(){}
-
 LogAcessoNegado::LogAcessoNegado(
   std::string _user, 
   Data* data, 
@@ -24,7 +22,7 @@ std::string LogAcessoNegado::getUser()
 bool LogAcessoNegado::salvarLog()
 {
   ofstream arquivo;
-  arquivo.open("../src/log_acesso_negado.txt", ios::app);
+  arquivo.open("../log_acesso_negado.txt", ios::app);
 
   arquivo << getUser() << ",";
   arquivo << this->data->getDia() <<"/"<< this->data->getMes() <<"/"<< this->data->getAno() <<" ";

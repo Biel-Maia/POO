@@ -1,5 +1,7 @@
 #include "../include/Rota.h"
 #include "../include/Data.h"
+#include "../include/Funcionario.h"
+
 #include <cmath>
 #include <iostream>
 
@@ -20,14 +22,14 @@ Rota::Rota(
 void Rota::calculaDistancia()
 {
   int z=0;
-  int tam=_rota.size();
+  int tam=_funcionarios.size();
   float x, y, distancia;
   for(z=0; z < tam; z++){
     x = 0; 
     y = 0;
     distancia = 0;
-    x = _rota[z].getXfuncionario();
-    y = _rota[z].getYfuncionario();
+    x = _funcionarios[z].getXfuncionario();
+    y = _funcionarios[z].getYfuncionario();
     distancia = 110.57 * sqrt( pow(x - this->_xempresa,2) + pow(y - this->_yempresa, 2) );
     _distancia.push_back(distancia);
   }
@@ -35,12 +37,13 @@ void Rota::calculaDistancia()
 
 void Rota::calculaHorarioSaida()
 {
-  /*Data aux;
-  auto iterator it;
-  for(it = _tempo.begin(); it != _tempo.end(); it++){
-    aux = _horario.operator-(it);
+  Data aux;
+  int x=0;
+  int tam=_tempo.size();
+  for(x=0;x<tam;x++){
+    aux = _horario.operator-(_tempo[x]);
     _embarque.push_back(aux);
-  }*/
+  }
 }
 
 void Rota::calculaTempoPercurso()
@@ -69,13 +72,17 @@ void Rota::listaSequenciaEmbarqueFuncionarios()
 {
   int x=0;
   int y=0;
-  int tamRota = _rota.size();
+  int tamRota = _funcionarios.size();
   int tamEmbarque = _embarque.size();
   
   for(x= 0; x < tamRota; x++){
-    std::cout << "Funcionario: " << _rota[x].getNome() << std::endl;
+    std::cout << "Funcionario: " << _funcionarios[x].getNome() << std::endl;
     for(y=0; y<tamEmbarque; y++){
       std::cout << "Horário de Embarque: " << _embarque[y].getHora() << " : " << _embarque[y].getMin() << std::endl;
     }
   }
+}
+
+void Rota::setFuncionarios(Funcionario funcionario){
+  this->_funcionarios.push_back(funcionario);
 }

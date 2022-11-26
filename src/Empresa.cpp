@@ -7,6 +7,9 @@
 #include "../include/Cargo.h"  
 #include "../include/Departamento.h"
 #include "../include/Categoria.h"
+#include "../include/Veiculo.h"
+#include "../include/MateriaPrima.h"
+#include "../include/Fornecedor.h"
 
 #include <vector>
 #include <string>
@@ -47,6 +50,22 @@ void Empresa::addCliente(Cliente cliente)
 void Empresa::addFuncionario(Funcionario funcionario)
 {
   _funcionarios.push_back(funcionario);
+}
+
+void Empresa::addVeiculo(Veiculo veiculo){
+  _veiculos.push_back(veiculo);
+}
+
+void Empresa::addMateriaPrima(MateriaPrima materiaprima){
+  _materias.push_back(materiaprima);
+}
+
+void Empresa::addFornecedor(Fornecedor fornecedor){
+  _fornecedores.push_back(fornecedor);
+}
+
+void Empresa::addRota(Rota rota){
+  _rotas.push_back(rota);
 }
 
 int Empresa::verificaLogin(std::string user, std::string senha)
@@ -110,6 +129,47 @@ void Empresa::getFuncionarios()
   }
 }
 
+void Empresa::getMateriasPrimas()
+{
+  int tamanho = this->_materias.size();
+  int num=0;
+  for(int x=0;x<tamanho;x++)
+  {
+    num++;
+    cout<<num;
+    cout<<"- ";
+    cout<<_materias[x].getNome()<<endl;
+  }
+}
+
+void Empresa::getFornecedores()
+{
+  int tamanho = this->_fornecedores.size();
+  int num=0;
+  for(int x=0;x<tamanho;x++)
+  {
+    num++;
+    cout<<num;
+    cout<<"- ";
+    cout<<_fornecedores[x].getNome()<<endl;
+  }
+}
+
+void Empresa::getVeiculos()
+{
+  int tamanho = this->_veiculos.size();
+  int num=0;
+  for(int x=0;x<tamanho;x++)
+  {
+    num++;
+    cout<<num;
+    cout<<"- ";
+    cout<<"Placa::"<<_veiculos[x].getPlaca()<<" Tipo:"<<_veiculos[x].getTipo()<<endl;
+  }
+}
+
+
+
 Departamento Empresa::getDepartamento(int posicao)
 {
   return this->_departamentos[posicao];
@@ -118,6 +178,26 @@ Departamento Empresa::getDepartamento(int posicao)
 Cargo Empresa::getCargo(int posicao)
 {
   return this->_cargos[posicao];
+}
+
+Veiculo Empresa::getVeiculo(int posicao)
+{
+  return this->_veiculos[posicao];
+}
+
+MateriaPrima Empresa::getMateriaPrima(int posicao)
+{
+  return this->_materias[posicao];
+}
+
+Fornecedor Empresa::getFornecedor(int posicao)
+{
+  return this->_fornecedores[posicao];
+}
+
+Funcionario Empresa::getFuncionario(int posicao)
+{
+  return this->_funcionarios[posicao];
 }
 
 void Empresa::alterarSalario(int funcionario, double salario, Data data)

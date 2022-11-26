@@ -14,7 +14,6 @@ class Log
     Data *data;
     
   public:
-    Log();
     Log(std::string, Data*);
     virtual ~Log();
     virtual bool salvarLog() = 0;  // true se log foi salvo, false se houve erro.

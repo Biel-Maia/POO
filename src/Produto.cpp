@@ -1,6 +1,7 @@
 #include "../include/Produto.h"
 #include "../include/Categoria.h"
 #include "../include/Data.h"
+#include "../include/MateriaPrima.h"
 
 #include <map>
 
@@ -35,3 +36,10 @@ std::string Produto::getNome(){
   return this->_nome;
 }
 
+void Produto::setMateriaPrima(MateriaPrima materiaprima){
+  _materiaprima.push_back(materiaprima);
+}
+
+void Produto::setQuantidade(int quantidade){
+  _quantidade.push_back(quantidade);
+}

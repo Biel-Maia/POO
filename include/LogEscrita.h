@@ -11,7 +11,6 @@ class LogEscrita: public Log
     std::string nome_atributo, atributo_antigo, atributo_novo;
     
   public:
-    LogEscrita();
     LogEscrita(std::string, Data*, std::string, std::string, std::string, std::string);
     ~LogEscrita();
     bool salvarLog();  // true se log foi salvo, false se houve erro.

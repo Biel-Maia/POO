@@ -11,14 +11,14 @@ Lote::Lote(
     _produto(produto),
     _quantidade(quantidade){}
 
-Data Lote::get_dataproducao(){
+Data Lote::getDataproducao(){
   return this->_dataproducao;
 }
 
-Produto Lote::get_produto(){
+Produto Lote::getProduto(){
   return this->_produto;
 }
 
-int Lote::get_quantidade(){
+int Lote::getQuantidade(){
   return this->_quantidade;
 }

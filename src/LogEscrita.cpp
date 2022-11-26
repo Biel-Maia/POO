@@ -3,10 +3,6 @@
 
 #include <string>
 
-using namespace std;
-
-
-LogEscrita::LogEscrita(){}
 
 LogEscrita::LogEscrita(
   std::string _user, 
@@ -31,7 +27,7 @@ std::string LogEscrita::getUser()
 bool LogEscrita::salvarLog()
 {
   ofstream arquivo;
-  arquivo.open("../src/log_escrita.txt", ios::app);
+  arquivo.open("../log_escrita.txt", ios::app);
 
   arquivo << getUser() << ",";
   arquivo << this->data->getDia() <<"/"<< this->data->getMes() <<"/"<< this->data->getAno() <<" ";

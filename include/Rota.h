@@ -11,7 +11,7 @@
 class Rota 
 {
   private:
-    std::vector<Funcionario> _rota;
+    std::vector<Funcionario> _funcionarios;
     std::vector<float> _distancia;
     std::vector<Data> _tempo;
     std::vector<Data> _embarque;
@@ -35,6 +35,7 @@ class Rota
     void calculaHorarioSaida();
     void calculaTempoPercurso();
     void listaSequenciaEmbarqueFuncionarios();
+    void setFuncionarios(Funcionario funcionario);
 };
 
 #endif

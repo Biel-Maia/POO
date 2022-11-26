@@ -1,16 +1,24 @@
-/*#ifndef PAGAMENTOBOLETO_H
+#ifndef PAGAMENTOBOLETO_H
 #define PAGAMENTOBOLETO_H
 
 #include "../include/Pagamento.h"
 
-class PagamentoBoleto: public Pagamento{
+class PagamentoBoleto: public Pagamento
+{
   private:
-  int prazo;
+    int _prazo;
 
   public:
-  PagamentoBoleto(Cliente* _cliente, Data* _data);
-  bool pagar(double, int);
-    
+    PagamentoBoleto
+    (
+      int codigo, 
+      double valor, 
+      Data* data, 
+      Cliente* cliente,
+      int prazo
+    );
+
+    bool pagar(double, int);   
 };
 
-#endif*/
+#endif

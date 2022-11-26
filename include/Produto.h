@@ -3,9 +3,11 @@
 
 #include "../include/Categoria.h"
 #include "../include/Data.h"
+#include "../include/MateriaPrima.h"
 
 #include <string>
 #include <map>
+#include <vector>
 
 class Produto
 {
@@ -17,6 +19,8 @@ class Produto
     int _lote_min;
     int _estoque_min;
     std::map<double, Data> _precos;
+    std::vector<MateriaPrima> _materiaprima;
+    std::vector<int> _quantidade;
 
   public:
     Produto
@@ -32,6 +36,8 @@ class Produto
     int get_codigo();
     void setPreco(double preco);
     std::string getNome();
+    void setMateriaPrima(MateriaPrima materiaprima);
+    void setQuantidade(int quantidade);
 };
 
 #endif

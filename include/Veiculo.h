@@ -7,18 +7,20 @@
 class Veiculo 
 {
   private:
+    std::string _placa;
     std::string _tipo;
     int _capacidade;
-    float _velocidade;
   
 public:
     Veiculo
     (
+      std::string placa,
       std::string tipo,
-      int capacidade,
-      float velocidade
+      int capacidade
     );
-    float get_velocidade();
+
+    std::string getPlaca();
+    std::string getTipo();
 };
 
 #endif

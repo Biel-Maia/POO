@@ -3,6 +3,7 @@
 
 #include <map>
 #include <string>
+#include <vector>
 
 /* Adm pode definir o que usuário tem ou não permissão de acesso.
 Ex: Usuário pode acessar todos dados de Produção e Venda,
@@ -22,7 +23,10 @@ class Usuario
     std::string _user;
     std::string _senha;
     static Usuario* instancia_unica;
-    std::map<std::string,bool> permissoes_de_acesso;
+    std::vector<std::string> _classe;
+    std::vector<std::string> _metodo;
+    std::vector<bool>        _permissao;
+
 
   public:
     Usuario

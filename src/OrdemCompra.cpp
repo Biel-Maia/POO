@@ -3,7 +3,11 @@
 #include "../include/Orcamento.h"
 
 OrdemCompra::OrdemCompra(
-  Data data,
-  std::vector<Orcamento> orcamento):
-    _data(data),
-    _orcamento(orcamento){}
+  Data data):
+    _data(data){}
+
+void OrdemCompra::setMateria(std::string nome_materiaprima)
+{
+  _nome_materiaprima = nome_materiaprima;
+}
+

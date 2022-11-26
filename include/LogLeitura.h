@@ -11,7 +11,6 @@ class LogLeitura: public Log
     std::string informacao_acessada;
     
   public:
-    LogLeitura();
     LogLeitura(std::string, Data*, std::string, std::string);
     ~LogLeitura();
     bool salvarLog();  // true se log foi salvo, false se houve erro.

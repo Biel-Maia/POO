@@ -7,13 +7,19 @@
 class Pagamento
 {
   private:
-    int codigo;
-    double valor;
-    Data* data;
-    Cliente* cliente;
+    int _codigo;
+    double _valor;
+    Data* _data;
+    Cliente* _cliente;
 
   public:
-    Pagamento(Cliente* c, Data* d);  
+    Pagamento
+    (
+      int codigo, 
+      double valor, 
+      Data* data, 
+      Cliente* cliente
+    );  
 };
 
 #endif
