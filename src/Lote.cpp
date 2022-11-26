@@ -7,7 +7,7 @@ Lote::Lote(
   int quantidade
   ):
     _dataproducao(dataproducao),
-    _numnerolote(numerolote),
+    _numerolote(numerolote),
     _produto(produto),
     _quantidade(quantidade){}
 
@@ -21,8 +21,4 @@ Produto Lote::get_produto(){
 
 int Lote::get_quantidade(){
   return this->_quantidade;
-}
-
-void Lote::atualizaQtdMateriaPrima(){
-  
 }

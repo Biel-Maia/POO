@@ -20,6 +20,5 @@ class Lote{
     Data get_dataproducao();
     Produto get_produto();
     int get_quantidade();
-    void atualizaQtdMateriaPrima();
 };
 #endif

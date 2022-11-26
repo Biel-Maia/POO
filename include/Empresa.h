@@ -1,4 +1,4 @@
-#ifndef EMRPESA_H
+#ifndef EMPRESA_H
 #define EMPRESA_H
 
 #include "../include/Usuario.h"

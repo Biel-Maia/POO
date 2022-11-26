@@ -12,5 +12,5 @@ Veiculo::Veiculo(
      _velocidade(velocidade){}
 
 float Veiculo::get_velocidade(){
-  retun this-> _velocidade;
+  return this-> _velocidade;
 }

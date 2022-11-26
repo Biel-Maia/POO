@@ -50,6 +50,7 @@ class Funcionario : public Pessoa
     void setSalarios(Data data,double salario);
     float getXfuncionario();
     float getYfuncionario();
+    
 };
 
 #endif

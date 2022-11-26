@@ -13,7 +13,8 @@ class Rota
   private:
     std::vector<Funcionario> _rota;
     std::vector<float> _distancia;
-    std::vector<float> _tempo;
+    std::vector<Data> _tempo;
+    std::vector<Data> _embarque;
     Veiculo _veiculo;
     std::string _turno;
     Data _horario;

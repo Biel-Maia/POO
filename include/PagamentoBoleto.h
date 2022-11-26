@@ -1,4 +1,4 @@
-#ifndef PAGAMENTOBOLETO_H
+/*#ifndef PAGAMENTOBOLETO_H
 #define PAGAMENTOBOLETO_H
 
 #include "../include/Pagamento.h"
@@ -13,4 +13,4 @@ class PagamentoBoleto: public Pagamento{
     
 };
 
-#endif
+#endif*/

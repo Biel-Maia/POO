@@ -4,9 +4,9 @@
 #include "../include/Lote.h"
 
 class Estoque{
-  private::
+  private:
     std::vector<Lote> _estoque;
-  public::
+  public:
     void atualizaEstoque(Lote lote);
     int verificaEstoque(Produto prod);
 };

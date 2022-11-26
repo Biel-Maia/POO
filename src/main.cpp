@@ -1,10 +1,12 @@
+#include "../include/Empresa.h"
 #include "../include/Pessoa.h"
 #include "../include/Funcionario.h"
 #include "../include/Cliente.h"
 #include "../include/Cargo.h"  
 #include "../include/Departamento.h"
 #include "../include/Usuario.h"
-#include "../include/Empresa.h"
+#include "../include/MenuFuncionario.h"
+#include "../include/MenuCliente.h"
 #include "../include/Data.h"
 #include "../include/Categoria.h"
 #include "../include/Usuario.h"
@@ -12,6 +14,7 @@
 #include "../include/LogLeitura.h"
 #include "../include/LogEscrita.h"
 #include "../include/ExcecaoAcessoNegado.h"
+
 
 #include <iostream>
 #include <vector>
@@ -24,6 +27,7 @@
 using namespace std;
 
 Empresa * empresa = Empresa::Instance();
+
 
 void realizarOperacaoEscolhida(
   Usuario *usuario, 
@@ -39,7 +43,7 @@ void realizarOperacaoEscolhida(
       throw ExcecaoAcessoNegado(); // lança exceção se usuário tenta acessar método sem permissão
     else
     {
-      *data = data->getData(); // atualiza hora
+      *data = *data->getData(); // atualiza hora
 
       if(tipo_operacao == "acessar")  // Realiza operação necessária e salva o log
       {
@@ -191,408 +195,80 @@ void cadastrarFornecedor()
 
 }
 
-void cadastrarFuncionario()
+void menuUsuario()
 {
-  string nome;
-  string documento;
-  string email;
-  string endereco;
-  Data dataNasc;
-  int  diaNasc;
-  int  mesNasc;
-  int  anoNasc;
-  string telefone;
-  int matricula;
-  Data dataAdmissao;
-  int diaAdmiss;
-  int mesAdmiss;
-  int anoAdmiss;
-  int escolheDepartamento;
-  int escolheCargo;
-  double salario;
-  string status;
-  float xfuncionario;
-  float yfuncionario;
-  
   system("clear");
-  cout << "Digite o nome do funcionário:" << endl;
-  cin.ignore();
-  getline(cin,nome);
-  
-  int z=0; 
-  while(z==0)
+  int a=0;
+  while(a==0)
   {
-    cout << "Digite o documento do funcionário:" << endl;
-    cin.ignore();
-    getline(cin,documento);
-    
-    if(validaCPF(documento)==true)
-      z=1; 
+    cout <<"Usuario:"<< endl;
+    cout <<"1- Cadastrar"<< endl;
+    cout <<"2- "<< endl;
+    cout <<"3- Definir permissões de acesso para um Usuário"<< endl;
+    cout <<"4- Aplicar dissídio"<<endl;
+    cout <<"5- Consultar histórico de salários"<<endl;
+    cout <<"6- Consultar funcionários"<<endl;
+    cout <<"7- Voltar ao menu"<<endl;
+    cout <<"Digite uma das opcoes:" << endl;
   
-    else
+    int numx=0;
+    cin >> numx;
+
+    if(numx==1)
     {
-      cout << "Digite um CPF válido" << endl;  
-      z=0;
-    }  
-  }
-    
-  cout << "Digite o email do funcionário:" << endl;
-  cin.ignore();
-  getline(cin,email);
-  cout << "Digite o endereço do funcionário:" << endl;
-  cin.ignore();
-  getline(cin,endereco);
-  
-  int d=0;
-  while(d==0)
-  {
-    cout << "Digite o dia de nascimento do funcionário:" << endl;
-    cin>>diaNasc;
-    
-    if(diaNasc>31)
-    {
-      cout << "Digite um dia válido:" << endl;  
-      d=0;
+      MenuFuncionario::cadastrarFuncionario();
+      a=1;
+      break;
     }
       
-    else
-      d=1;  
-      
-  }
-    
-  int e=0;
-  while(e==0)
-  {
-    cout << "Digite o mês de nascimento do funcionário:" << endl;
-    cin>>mesNasc;
-    
-    if(mesNasc>12)
+    if(numx==2)
     {
-      cout << "Digite um mês válido:" << endl;
-      e=0;
+      MenuFuncionario::demitirFuncionario();
+      a=1;
+      break;
+    }
+
+    if(numx==3)
+    {
+      MenuFuncionario::alterarSalario();
+      a=1;
+      break;
+    }
+
+    if(numx==4)
+    {
+      MenuFuncionario::aplicarDissidio();
+      a=1;
+      break;
+    }
+
+    if(numx==5)
+    {
+      MenuFuncionario::historicoSalarios();
+      a=1;
+      break;
     }
     
-    else
-      e=1;  
-  }
-  
-  int f=0;
-  while(f==0)
-  {
-    cout << "Digite o ano de nascimento do funcionário:" << endl;
-    cin>>anoNasc;
-    
-    if(anoNasc<1900)
+    if(numx==6)
     {
-      cout << "Digite um ano válido" << endl;  
-      f=0;
+      empresa->getFuncionarios();
+      a=1;
+      break;
     }
-      
-    else
-      f=1;
-  }
-    
-  cout << "Digite a matrícula do funcionário:" << endl;
-  cin>>matricula;
-    
-  int g=0;
-  while(g==0)
-  {
-    cout << "Digite o dia de admissão do funcionário:" << endl;
-    cin>>diaAdmiss;
-    
-    if(diaAdmiss>31)
+
+    if(numx==7)
     {
-      cout << "Digite um dia válido" << endl;
-      g=0;
+      system("clear");
+      a=1;
+      break;
     }
-      
+
     else
-      g=1; 
+      cout << "Digite um valor valido!" << endl;
   }
-    
-  int h=0;
-  while(h==0)
-  {
-    cout << "Digite o mês de admissão do funcionário:" << endl;
-    cin>>mesAdmiss;
-    
-    if(mesAdmiss>12)
-    {
-      cout << "Digite um mês válido:" << endl;
-      h=0;
-    }
-    
-    else
-      h=1; 
-  }
-  
-  int i=0;
-  while(i==0)
-  {
-    cout << "Digite o ano de admissão do funcionário:" << endl;
-    cin>>anoAdmiss;
-    
-    if(anoAdmiss>1900)
-      i=1;  
-      
-    else
-    {
-      cout << "Digite um ano válido" << endl;  
-      i=0;
-    }
-  }
-  
-  cout << "Escolha um departamento:" << endl;
-  empresa->getDepartamentos();
-  cin>>escolheDepartamento;
-  escolheDepartamento--;
-  cout << "Escolha um cargo" << endl;
-  empresa->getCargos();
-  cin>>escolheCargo;
-  escolheCargo--;
-  cout << "Digite o salário do funcionário:" << endl;
-  cin>>salario;
-  cout << "Digite o status do funcionário:" << endl;
-  cin.ignore();
-  getline(cin,status);
-  
-  cout << "Digite o Latitude do funcionário:" << endl;
-  cin>>xfuncionario;
-  cout << "Digite o Longitude do funcionário:" << endl;
-  cin>>yfuncionario;
-  
-  dataNasc.setDia(diaNasc);
-  dataNasc.setMes(mesNasc);
-  dataNasc.setAno(anoNasc);
-  dataAdmissao.setDia(diaAdmiss);
-  dataAdmissao.setMes(mesAdmiss);
-  dataAdmissao.setAno(anoAdmiss);
-  Funcionario funcionario(
-    nome,documento,email,endereco,dataNasc,telefone,
-    matricula,dataAdmissao,
-    empresa->getDepartamento(escolheDepartamento),
-    empresa->getCargo(escolheCargo),
-    salario,status);
-  empresa->addFuncionario(funcionario);
-  funcionario.setSalarios(dataAdmissao,salario);
-  system("clear");
-  cout << "Funcionário cadastrado com sucesso!" << endl;
 }
 
-void cadastrarCliente()
-{
-  string nome;
-  string documento;
-  string email;
-  string endereco;
-  Data data;
-  int dia;
-  int mes;
-  int ano;
-  string telefone;
 
-  bool tipo;
-  system("clear");
-  cout << "Digite o nome do cliente:" << endl;
-  cin.ignore();
-  getline(cin,nome);
-  cout << "Digite o documento do cliente:" << endl;
-  cin.ignore();
-  getline(cin,documento);
-  cout << "Digite o email do cliente:" << endl;
-  cin.ignore();
-  getline(cin,email);
-  cout << "Digite o endereço do cliente:" << endl;
-  cin.ignore();
-  getline(cin,endereco);
-  cout << "Digite o dia de nascimento do cliente:" << endl;
-  cin>>dia;
-  cout << "Digite o mês de nascimento do cliente:" << endl;
-  cin>>mes;
-  cout << "Digite o ano de nascimento do cliente:" << endl;
-  cin>>ano;
-  cout << "Digite o telefone do cliente:" << endl;
-  cin.ignore();
-  getline(cin,telefone); 
-  cout << "Digite o tipo do cliente:" << endl;
-    
-  int t=0;
-  while(t==0)
-  {
-    int valor;
-    valor=0;
-    cout << "1 - Pessoa jurídica" << endl;  
-    cout << "2 - Pessoa física" << endl;  
-    cin>>valor;
-    
-    if(valor==1)
-    {
-      tipo=false;
-      t=1;
-    }
-      
-    else if(valor==2)
-    {
-      tipo=true;
-      t=1;
-    }
-      
-    else
-    {
-      cout << "Digite um valor válido:" << endl;
-      t=0;
-    }
-  }
-    
-  data.setDia(dia);
-  data.setMes(mes);
-  data.setAno(ano);
-  Cliente cliente(nome,documento,email,endereco,data,telefone,tipo);
-  empresa->addCliente(cliente);
-  system("clear");
-  cout << "Cliente cadastrado com sucesso!" << endl;
-}
-
-void alterarSalario()
-{
-  empresa->getFuncionarios();
-  double salario;
-  int funcionario;
-  Data data;
-  int dia,mes,ano;
-  cout <<"Escolha o funcionário<< endl";
-  cin>>funcionario;
-  funcionario--;
-  cout <<"Digite um novo salário<< endl";
-  cin>>salario;
-  
-  int d=0;
-  while(d==0)
-  {
-    cout << "Digite o dia de alteração de salário:" << endl;
-    cin>>dia;
-    
-    if(dia>31)
-    {
-      cout << "Digite um dia válido:" << endl;  
-      d=0;
-    }
-      
-    else
-      d=1;  
-  }  
-    
-  int e=0;
-  while(e==0)
-  {
-    cout << "Digite o mês de alteração de salário:" << endl;
-    cin>>mes;
-    
-    if(mes>12)
-    {
-      cout << "Digite um mês válido:" << endl;
-      e=0;
-    }
-      
-    else
-      e=1;  
-  }
-    
-  int f=0;
-  while(f==0)
-  {
-    cout << "Digite o ano de alteração de salário:" << endl;
-    cin>>ano;
-    
-    if(ano<1900)
-    {
-      cout << "Digite um ano válido" << endl;  
-      f=0;
-    }
-      
-    else
-      f=1;
-  }
-  
-  empresa->alterarSalario(funcionario,salario,data);
-  system("clear");
-  cout << "Salário alterado com sucesso!" << endl;
-}
-
-void historicoSalarios()
-{
-  
-}
-
-void aplicarDissidio()
-{
-  
-}
-
-void demitirFuncionario()
-{
-  empresa->getFuncionarios();
-
-  int funcionario;
-  Data data;
-  int dia,mes,ano;
-
-  cout <<"Escolha o funcionário<< endl";
-  cin>>funcionario;
-  funcionario--;
-  
-  int d=0;
-  while(d==0)
-  {
-    cout << "Digite o dia de demissão do funcionário:" << endl;
-    cin>>dia;
-    
-    if(dia>31)
-    {
-      cout << "Digite um dia válido:" << endl;  
-      d=0;
-    }
-    
-    else
-      d=1;  
-  }  
-    
-  int e=0;
-  while(e==0)
-  {
-    cout << "Digite o mês de demissão do funcionário:" << endl;
-    cin>>mes;
-    
-    if(mes>12)
-    {
-      cout << "Digite um mês válido:" << endl;
-      e=0;
-    }
-      
-    else
-      e=1;  
-  }
-    
-  int f=0;
-  while(f==0)
-  {
-    cout << "Digite o ano de demissão do funcionário:" << endl;
-    cin>>ano;
-    
-    if(ano<1900)
-    {
-      cout << "Digite um ano válido" << endl;  
-      f=0;
-    }
-      
-    else
-    f=1;
-  }
-  
-  system("clear");
-  cout << "Funcionário demitido com sucesso!" << endl;
-}
 
 void menuFuncionario()
 {
@@ -615,35 +291,35 @@ void menuFuncionario()
 
     if(numx==1)
     {
-      cadastrarFuncionario();
+      MenuFuncionario::cadastrarFuncionario();
       a=1;
       break;
     }
       
     if(numx==2)
     {
-      demitirFuncionario();
+      MenuFuncionario::demitirFuncionario();
       a=1;
       break;
     }
 
     if(numx==3)
     {
-      alterarSalario();
+      MenuFuncionario::alterarSalario();
       a=1;
       break;
     }
 
     if(numx==4)
     {
-      aplicarDissidio();
+      MenuFuncionario::aplicarDissidio();
       a=1;
       break;
     }
 
     if(numx==5)
     {
-      historicoSalarios();
+      MenuFuncionario::historicoSalarios();
       a=1;
       break;
     }
@@ -709,7 +385,7 @@ void case_1()
 
     if(numx==4)
     {
-      cadastrarCliente();
+      MenuCliente::cadastrarCliente();
       a=1;
       break;
     }

@@ -3,7 +3,6 @@
 
 #include "../include/Categoria.h"
 #include "../include/Data.h"
-#include "../include/MateriaPrima.h"
 
 #include <string>
 #include <map>
@@ -18,7 +17,6 @@ class Produto
     int _lote_min;
     int _estoque_min;
     std::map<double, Data> _precos;
-    std::map<int, MateriaPrima> _materiaprima;
 
   public:
     Produto
@@ -29,8 +27,7 @@ class Produto
       Categoria categoria,
       int lote_min,
       int estoque_min,
-      std::map<double, Data> precos,
-      std::map<int, MateriaPrima> materiaprima
+      std::map<double, Data> precos
     );  
     int get_codigo();
     void setPreco(double preco);

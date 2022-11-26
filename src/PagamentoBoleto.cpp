@@ -1,4 +1,4 @@
-#include "../include/PagamentoBoleto.h"
+/*#include "../include/PagamentoBoleto.h"
 
 PagamentoCartao(Cliente* _cliente, Data* _data)
 {
@@ -12,4 +12,4 @@ bool pagar(double _valor, int _prazo)
   this->prazo = _prazo;
 
   this->codigo = rand(); 
-}
+}*/

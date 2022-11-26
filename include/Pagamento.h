@@ -4,16 +4,16 @@
 #include "../include/Cliente.h"
 #include "../include/Data.h"
 
-class Pagamento{
+class Pagamento
+{
   private:
-  int codigo;
-  double valor;
-  Data* data;
-  Cliente* cliente;
+    int codigo;
+    double valor;
+    Data* data;
+    Cliente* cliente;
 
   public:
-  Pagamento(Cliente* c, Data* d);
-    
+    Pagamento(Cliente* c, Data* d);  
 };
 
 #endif

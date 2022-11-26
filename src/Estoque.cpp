@@ -1,4 +1,5 @@
-#include "../include/Estoque.h"
+ #include "../include/Estoque.h"
+ #include <iostream>
 
 void Estoque::atualizaEstoque(Lote lote)
 {
@@ -9,11 +10,11 @@ int Estoque::verificaEstoque(Produto prod)
 {
   int quantidade;
   quantidade = 0;
-  auto::interator it;
-  for(it = _estoque.begin(); it != _estoque.end(); it++)
+  auto::iterator pt;
+  for(pt = _estoque.begin(); pt != _estoque.end(); pt++)
   {
-    if(it->get_produto() == prod)
-      quantidade += it->get_quantidade();
+    if(pt->get_produto() == prod)
+      quantidade += pt->get_quantidade();
   }
   
   return quantidade;

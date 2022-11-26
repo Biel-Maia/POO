@@ -1,4 +1,4 @@
-#ifndef PAGAMENTOCARTAO_H
+/*#ifndef PAGAMENTOCARTAO_H
 #define PAGAMENTOCARTAO_H
 
 #include "../include/Pagamento.h"
@@ -10,8 +10,8 @@ class PagamentoCartao: public Pagamento{
   
   public:
   PagamentoCartao(Cliente* c);
-  bool pagar(double, std::string, int);
+  bool pagar(double valor, std::string bandeira, int parcelas);
     
 };
 
-#endif
+#endif*/
