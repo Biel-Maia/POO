@@ -7,7 +7,7 @@
 
 using namespace std;
 
-MenuFuncionario::MenuFuncionario():{}
+MenuFuncionario::MenuFuncionario(){}
 
 bool MenuFuncionario::validaCPF(string documento)
 {

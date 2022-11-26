@@ -8,13 +8,14 @@ void Estoque::atualizaEstoque(Lote lote)
 
 int Estoque::verificaEstoque(Produto prod)
 {
-  int quantidade;
-  quantidade = 0;
-  auto::iterator pt;
-  for(pt = _estoque.begin(); pt != _estoque.end(); pt++)
+  int x=0;
+  int quantidade=0;
+  int tam = _estoque.size();
+  
+  for(x = 0; x < tam; x++)
   {
-    if(pt->get_produto() == prod)
-      quantidade += pt->get_quantidade();
+    if(_estoque[x].get_produto() == prod)
+      quantidade += _estoque[x].get_quantidade();
   }
   
   return quantidade;
