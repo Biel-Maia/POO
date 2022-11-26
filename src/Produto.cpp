@@ -31,3 +31,7 @@ void Produto::setPreco(double preco)
   _preco = preco;
 }
 
+std::string Produto::getNome(){
+  return this->_nome;
+}
+

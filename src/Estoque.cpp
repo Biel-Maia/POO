@@ -1,4 +1,5 @@
  #include "../include/Estoque.h"
+ #include "../include/Produto.h"
  #include <iostream>
 
 void Estoque::atualizaEstoque(Lote lote)
@@ -14,7 +15,8 @@ int Estoque::verificaEstoque(Produto prod)
   
   for(x = 0; x < tam; x++)
   {
-    if(_estoque[x].get_produto() == prod)
+    std::string p=_estoque[x].get_produto().getNome();
+    if(p == prod.getNome())
       quantidade += _estoque[x].get_quantidade();
   }
   

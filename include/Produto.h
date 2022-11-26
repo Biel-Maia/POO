@@ -31,6 +31,7 @@ class Produto
     );  
     int get_codigo();
     void setPreco(double preco);
+    std::string getNome();
 };
 
 #endif

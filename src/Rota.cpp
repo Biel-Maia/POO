@@ -36,9 +36,9 @@ void Rota::calculaDistancia()
 void Rota::calculaHorarioSaida()
 {
   /*Data aux;
-  auto interator it;
+  auto iterator it;
   for(it = _tempo.begin(); it != _tempo.end(); it++){
-    aux = _horario.operator-(Data it);
+    aux = _horario.operator-(it);
     _embarque.push_back(aux);
   }*/
 }
@@ -50,7 +50,7 @@ void Rota::calculaTempoPercurso()
   data = this->_horario;
   float tempo, velocidade;
   int hora, min;
-  velocidade = this->get_velocidade();
+  velocidade = 18;
   int tam =_distancia.size();
   
   for(x=0; x < tam; x++){
@@ -72,10 +72,10 @@ void Rota::listaSequenciaEmbarqueFuncionarios()
   int tamRota = _rota.size();
   int tamEmbarque = _embarque.size();
   
-  for(x= 0; x < tamRota; z++){
-    std::cout << "Funcionario: " << _rota[x].get_nome() << std::endl;
+  for(x= 0; x < tamRota; x++){
+    std::cout << "Funcionario: " << _rota[x].getNome() << std::endl;
     for(y=0; y<tamEmbarque; y++){
-      std::cout << "Horário de Embarque: " << _embbarque[y].getHora() << " : " << _embbarque[y].getMin() << std::endl;
+      std::cout << "Horário de Embarque: " << _embarque[y].getHora() << " : " << _embarque[y].getMin() << std::endl;
     }
   }
 }
