@@ -22,6 +22,12 @@
 #include <map>
 #include <stdio.h>
 #include <cmath>
+#include <chrono>
+#include <thread>
+
+using namespace std::chrono_literals;
+
+
 
 
 
@@ -198,6 +204,7 @@ void cadastrarMateriaPrima(){
   
   system("clear");
   cout << "Matéria prima cadastrada com sucesso!" << endl;
+  std::this_thread::sleep_for(10s);
 }
 
 void menuMateriaPrima()
