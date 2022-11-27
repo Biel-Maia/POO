@@ -14,6 +14,7 @@
 #include "../include/Rota.h"
 #include "../include/Produto.h"
 #include "../include/Lote.h"
+#include "../include/Estoque.h"
 
 
 #include <vector>
@@ -37,6 +38,7 @@ class Empresa
     std::vector<Rota> _rotas;
     std::vector<Produto> _produtos;
     std::vector<Lote> _lotes;
+    std::vector<Estoque> _estoques;
    
   
   public:
@@ -60,6 +62,7 @@ class Empresa
     void addRota(Rota rota);
     void addProduto(Produto produto);
     void addLote(Lote lote);
+    void addEstoque(Estoque estoque);
     int verificaLogin(std::string user, std::string senha);
     void getDepartamentos();
     void getCargos();
@@ -79,9 +82,11 @@ class Empresa
     Produto getProduto(int posicao);
     Categoria getCategoria(int posicao);
     Lote getLote(int posicao);
+    Estoque getEstoque(int posicao);
     void alterarSalario(int funcionario, double salario, Data data);
     bool getTamDepartamentos();
     bool getTamCargos();
+    int  getTamEstoque();
     void demiteFuncionario(int funcionario, Data data);
 };
 

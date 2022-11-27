@@ -2,12 +2,19 @@
 #define ESTOQUE_H
 
 #include "../include/Lote.h"
+#include "../include/Produto.h"
 
 class Estoque{
   private:
-    std::vector<Lote> _estoque;
+    Produto _produto;
+    std::vector<Lote> _lotes;
+    int _quantidade;
+    int _quantidademin;
   public:
-    void atualizaEstoque(Lote lote);
-    int verificaEstoque(Produto prod);
+    Estoque(Produto produto);
+    void setLote(Lote lote);
+    Produto getProduto();
+    void setQuantidade(int quantidade);
+    void setQuantidadeMin(int quantidade);
 };
 #endif

@@ -50,9 +50,26 @@ std::string Funcionario::getStatus()
   return this->_status;
 }
 
-void Funcionario::setSalarios(Data data,double salario)
+void Funcionario::setSalarios(double salario,Data data)
 {
-  //this->_salarios.insert({data,salario});
+  _salarios.push_back(salario);
+  _datas.push_back(salario);
+}
+
+void Funcionario::getSalarios(){
+  int tam=_salarios.size();
+  int x=0;
+  cout<<"Histórico de salários"<<endl;
+  for(x=0;x<tam;x++){
+  cout<<"Salário: ";
+  cout<<_salarios[x];  
+  cout<<"  Data: ";
+  cout<<_datas[x].getDia();
+    cout<<"/";
+  cout<<_datas[x].getMes();
+  cout<<"/";
+  cout<<_datas[x].getAno()<<endl;
+  }
 }
     
 float Funcionario::getXfuncionario(){

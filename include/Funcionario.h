@@ -6,8 +6,10 @@
 #include "../include/Departamento.h"
 #include "../include/Cargo.h"
 #include "../include/Data.h"
+
+#include <iostream>
 #include <string>
-#include <map>
+#include <vector>
 
 
 class Funcionario : public Pessoa
@@ -19,7 +21,8 @@ class Funcionario : public Pessoa
     Departamento _departamento;
     Cargo _cargo;
     double _salario;
-    std::map<Data,double> _salarios;
+    std::vector<double> _salarios;
+    std::vector<Data> _datas;
     std::string _status;
     double _dissidio;
     float _xfuncionario;
@@ -47,7 +50,8 @@ class Funcionario : public Pessoa
     void setSalario(double salario);
     void demiteFuncionario(Data dataDemissao);
     std::string getStatus();
-    void setSalarios(Data data,double salario);
+    void setSalarios(double salario, Data data);
+    void getSalarios();
     float getXfuncionario();
     float getYfuncionario();
     

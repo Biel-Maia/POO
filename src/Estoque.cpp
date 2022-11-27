@@ -1,25 +1,27 @@
- #include "../include/Estoque.h"
- #include "../include/Produto.h"
- #include <iostream>
-#include  <string>
+#include "../include/Estoque.h"
+#include "../include/Produto.h"
+#include "../include/Lote.h"
 
-void Estoque::atualizaEstoque(Lote lote)
-{
-  _estoque.push_back(lote);
+#include <iostream>
+#include <string>
+
+Estoque::Estoque(
+    Produto produto):
+    _produto(produto){}
+
+Produto Estoque::getProduto(){
+  return _produto;
 }
 
-int Estoque::verificaEstoque(Produto prod)
-{
-  int x=0;
-  int quantidade=0;
-  int tam = _estoque.size();
-  
-  for(x = 0; x < tam; x++)
-  {
-    std::string p=_estoque[x].getProduto().getNome();
-    if(p == prod.getNome())
-      quantidade += _estoque[x].getQuantidade();
-  }
-  
-  return quantidade;
+void Estoque::setLote(Lote lote){
+  _lotes.push_back(lote);
 }
+
+void Estoque::setQuantidade(int quantidade){
+  _quantidade+=quantidade;
+}
+
+void Estoque::setQuantidadeMin(int quantidade){
+  _quantidademin=quantidade;
+}
+

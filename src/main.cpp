@@ -481,6 +481,16 @@ void cadastrarLote(){
   Lote lote(dataLote,numLote,empresa->getProduto(escolherProduto),quantidade);
   empresa->addLote(lote);
 
+  int a=0;
+  int tam=empresa->getTamEstoque();
+  for(a=0;a<tam;a++){
+  if(empresa->getEstoque(a).getProduto().getNome() == empresa->getProduto(escolherProduto).getNome()){
+  empresa->getEstoque(a).setLote(lote);
+  empresa->getEstoque(a).setQuantidade(quantidade);
+  }  
+  }
+  
+
   system("clear");
   cout << "Lote produzido com sucesso!" << endl;
 }
@@ -550,7 +560,9 @@ void cadastrarProduto(){
   
   Produto produto(nome_p, codigo, preco, empresa->getCategoria(escolherCategoria), lote_min, estoque_min);
   empresa->addProduto(produto);
-
+  Estoque estoque(produto);
+  empresa->addEstoque(estoque);
+  estoque.setQuantidadeMin(estoque_min);
 
    int x=0;
    while(x==0){
@@ -875,7 +887,13 @@ void alterarSalario()
 
 void historicoSalarios()
 {
-
+int funcionario=0;
+system("clear");
+empresa->getFuncionarios();
+cout <<"Escolha o funcionário"<< endl;
+cin>>funcionario;
+funcionario--;
+empresa->getFuncionario(funcionario).getSalarios();
 }
 
 void aplicarDissidio()
@@ -1130,7 +1148,7 @@ void cadastrarFuncionario()
     empresa->getCargo(escolheCargo),
     salario,status,xfuncionario,yfuncionario);
   empresa->addFuncionario(funcionario);
-  funcionario.setSalarios(dataAdmissao,salario);
+  funcionario.setSalarios(salario,dataAdmissao);
   system("clear");
   cout << "Funcionário cadastrado com sucesso!" << endl;
 }

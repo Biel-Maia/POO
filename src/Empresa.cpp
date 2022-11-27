@@ -12,6 +12,7 @@
 #include "../include/Fornecedor.h"
 #include "../include/Produto.h"
 #include "../include/Lote.h"
+#include "../include/Estoque.h"
 
 #include <vector>
 #include <string>
@@ -75,6 +76,10 @@ void Empresa::addProduto(Produto produto){
 
 void Empresa::addLote(Lote lote){
   _lotes.push_back(lote);
+}
+
+void Empresa::addEstoque(Estoque estoque){
+  _estoques.push_back(estoque);
 }
 
 int Empresa::verificaLogin(std::string user, std::string senha)
@@ -261,10 +266,14 @@ Lote Empresa::getLote(int posicao){
   return this->_lotes[posicao];
 }
 
+Estoque Empresa::getEstoque(int posicao){
+  return this->_estoques[posicao];
+}
+
 void Empresa::alterarSalario(int funcionario, double salario, Data data)
 {
   this->_funcionarios[funcionario].setSalario(salario);
-  this->_funcionarios[funcionario].setSalarios(data,salario);
+  this->_funcionarios[funcionario].setSalarios(salario,data);
 }
 
 bool Empresa::getTamDepartamentos()
@@ -292,4 +301,8 @@ bool Empresa::getTamCargos()
 void Empresa::demiteFuncionario(int funcionario,Data data)
 {
   this->_funcionarios[funcionario].demiteFuncionario(data);
+}
+
+int Empresa::getTamEstoque(){
+  return _estoques.size();
 }
