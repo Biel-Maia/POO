@@ -3,33 +3,32 @@
 
 #include "../include/Data.h"
 #include "../include/Cliente.h"
-#include "../include/Lote.h"
-#include "../include/Produto.h"
-#include "../include/Estoque.h"
+#include "../include/Pagamento.h"
+#include "../include/Orcamento.h"
 
-#include <map>
 
 class Venda
 {
   private:
     Data _data;
     Cliente _cliente;
-    std::map<Lote, Produto> _produtos;
-    Estoque _quantidade_estoque;
-    int _numero_lote; 
-    double _valor_final;
-    int _id;
-    
+    Orcamento _orcamento;
+    double _valorFinal;
+    Pagamento _formapagamento;
+    int       _parcelas;
+    double    _valorparcelas;
   public:
     Venda
     (
       Data data,
       Cliente cliente,
-      std::map<Lote, Produto> produtos,
-      Estoque quantidade_estoque,
-      int numero_lote,
-      double valor_final,
-      int id
+      Orcamento orcamento,
+      double valorFinal,
+      Pagamento formapagamento,
+      int parcelas
     );
+    void setCliente(Cliente cliente);
+    double getValorParcelas();
+    void setValorParcelas(double valorParcelas);
 };
 #endif

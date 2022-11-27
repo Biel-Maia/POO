@@ -41,3 +41,7 @@ void Produto::setMateriaPrima(MateriaPrima materiaprima){
 void Produto::setQuantidade(int quantidade){
   _quantidade.push_back(quantidade);
 }
+
+double Produto::getPreco(){
+  return this->_preco;
+}

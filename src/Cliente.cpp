@@ -19,3 +19,4 @@ bool Cliente::getTipo()
 {
   return this->_tipo;  
 }
+

@@ -15,6 +15,9 @@
 #include "../include/Produto.h"
 #include "../include/Lote.h"
 #include "../include/Estoque.h"
+#include "../include/Orcamento.h"
+#include "../include/Pagamento.h"
+#include "../include/Venda.h"
 
 
 #include <vector>
@@ -39,7 +42,9 @@ class Empresa
     std::vector<Produto> _produtos;
     std::vector<Lote> _lotes;
     std::vector<Estoque> _estoques;
-   
+    std::vector<Orcamento> _orcamentos;
+    std::vector<Pagamento> _formaspagamento;
+    std::vector<Venda> _vendas;
   
   public:
     static Empresa *Instance(void)
@@ -63,6 +68,9 @@ class Empresa
     void addProduto(Produto produto);
     void addLote(Lote lote);
     void addEstoque(Estoque estoque);
+    void addOrcamento(Orcamento orcamento);
+    void addFormasPagamento(Pagamento pagamento);
+    void addVenda(Venda venda);
     int verificaLogin(std::string user, std::string senha);
     void getDepartamentos();
     void getCargos();
@@ -73,6 +81,9 @@ class Empresa
     void getProdutos();
     void getCategorias();
     void getLotes();
+    void getClientes();
+    void getFormasPagamento();
+    void getOrcamentos(Cliente cliente);
     Departamento getDepartamento(int posicao);
     Cargo getCargo(int posicao);
     MateriaPrima getMateriaPrima(int posicao);
@@ -83,6 +94,9 @@ class Empresa
     Categoria getCategoria(int posicao);
     Lote getLote(int posicao);
     Estoque getEstoque(int posicao);
+    Cliente getCliente(int posicao);
+    Pagamento getFormaPagamento(int posicao);
+    Orcamento getOrcamento(Cliente cliente,int posicao);
     void alterarSalario(int funcionario, double salario, Data data);
     bool getTamDepartamentos();
     bool getTamCargos();

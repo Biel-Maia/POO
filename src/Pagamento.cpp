@@ -1,7 +1,12 @@
-/*#include "../include/Pagamento.h"
+#include "../include/Pagamento.h"
+#include <string>
 
-Pagamento::Pagamento(Cliente* c, Data* d)
-{
-  this->cliente = c;
-  this->data = d;
-}*/
+Pagamento::Pagamento(
+    std::string nomeformapagamento
+    ):
+    _nomeformapagamento(nomeformapagamento){}
+
+std::string Pagamento::getNomeFormaPagamento(){
+  return this->_nomeformapagamento;
+}
+

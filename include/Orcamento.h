@@ -2,27 +2,34 @@
 #define ORCAMENTO_H
 
 #include "../include/Data.h"
-#include "../include/Fornecedor.h"
+#include "../include/Produto.h"
+#include "../include/Cliente.h"
 
+#include <vector>
+#include <string>
+
+using namespace std;
 
 class Orcamento
 {
   private:
     Data _data;
-    int _quantidade;
-    double _valor_unitario;
-    double _valor_total;
-    Fornecedor _fornecedor;
+    Cliente _cliente;
+    std::vector<Produto> _produtos;
+    std::vector<int> _quantidades;
+    double _valorTotal;
 
   public:
     Orcamento
     (
       Data data,
-      int quantidade,
-      double valor_unitario,
-      double valor_total,
-      Fornecedor fornecedor
+      Cliente cliente
     );
+    void setProduto(Produto produto);
+    void setQuantidade(int quantidade);
+    void setValorTotal(double precoTotal);
+    Cliente getCliente();
+    double getValorTotal();
 };
 
 #endif

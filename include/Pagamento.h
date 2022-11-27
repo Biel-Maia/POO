@@ -1,25 +1,21 @@
 #ifndef PAGAMENTO_H
 #define PAGAMENTO_H
 
-#include "../include/Cliente.h"
-#include "../include/Data.h"
+#include <string>
+
+using namespace std;
 
 class Pagamento
 {
   private:
-    int _codigo;
-    double _valor;
-    Data* _data;
-    Cliente* _cliente;
+  string _nomeformapagamento;
 
   public:
     Pagamento
     (
-      int codigo, 
-      double valor, 
-      Data* data, 
-      Cliente* cliente
+    string nomeformapagamento
     );  
+  string getNomeFormaPagamento();
 };
 
 #endif

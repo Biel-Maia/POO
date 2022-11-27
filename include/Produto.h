@@ -37,6 +37,7 @@ class Produto
     std::string getNome();
     void setMateriaPrima(MateriaPrima materiaprima);
     void setQuantidade(int quantidade);
+    double getPreco();
 };
 
 #endif

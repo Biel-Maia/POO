@@ -86,3 +86,30 @@ void Rota::listaSequenciaEmbarqueFuncionarios()
 void Rota::setFuncionarios(Funcionario funcionario){
   this->_funcionarios.push_back(funcionario);
 }
+
+/*
+
+void Rota::mapa(){
+  int i=0;
+  int tam=_funcionarios.size();
+  vector<float> lon;
+  map<float, float> lonlat;
+  
+  for(i=0; i < tam; i++){
+    lonlat[_funcionarios[i].getXfuncionario()] = _funcionarios[i].getYfuncionario();
+    lon.pushback(_funcionarios[i].getXfuncionario());
+  }
+  sort(lon.begin(),lon.end()); //ordena as lontitudes
+  string maps ="https://www.google.com.br/maps/dir/"; //url base que será inserido os pontos da rota
+  
+  maps= maps + to_string(this->_xempresa)+",+"+to_string(this->_yempresa)+"/"; // Endereço da Empresa
+
+  for(auto a:lon){
+    maps= maps + to_string(a)+",+"+to_string(lonlat[a])+"/"; //concatena um novo ponto da rota na url
+  }
+
+  maps= maps + to_string(this->_xempresa)+",+"+to_string(this->_yempresa); // Endereço da Empresa
+
+  cout <<"Copie e cole a seguinte URL no seu navegador de preferência para ver uma sugestão de rota:     "<<endl << maps; 
+
+}*/

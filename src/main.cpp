@@ -16,6 +16,8 @@
 #include "../include/Estoque.h"
 #include "../include/Lote.h"
 #include "../include/Produto.h"
+#include "../include/Venda.h"
+#include "../include/Pagamento.h"
 
 
 #include <algorithm>
@@ -34,6 +36,10 @@ using namespace std;
 
 
 Empresa * empresa = Empresa::Instance();
+
+Usuario usermain("Main","admin","admin");
+Pagamento pagamento1("Cartão");
+Pagamento pagamento2("Boleto");
 
 
 void realizarOperacaoEscolhida(
@@ -131,7 +137,7 @@ bool validaCPF(std::string cpf)
 	
 }
 
-bool ValidaCNPJ(std::string vrCNPJ)
+bool validaCNPJ(std::string vrCNPJ)
 {
   vector<int> multiplicador = {6,5,4,3,2,9,8,7,6,5,4,3,2};
     int soma = 0;
@@ -166,6 +172,210 @@ bool ValidaCNPJ(std::string vrCNPJ)
             return true;
         }
     }
+}
+
+void cadastraFormaPagamento(){
+  system("clear");
+  string nomeFormaPagamento;
+  cout << "Digite o nome da forma de pagamento:" << endl;
+  cin.ignore();
+  getline(cin,nomeFormaPagamento);
+  Pagamento pagamento(nomeFormaPagamento);
+  empresa->addFormasPagamento(pagamento);
+  cout << "Forma de pagamento criada com sucesso!" << endl;
+}
+
+void realizarVenda(){
+  system("clear");
+  Data dataVenda;
+  int  diaVenda;
+  int  mesVenda;
+  int  anoVenda;
+
+  int d=0;
+  while(d==0)
+  {
+    cout << "Digite o dia que a venda foi feita:" << endl;
+    cin>>diaVenda;
+
+    if(diaVenda>31)
+    {
+      cout << "Digite um dia válido:" << endl;  
+      d=0;
+    }
+
+    else
+      d=1;  
+
+  }
+
+  int e=0;
+  while(e==0)
+  {
+    cout << "Digite o mês que a venda foi feita:" << endl;
+    cin>>mesVenda;
+
+    if(mesVenda>12)
+    {
+      cout << "Digite um mês válido:" << endl;
+      e=0;
+    }
+
+    else
+      e=1;  
+  }
+
+  int f=0;
+  while(f==0)
+  {
+    cout << "Digite o ano que a venda foi feita:" << endl;
+    cin>>anoVenda;
+
+    if(anoVenda<1900)
+    {
+      cout << "Digite um ano válido" << endl;  
+      f=0;
+    }
+
+    else
+      f=1;
+  }
+
+  dataVenda.setDia(diaVenda);
+  dataVenda.setMes(mesVenda);
+  dataVenda.setAno(anoVenda);
+    
+
+  
+  
+  int escolheCliente=0;
+  int escolheOrcamento=0;
+  int quantidadeParcelas=0;
+  double valorTotal=0;
+  double valorParcela=0;
+  
+  empresa->getClientes();
+  cout << "Escolha o cliente que vai realizar a compra:" << endl;
+  cin>>escolheCliente;
+  escolheCliente--;
+  cout << "Escolha o orçamento que vai ser feita a venda:" << endl;
+  Cliente cliente=empresa->getCliente(escolheCliente);
+  empresa->getOrcamentos(cliente);
+  cin>>escolheOrcamento;
+  escolheOrcamento--;
+  cout << "Escolha a quantidade de parcelas que deseja:" << endl;
+  cin>>quantidadeParcelas;
+  valorTotal=(empresa->getOrcamento(cliente,escolheOrcamento).getValorTotal());
+  valorParcela=(valorTotal/quantidadeParcelas);
+
+  int escolheFormaPagamento=0;
+  empresa->getFormasPagamento();
+  cin>>escolheFormaPagamento;
+  escolheFormaPagamento--;
+  
+  
+  Venda venda(dataVenda,cliente,empresa->getOrcamento(cliente,escolheOrcamento),valorTotal,empresa->getFormaPagamento(escolheFormaPagamento),quantidadeParcelas);
+  system("clear");
+  cout << "Venda realizada com sucesso:" << endl;
+  cout << "O valor total é: "<<valorTotal<< endl;
+  cout << "O valor de cada parcela é: "<<valorParcela<< endl;
+}
+
+void cadastraOrcamento(){
+    Data dataOrcamento;
+    int  diaOrcamento;
+    int  mesOrcamento;
+    int  anoOrcamento;
+
+     int d=0;
+  while(d==0)
+  {
+    cout << "Digite o dia que o orçamento foi feito:" << endl;
+    cin>>diaOrcamento;
+
+    if(diaOrcamento>31)
+    {
+      cout << "Digite um dia válido:" << endl;  
+      d=0;
+    }
+
+    else
+      d=1;  
+
+  }
+
+  int e=0;
+  while(e==0)
+  {
+    cout << "Digite o mês que o orçamento foi feito:" << endl;
+    cin>>mesOrcamento;
+
+    if(mesOrcamento>12)
+    {
+      cout << "Digite um mês válido:" << endl;
+      e=0;
+    }
+
+    else
+      e=1;  
+  }
+
+  int f=0;
+  while(f==0)
+  {
+    cout << "Digite o ano que o orçamento foi feito:" << endl;
+    cin>>anoOrcamento;
+
+    if(anoOrcamento<1900)
+    {
+      cout << "Digite um ano válido" << endl;  
+      f=0;
+    }
+
+    else
+      f=1;
+  }
+
+  dataOrcamento.setDia(diaOrcamento);
+  dataOrcamento.setMes(mesOrcamento);
+  dataOrcamento.setAno(anoOrcamento);
+
+  int escolheCliente=0;
+  empresa->getClientes();
+  cout << "Escolha o cliente que vai fazer o orçamento:" << endl;
+  cin>>escolheCliente;
+  escolheCliente--;
+  Orcamento orcamento(dataOrcamento,empresa->getCliente(escolheCliente));
+  empresa->addOrcamento(orcamento);
+  int escolheProduto=0;
+  int quantidade=0;
+  int x=0;
+  double valorTotal=0;
+  while(x==0){
+   int sair=0; 
+   escolheProduto=0;
+   empresa->getProdutos();
+   std::cout << "Escolha um produto: " << std::endl;
+   cin>>escolheProduto;
+   escolheProduto--;
+   orcamento.setProduto(empresa->getProduto(escolheProduto));
+   std::cout << "Digite a quantidade do produto: " << std::endl; 
+   cin>>quantidade;
+   orcamento.setQuantidade(quantidade);
+   valorTotal+=(empresa->getProduto(escolheProduto).getPreco())*(quantidade);
+  std::cout << "Digite 0 para cancelar a operação ou 1 para escolher mais funcionários: " << std::endl; 
+   cin>>sair;
+    if(sair==1){
+    x=0;
+    }
+    else{
+    x=1;  
+    }
+  }
+  orcamento.setValorTotal(valorTotal);
+  system("clear");
+  cout << "Orçamento realizado com sucesso!" << endl;
+  cout << "O valor total ficou:" << valorTotal<<endl;
 }
 
 void alterarQtdMateriaMin(){
@@ -246,12 +456,6 @@ void menuMateriaPrima()
   }
 }
 
-
-Departamento consultarDepartamentos()
-{
-  Departamento departamento("abc");
-  return departamento;
-}
 
 void cadastrarUsuario()
 {
@@ -762,21 +966,64 @@ void cadastrarCliente()
   cout << "Digite o nome do cliente:" << endl;
   cin.ignore();
   getline(cin,nome);
-  cout << "Digite o documento do cliente:" << endl;
-  cin.ignore();
-  getline(cin,documento);
   cout << "Digite o email do cliente:" << endl;
   cin.ignore();
   getline(cin,email);
   cout << "Digite o endereço do cliente:" << endl;
   cin.ignore();
   getline(cin,endereco);
-  cout << "Digite o dia de nascimento do cliente:" << endl;
-  cin>>dia;
-  cout << "Digite o mês de nascimento do cliente:" << endl;
-  cin>>mes;
-  cout << "Digite o ano de nascimento do cliente:" << endl;
-  cin>>ano;
+
+  
+  int d=0;
+  while(d==0)
+  {
+    cout << "Digite o dia de nascimento do cliente:" << endl;
+    cin>>dia;
+
+    if(dia>31)
+    {
+      cout << "Digite um dia válido:" << endl;  
+      d=0;
+    }
+
+    else
+      d=1;  
+
+  }
+
+  int e=0;
+  while(e==0)
+  {
+    cout << "Digite o mês de nascimento do cliente:" << endl;
+    cin>>mes;
+
+    if(mes>12)
+    {
+      cout << "Digite um mês válido:" << endl;
+      e=0;
+    }
+
+    else
+      e=1;  
+  }
+
+  int f=0;
+  while(f==0)
+  {
+    cout << "Digite o ano de nascimento do cliente:" << endl;
+    cin>>ano;
+
+    if(ano<1900)
+    {
+      cout << "Digite um ano válido" << endl;  
+      f=0;
+    }
+
+    else
+      f=1;
+  }
+
+  
   cout << "Digite o telefone do cliente:" << endl;
   cin.ignore();
   getline(cin,telefone); 
@@ -808,6 +1055,36 @@ void cadastrarCliente()
       cout << "Digite um valor válido:" << endl;
       t=0;
     }
+  }
+  
+  int z=0;
+  while(z==0){
+  cout << "Digite o documento do cliente:" << endl;
+  cin>>documento;
+
+  if(tipo==true){
+  if(validaCPF(documento)==true)
+      z=1; 
+
+    else
+    {
+      cout << "Digite um CPF válido" << endl;  
+      z=0;
+    }    
+  }
+    
+  if(tipo==false){
+  if(validaCNPJ(documento)==true)
+      z=1; 
+
+    else
+    {
+      cout << "Digite um CNPJ válido" << endl;  
+      z=0;
+    }    
+  }
+    
+    
   }
 
   data.setDia(dia);
@@ -1250,7 +1527,10 @@ void case_1()
     cout <<"10- Lote" <<endl;
     cout <<"11- Veículo" <<endl;
     cout <<"12- Rota" <<endl;
-    cout <<"13- Voltar ao menu principal"<<endl;
+    cout <<"13- Orçamento" <<endl;
+    cout <<"14- Cadastrar forma de pagamento" <<endl;
+    cout <<"15- Venda" <<endl;
+    
     cout <<"Digite uma das opcoes:" << endl;
   
     int numx=0;
@@ -1339,6 +1619,27 @@ void case_1()
       break;
     }
 
+      if(numx==13)
+    {
+      cadastraOrcamento();
+      a=1;
+      break;
+    }
+
+     if(numx==14)
+    {
+      cadastraFormaPagamento();
+      a=1;
+      break;
+    }
+
+    if(numx==15)
+    {
+      realizarVenda();
+      a=1;
+      break;
+    }
+
     else
       cout << "Digite um valor valido!" << endl;
   }
@@ -1348,12 +1649,11 @@ void case_1()
 
 int main()
 {
+  empresa->addUsuario(usermain);
+  empresa->addFormasPagamento(pagamento1);
+  empresa->addFormasPagamento(pagamento2);
   
   system("clear");
-  Usuario usermain("Main","admin","admin");
-  empresa->addUsuario(usermain);
-  Usuario usermain2("Main2","main2","main2");
-  empresa->addUsuario(usermain2);
 
   string user;
   string senha;

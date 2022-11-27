@@ -13,6 +13,8 @@
 #include "../include/Produto.h"
 #include "../include/Lote.h"
 #include "../include/Estoque.h"
+#include "../include/Orcamento.h"
+#include "../include/Venda.h"
 
 #include <vector>
 #include <string>
@@ -80,6 +82,18 @@ void Empresa::addLote(Lote lote){
 
 void Empresa::addEstoque(Estoque estoque){
   _estoques.push_back(estoque);
+}
+
+void Empresa::addOrcamento(Orcamento orcamento){
+  _orcamentos.push_back(orcamento);
+}
+
+void Empresa::addFormasPagamento(Pagamento pagamento){
+  _formaspagamento.push_back(pagamento);
+}
+
+void Empresa::addVenda(Venda venda){
+  _vendas.push_back(venda);
 }
 
 int Empresa::verificaLogin(std::string user, std::string senha)
@@ -221,6 +235,50 @@ void Empresa::getLotes()
   }
 }
 
+void Empresa::getClientes()
+{
+  int tamanho = this->_clientes.size();
+  int num=0;
+  for(int x=0;x<tamanho;x++)
+  {
+    num++;
+    cout<<num;
+    cout<<"- ";
+    cout<<_clientes[x].getNome()<<endl;
+  }
+}
+
+void Empresa::getFormasPagamento()
+{
+  int tamanho = this->_formaspagamento.size();
+  int num=0;
+  for(int x=0;x<tamanho;x++)
+  {
+    num++;
+    cout<<num;
+    cout<<"- ";
+    cout<<_formaspagamento[x].getNomeFormaPagamento()<<endl;
+  }
+}
+
+void Empresa::getOrcamentos(Cliente cliente)
+{
+  std::string nome1;
+  std::string nome2;
+  int x=0;
+  nome1=cliente.getNome();
+  int tamanho = this->_orcamentos.size();
+  int num=0;
+  for(x=0;x<tamanho;x++)
+  {
+  nome2=_orcamentos[x].getCliente().getNome();
+  if(nome1==nome2){
+  num++;
+  cout<<num;
+  cout<<"- Orçamento"<< num<<endl;
+  }
+  }
+  }
 
 Departamento Empresa::getDepartamento(int posicao)
 {
@@ -270,6 +328,37 @@ Estoque Empresa::getEstoque(int posicao){
   return this->_estoques[posicao];
 }
 
+Cliente Empresa::getCliente(int posicao){
+  return this->_clientes[posicao];
+}
+
+Pagamento Empresa::getFormaPagamento(int posicao){
+  return this->_formaspagamento[posicao];
+}
+
+Orcamento Empresa::getOrcamento(Cliente cliente,int posicao){
+  std::string nome1;
+  std::string nome2;
+  nome1=cliente.getNome();
+  int tamanho = this->_orcamentos.size();
+  int num=0;
+  int numx=0;
+  int x=0;
+  int y=0;
+  for(x=0;x<tamanho;x++)
+  {
+    nome2=_orcamentos[x].getCliente().getNome();
+    num++;
+    if(nome1==nome2){
+    numx++;
+    if(numx==posicao){
+    y=num;
+    }
+    }
+    }
+  return this->_orcamentos[y]; 
+}
+  
 void Empresa::alterarSalario(int funcionario, double salario, Data data)
 {
   this->_funcionarios[funcionario].setSalario(salario);
