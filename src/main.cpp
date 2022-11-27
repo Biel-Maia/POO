@@ -13,6 +13,10 @@
 #include "../include/LogLeitura.h"
 #include "../include/LogEscrita.h"
 #include "../include/ExcecaoAcessoNegado.h"
+#include "../include/Estoque.h"
+#include "../include/Lote.h"
+#include "../include/Produto.h"
+
 
 #include <algorithm>
 
@@ -26,14 +30,8 @@
 #include <thread>
 
 using namespace std::chrono_literals;
-
-
-
-
-
-
-
 using namespace std;
+
 
 Empresa * empresa = Empresa::Instance();
 
@@ -185,6 +183,7 @@ void alterarQtdMateriaMin(){
 }
 
 void cadastrarMateriaPrima(){
+  system("clear");
   std::string nome;
   std::string unidadeMedida;
   int quantidadeEstoque=0;
@@ -201,10 +200,10 @@ void cadastrarMateriaPrima(){
   cin>>quantidadeEstoqueMin;
   MateriaPrima materiaPrima(nome,unidadeMedida,quantidadeEstoque,quantidadeEstoqueMin);
   empresa->addMateriaPrima(materiaPrima);
-  
   system("clear");
   cout << "Matéria prima cadastrada com sucesso!" << endl;
-  std::this_thread::sleep_for(10s);
+  std::this_thread::sleep_for(2s);
+  system("clear");
 }
 
 void menuMateriaPrima()
@@ -368,8 +367,262 @@ void cadastrarRota(){
   std::cout << "Rota cadastrada com sucesso! " << std::endl;
 }
 
-void cadastrarProduto(){
+void cadastrarLote(){
+
+  system("clear");
   
+  Data dataLote;
+  int  diaLote;
+  int  mesLote;
+  int  anoLote;
+  int  horaLote;
+  int  minutoLote;
+
+  int d=0;
+  while(d==0)
+  {
+    cout << "Digite o dia de produção do lote:" << endl;
+    cin>>diaLote;
+
+    if(diaLote>31)
+    {
+      cout << "Digite um dia válido:" << endl;  
+      d=0;
+    }
+
+    else
+      d=1;  
+
+  }
+
+  int e=0;
+  while(e==0)
+  {
+    cout << "Digite o mês de produção do lote:" << endl;
+    cin>>mesLote;
+
+    if(mesLote>12)
+    {
+      cout << "Digite um mês válido:" << endl;
+      e=0;
+    }
+
+    else
+      e=1;  
+  }
+
+  int f=0;
+  while(f==0)
+  {
+    cout << "Digite o ano  de produção do lote:" << endl;
+    cin>>anoLote;
+
+    if(anoLote<1900)
+    {
+      cout << "Digite um ano válido" << endl;  
+      f=0;
+    }
+
+    else
+      f=1;
+  }
+
+  int g=0;
+  while(g==0)
+  {
+    cout << "Digite a hora em que o lote foi produzido:" << endl;
+    cin>>horaLote;
+
+    if(horaLote>24)
+    {
+      cout << "Digite uma hora válida" << endl;  
+      g=0;
+    }
+
+    else
+      g=1;
+  }
+
+  int h=0;
+  while(h==0)
+  {
+    cout << "Digite o minuto em que o lote foi produzido:" << endl;
+    cin>>minutoLote;
+
+    if(minutoLote>60)
+    {
+      cout << "Digite um minuto válido" << endl;  
+      h=0;
+    }
+
+    else
+      h=1;
+  }
+  dataLote.setDia(diaLote);
+  dataLote.setMes(mesLote);
+  dataLote.setAno(anoLote);
+  dataLote.setHora(horaLote);
+  dataLote.setMin(minutoLote);
+
+  int numLote=0;
+  cout << "Digite o número do lote:" << endl;
+  cin >>numLote;
+
+  int escolherProduto=0;
+  empresa->getProdutos();
+  cout << "Escolha o produto que foi produzido no lote:" << endl;
+  cin >> escolherProduto;
+  escolherProduto--;
+
+  int quantidade=0;
+  cout << "Digite a quantidade do produto que foi produzido no lote:" << endl;
+  cin >> quantidade;
+
+  Lote lote(dataLote,numLote,empresa->getProduto(escolherProduto),quantidade);
+  empresa->addLote(lote);
+
+  system("clear");
+  cout << "Lote produzido com sucesso!" << endl;
+}
+
+void adicionarMateriaPrimaProd(){
+  int escolherProduto=0;
+  int escolherMateriaPrima=0;
+  int quantidade=0;
+  system("clear");
+  empresa->getProdutos();
+  cout << "Escolha o produto que deseja adicionar matéria prima:" << endl;
+  cin>>escolherProduto;
+  escolherProduto--;
+  empresa->getMateriasPrimas();
+  cout << "Escolha a matéria prima que deseja adicionar:" << endl;
+  cin>>escolherMateriaPrima;
+  escolherMateriaPrima--;
+  cout << "Digite a quantidade de matéria prima:" << endl;
+  cin>>quantidade;
+  empresa->getProduto(escolherProduto).setMateriaPrima(empresa->getMateriaPrima(escolherMateriaPrima));
+  empresa->getProduto(escolherProduto).setQuantidade(quantidade);
+  system("clear");
+  cout << "Matéria prima adicionada com sucesso!" << endl;
+  
+}
+
+void adicionarPrecoProduto(){
+  int escolherProduto=0;
+  system("clear");
+  empresa->getProdutos();
+  double preco;
+  cout << "Escolha o produto que deseja alterar o preço:" << endl;
+  cin>>escolherProduto;
+  escolherProduto--;
+  cout << "Digite o novo valor do produto:" << endl;
+  cin>>preco;
+  empresa->getProduto(escolherProduto).setPreco(preco);
+  cout << "Preço alterado com sucesso!" << endl;
+  system("clear");
+  
+}
+
+void cadastrarProduto(){
+  int escolherCategoria=0;
+  int escolherProduto=0;
+  system("clear");
+  string nome_p;
+  cout << "Digite o nome do produto:" << endl;
+  cin.ignore();
+  getline(cin,nome_p);
+  int codigo;
+  cout << "Digite o codigo do produto:" << endl;
+  cin>>codigo;
+  double preco;
+  cout << "Digite o preco do produto:" << endl;
+  cin>>preco;
+  int lote_min;
+  cout << "Digite o lote mínimo que o produto deve ter:" << endl;
+  cin>>lote_min;
+  int estoque_min;
+  cout << "Digite o estoque mínimo que o produto deve ter:" << endl;
+  cin>>estoque_min;
+  cout << "Escolha a categoria do produto:" << endl;
+  empresa->getCategorias();
+  cin>>escolherCategoria;
+  escolherCategoria--;
+  
+  Produto produto(nome_p, codigo, preco, empresa->getCategoria(escolherCategoria), lote_min, estoque_min);
+  empresa->addProduto(produto);
+
+
+   int x=0;
+   while(x==0){
+   int sair=0;
+   system("clear"); 
+   int escolherMateriasPrimas=0;
+   empresa->getMateriasPrimas();
+   cin>>escolherMateriasPrimas;
+   escolherMateriasPrimas--;
+   int quantidade = 0;
+   cout << "Digite a quantidade de matéria prima:" << endl;
+   cin>>quantidade;
+   empresa->getProduto(escolherProduto).setMateriaPrima(empresa->getMateriaPrima(escolherMateriasPrimas));
+   empresa->getProduto(escolherProduto).setQuantidade(quantidade);
+   std::cout << "Digite 0 para cancelar a operação ou 1 para escolher mais materias primas: " << std::endl; 
+   cin>>sair;
+    if(sair==1){
+    x=0;
+    }
+    else{
+    x=1;  
+    }
+  }
+  
+  
+  system("clear");
+  cout << "Produto cadastrado com sucesso!" << endl;
+  
+}
+
+void menuProduto(){
+  system("clear");
+  int a=0;
+  while(a==0)
+  {
+    cout <<"Produto:"<< endl;
+    cout <<"1- Cadastrar produto"<< endl;
+    cout <<"2- Adicionar novo preço ao produto"<< endl;
+    cout <<"3- Adicionar matéria prima e quantidade"<< endl;
+    cout <<"Digite uma das opcoes:" << endl;
+  
+    int numx=0;
+    cin >> numx;
+
+    if(numx==1)
+    {
+      cadastrarProduto();
+      a=1;
+    }
+      
+    if(numx==2)
+    {
+      adicionarPrecoProduto();
+      a=1;
+    }
+
+    if(numx==3)
+    {
+      adicionarMateriaPrimaProd();
+      a=1;
+    }
+
+    if(numx==4)
+    {
+      system("clear");
+      a=1;
+      break;
+    }
+
+    else
+      cout << "Digite um valor valido!" << endl;
+  }
 }
 
 void cadastrarDepartamento()
@@ -975,10 +1228,11 @@ void case_1()
     cout <<"6- Departamento"<<endl;
     cout <<"7- Categoria" <<endl;
     cout <<"8- Matéria Prima" <<endl;
-    cout <<"8- Produto" <<endl;
-    cout <<"9- Veículo" <<endl;
-    cout <<"10- Rota" <<endl;
-    cout <<"12- Voltar ao menu principal"<<endl;
+    cout <<"9- Produto" <<endl;
+    cout <<"10- Lote" <<endl;
+    cout <<"11- Veículo" <<endl;
+    cout <<"12- Rota" <<endl;
+    cout <<"13- Voltar ao menu principal"<<endl;
     cout <<"Digite uma das opcoes:" << endl;
   
     int numx=0;
@@ -1042,18 +1296,27 @@ void case_1()
     
     if(numx==9)
     {
+      menuProduto();
+      a=1;
+      break;
+    }
+
+    if(numx==10)
+    {
+      cadastrarLote();
+      a=1;
+      break;
+    }
+    
+    if(numx==11)
+    {
       cadastrarVeiculo();
       a=1;
       break;
     }
-    if(numx==10)
+      if(numx==12)
     {
       cadastrarRota();
-      a=1;
-      break;
-    }
-      if(numx==11)
-    {
       a=1;
       break;
     }
@@ -1067,7 +1330,6 @@ void case_1()
 
 int main()
 {
-  //std::cout << "p: " << empresa << std::endl; // teste singleton
   
   system("clear");
   Usuario usermain("Main","admin","admin");

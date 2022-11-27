@@ -12,6 +12,9 @@
 #include "../include/MateriaPrima.h"
 #include "../include/Fornecedor.h"
 #include "../include/Rota.h"
+#include "../include/Produto.h"
+#include "../include/Lote.h"
+
 
 #include <vector>
 #include <string>
@@ -32,6 +35,9 @@ class Empresa
     std::vector<MateriaPrima> _materias;
     std::vector<Fornecedor>  _fornecedores;
     std::vector<Rota> _rotas;
+    std::vector<Produto> _produtos;
+    std::vector<Lote> _lotes;
+   
   
   public:
     static Empresa *Instance(void)
@@ -52,6 +58,8 @@ class Empresa
     void addMateriaPrima(MateriaPrima materiaprima);
     void addFornecedor(Fornecedor fornecedor);
     void addRota(Rota rota);
+    void addProduto(Produto produto);
+    void addLote(Lote lote);
     int verificaLogin(std::string user, std::string senha);
     void getDepartamentos();
     void getCargos();
@@ -59,12 +67,18 @@ class Empresa
     void getMateriasPrimas();
     void getFornecedores();
     void getVeiculos();
+    void getProdutos();
+    void getCategorias();
+    void getLotes();
     Departamento getDepartamento(int posicao);
     Cargo getCargo(int posicao);
     MateriaPrima getMateriaPrima(int posicao);
     Fornecedor getFornecedor(int posicao);
     Veiculo getVeiculo(int posicao);
     Funcionario getFuncionario(int posicao);
+    Produto getProduto(int posicao);
+    Categoria getCategoria(int posicao);
+    Lote getLote(int posicao);
     void alterarSalario(int funcionario, double salario, Data data);
     bool getTamDepartamentos();
     bool getTamCargos();

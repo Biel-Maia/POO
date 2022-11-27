@@ -22,5 +22,6 @@ class Lote
     Data getDataproducao();
     Produto getProduto();
     int getQuantidade();
+    int getNumeroLote();
 };
 #endif

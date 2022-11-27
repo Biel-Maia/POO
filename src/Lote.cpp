@@ -22,3 +22,8 @@ Produto Lote::getProduto(){
 int Lote::getQuantidade(){
   return this->_quantidade;
 }
+
+int Lote::getNumeroLote()
+{
+  return this->_numerolote;
+}

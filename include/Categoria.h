@@ -10,6 +10,7 @@ class Categoria
 
   public:
     Categoria(std::string nome);
+    std::string getNome();
 };
 
 #endif

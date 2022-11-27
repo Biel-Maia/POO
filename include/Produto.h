@@ -30,8 +30,7 @@ class Produto
       double preco,
       Categoria categoria,
       int lote_min,
-      int estoque_min,
-      std::map<double, Data> precos
+      int estoque_min
     );  
     int get_codigo();
     void setPreco(double preco);

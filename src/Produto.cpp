@@ -12,15 +12,13 @@ Produto::Produto(
   double preco,
   Categoria categoria,
   int lote_min,
-  int estoque_min,
-  std::map<double, Data> precos): 
+  int estoque_min): 
     _nome(nome),
     _codigo(codigo),
     _preco(preco),
     _categoria(categoria),
     _lote_min(lote_min),
-    _estoque_min(estoque_min),
-    _precos(precos){}
+    _estoque_min(estoque_min){}
 
 int Produto::get_codigo()
 {

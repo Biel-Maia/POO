@@ -10,6 +10,8 @@
 #include "../include/Veiculo.h"
 #include "../include/MateriaPrima.h"
 #include "../include/Fornecedor.h"
+#include "../include/Produto.h"
+#include "../include/Lote.h"
 
 #include <vector>
 #include <string>
@@ -19,7 +21,6 @@ Empresa *Empresa::ptr = 0;
 
 Empresa::Empresa()
 {
-  std::cout << "Singleton Carregado." << std::endl;
 }
 
 void Empresa::addUsuario(Usuario usuario)
@@ -66,6 +67,14 @@ void Empresa::addFornecedor(Fornecedor fornecedor){
 
 void Empresa::addRota(Rota rota){
   _rotas.push_back(rota);
+}
+
+void Empresa::addProduto(Produto produto){
+  _produtos.push_back(produto);
+}
+
+void Empresa::addLote(Lote lote){
+  _lotes.push_back(lote);
 }
 
 int Empresa::verificaLogin(std::string user, std::string senha)
@@ -168,6 +177,44 @@ void Empresa::getVeiculos()
   }
 }
 
+void Empresa::getProdutos()
+{
+  int tamanho = this->_produtos.size();
+  int num=0;
+  for(int x=0;x<tamanho;x++)
+  {
+    num++;
+    cout<<num;
+    cout<<"- ";
+    cout<<_produtos[x].getNome()<<endl;
+  }
+}
+
+void Empresa::getCategorias()
+{
+  int tamanho = this->_categorias.size();
+  int num=0;
+  for(int x=0;x<tamanho;x++)
+  {
+    num++;
+    cout<<num;
+    cout<<"- ";
+    cout<<_categorias[x].getNome()<<endl;
+  }
+}
+
+void Empresa::getLotes()
+{
+  int tamanho = this->_lotes.size();
+  int num=0;
+  for(int x=0;x<tamanho;x++)
+  {
+    num++;
+    cout<<num;
+    cout<<"- ";
+    cout<<_lotes[x].getNumeroLote()<<endl;
+  }
+}
 
 
 Departamento Empresa::getDepartamento(int posicao)
@@ -198,6 +245,20 @@ Fornecedor Empresa::getFornecedor(int posicao)
 Funcionario Empresa::getFuncionario(int posicao)
 {
   return this->_funcionarios[posicao];
+}
+
+Produto Empresa::getProduto(int posicao)
+{
+  return this->_produtos[posicao];
+}
+
+Categoria Empresa::getCategoria(int posicao)
+{
+  return this->_categorias[posicao];
+}
+
+Lote Empresa::getLote(int posicao){
+  return this->_lotes[posicao];
 }
 
 void Empresa::alterarSalario(int funcionario, double salario, Data data)
