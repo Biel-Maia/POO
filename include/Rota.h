@@ -36,6 +36,7 @@ class Rota
     void calculaTempoPercurso();
     void listaSequenciaEmbarqueFuncionarios();
     void setFuncionarios(Funcionario funcionario);
+    //void mapa();
 };
 
 #endif

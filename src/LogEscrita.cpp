@@ -1,44 +1,41 @@
 #include "../include/LogEscrita.h"
+#include "../include/Log.h"
 #include "../include/Data.h"
-
+#include "../include/Usuario.h"
 #include <string>
 
-
 LogEscrita::LogEscrita(
-  std::string _user, 
-  Data* data, 
-  std::string entidade,
-  std::string atributo, 
-  std::string atributo_anterior, 
-  std::string atributo_alterado):
-    Log(_user, data)
-{
-    this->entidade_alterada = entidade;
-    this->nome_atributo = atributo;
-    this->atributo_antigo = atributo_anterior;
-    this->atributo_novo = atributo_alterado;
+  Usuario usuario,
+  Data data,
+  std::string classeAlterada,
+  std::string metodo,
+  std::string nomeAtributoAlterado,
+  std::string valorAtributoAlteradoAntes,
+  std::string valorAtributoAlteradoDepois):
+  Log(usuario,data),
+  _classeAlterada(classeAlterada),
+  _metodo(metodo),
+  _nomeAtributoAlterado(nomeAtributoAlterado),
+  _valorAtributoAlteradoAntes(valorAtributoAlteradoAntes),
+  _valorAtributoAlteradoDepois(valorAtributoAlteradoDepois){}
+
+std::string LogEscrita::getClasse(){
+  return this->_classeAlterada;
 }
 
-std::string LogEscrita::getUser()
-{
-  return this->user_usuario;
+std::string LogEscrita::getMetodo(){
+  return this->_metodo;
 }
 
-bool LogEscrita::salvarLog()
-{
-  ofstream arquivo;
-  arquivo.open("../log_escrita.txt", ios::app);
-
-  arquivo << getUser() << ",";
-  arquivo << this->data->getDia() <<"/"<< this->data->getMes() <<"/"<< this->data->getAno() <<" ";
-  arquivo << data->getHora()<<":"<<data->getMin()<<":"<<data->getSeg()<<",";
-  arquivo << this->entidade_alterada <<",";
-  arquivo << this->nome_atributo << ":" << this->atributo_antigo << ";";
-  arquivo << this->nome_atributo << ":" << this->atributo_novo << endl;
-
-  arquivo.close();
-
-  return true;
+std::string LogEscrita::getNomeAtributoAlterado(){
+  return this->_nomeAtributoAlterado;
 }
 
-LogEscrita::~LogEscrita(){}
+std::string LogEscrita::getValorAtributoAlteradoAntes(){
+  return this->_valorAtributoAlteradoAntes;
+}
+
+std::string LogEscrita::getValorAtributoAlteradoDepois(){
+  return this->_valorAtributoAlteradoDepois;
+}
+

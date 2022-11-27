@@ -18,6 +18,9 @@
 #include "../include/Orcamento.h"
 #include "../include/Pagamento.h"
 #include "../include/Venda.h"
+#include "../include/LogAcessoNegado.h"
+#include "../include/LogLeitura.h"
+#include "../include/LogEscrita.h"
 
 
 #include <vector>
@@ -45,6 +48,9 @@ class Empresa
     std::vector<Orcamento> _orcamentos;
     std::vector<Pagamento> _formaspagamento;
     std::vector<Venda> _vendas;
+    std::vector<LogAcessoNegado> _logsAcessoNegado;
+    std::vector<LogEscrita> _logsEscrita;
+    std::vector<LogLeitura> _logsLeitura;
   
   public:
     static Empresa *Instance(void)
@@ -71,6 +77,9 @@ class Empresa
     void addOrcamento(Orcamento orcamento);
     void addFormasPagamento(Pagamento pagamento);
     void addVenda(Venda venda);
+    void addLogAcessoNegado(LogAcessoNegado logAcessoNegado);
+    void addLogEscrita(LogEscrita logEscrita);
+    void addLogLeitura(LogLeitura logLeitura);
     int verificaLogin(std::string user, std::string senha);
     void getDepartamentos();
     void getCargos();
@@ -82,6 +91,9 @@ class Empresa
     void getCategorias();
     void getLotes();
     void getClientes();
+    void getLogsAcessoNegado();
+    void getLogsEscrita();
+    void getLogsLeitura();
     void getFormasPagamento();
     void getOrcamentos(Cliente cliente);
     Departamento getDepartamento(int posicao);

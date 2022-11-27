@@ -1,38 +1,21 @@
 #include "../include/LogAcessoNegado.h"
+#include "../include/Log.h"
 #include "../include/Data.h"
+#include "../include/Usuario.h"
 #include <string>
 
-
 LogAcessoNegado::LogAcessoNegado(
-  std::string _user, 
-  Data* data, 
-  std::string entidade, 
-  std::string funcionalidade):
-    Log(_user, data)
-{
-    this->entidade_acessada = entidade;
-    this->funcionalidade_acessada = funcionalidade;
+  Usuario usuario,
+  Data data,
+  std::string classe,
+  std::string metodo
+  ):Log(usuario,data),
+  _classe(classe),
+  _metodo(metodo){}
+
+std::string LogAcessoNegado::getClasse(){
+  return this->_classe;
 }
-
-std::string LogAcessoNegado::getUser()
-{
-  return this->user_usuario;
+std::string LogAcessoNegado::getMetodo(){
+  return this->_metodo;
 }
-
-bool LogAcessoNegado::salvarLog()
-{
-  ofstream arquivo;
-  arquivo.open("../log_acesso_negado.txt", ios::app);
-
-  arquivo << getUser() << ",";
-  arquivo << this->data->getDia() <<"/"<< this->data->getMes() <<"/"<< this->data->getAno() <<" ";
-  arquivo << data->getHora()<<":"<<data->getMin()<<":"<<data->getSeg()<<",";
-  arquivo << this->entidade_acessada <<",";
-  arquivo << this->funcionalidade_acessada << endl;
-
-  arquivo.close();
-
-  return true;
-}
-
-LogAcessoNegado::~LogAcessoNegado(){}

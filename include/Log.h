@@ -2,6 +2,7 @@
 #define LOG_H
 
 #include "../include/Data.h"
+#include "../include/Usuario.h"
 
 #include <string>
 #include <fstream>
@@ -10,15 +11,13 @@ using namespace std;
 class Log
 {
   protected:
-    std::string user_usuario;
-    Data *data;
+    Usuario _usuario;
+    Data _data;
     
   public:
-    Log(std::string, Data*);
-    virtual ~Log();
-    virtual bool salvarLog() = 0;  // true se log foi salvo, false se houve erro.
-    int getMatricula();
-    std::string getUser();
+    Log(Usuario usuario, Data data);
+    Usuario getUsuario();
+    Data    getData();
 };
 
 #endif

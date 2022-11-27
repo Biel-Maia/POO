@@ -96,6 +96,19 @@ void Empresa::addVenda(Venda venda){
   _vendas.push_back(venda);
 }
 
+void Empresa::addLogAcessoNegado(LogAcessoNegado logAcessoNegado){
+  _logsAcessoNegado.push_back(logAcessoNegado);
+}
+
+void Empresa::addLogEscrita(LogEscrita logEscrita){
+  _logsEscrita.push_back(logEscrita);
+}
+
+void Empresa::addLogLeitura(LogLeitura logLeitura){
+  _logsLeitura.push_back(logLeitura);
+}
+
+
 int Empresa::verificaLogin(std::string user, std::string senha)
 {
   int tamanho;
@@ -279,6 +292,52 @@ void Empresa::getOrcamentos(Cliente cliente)
   }
   }
   }
+
+void Empresa::getLogsAcessoNegado()
+{
+  int tamanho = this->_logsAcessoNegado.size();
+  for(int x=0;x<tamanho;x++)
+  {
+    cout<<"Usuário: "<<_logsAcessoNegado[x].getUsuario().getUser();
+    cout<<" Data do acesso: "<<_logsAcessoNegado[x].getData().getDia()<<"/";
+    cout<<_logsAcessoNegado[x].getData().getMes()<<"/";
+    cout<<_logsAcessoNegado[x].getData().getAno();
+    cout<<" Classe acessada: "<<_logsAcessoNegado[x].getClasse();
+    cout<<" Metodo acessado: "<<_logsAcessoNegado[x].getMetodo()<<endl;
+  }
+}
+
+void Empresa::getLogsEscrita()
+{
+  int tamanho = this->_logsEscrita.size();
+  for(int x=0;x<tamanho;x++)
+  {
+    cout<<"Usuário: "<<_logsEscrita[x].getUsuario().getUser();
+    cout<<" Data do acesso: "<<_logsEscrita[x].getData().getDia()<<"/";
+    cout<<_logsEscrita[x].getData().getMes()<<"/";
+    cout<<_logsEscrita[x].getData().getAno();
+    cout<<" Classe acessada: "<<_logsEscrita[x].getClasse();
+    cout<<" Metodo acessado: "<<_logsEscrita[x].getMetodo();
+    cout<<" Atributo alterado: "<<_logsEscrita[x].getNomeAtributoAlterado();
+    cout<<" Valor antes: "<<_logsEscrita[x].getValorAtributoAlteradoAntes();
+    cout<<" Valor depois: "<<_logsEscrita[x].getValorAtributoAlteradoDepois()<<endl;
+  }
+}
+
+void Empresa::getLogsLeitura()
+{
+  int tamanho = this->_logsLeitura.size();
+  for(int x=0;x<tamanho;x++)
+  {
+    cout<<"Usuário: "<<_logsLeitura[x].getUsuario().getUser();
+    cout<<" Data do acesso: "<<_logsLeitura[x].getData().getDia()<<"/";
+    cout<<_logsLeitura[x].getData().getMes()<<"/";
+    cout<<_logsLeitura[x].getData().getAno();
+    cout<<" Classe acessada: "<<_logsLeitura[x].getClasse();
+    cout<<" Metodo acessado: "<<_logsLeitura[x].getMetodo();
+    cout<<" Atributo acessado: "_logsLeitura[x].getAtributoAcessado()<<endl;
+  }
+}
 
 Departamento Empresa::getDepartamento(int posicao)
 {

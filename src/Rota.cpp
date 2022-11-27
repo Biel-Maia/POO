@@ -87,8 +87,8 @@ void Rota::setFuncionarios(Funcionario funcionario){
   this->_funcionarios.push_back(funcionario);
 }
 
-/*
 
+/*
 void Rota::mapa(){
   int i=0;
   int tam=_funcionarios.size();
@@ -111,5 +111,6 @@ void Rota::mapa(){
   maps= maps + to_string(this->_xempresa)+",+"+to_string(this->_yempresa); // Endereço da Empresa
 
   cout <<"Copie e cole a seguinte URL no seu navegador de preferência para ver uma sugestão de rota:     "<<endl << maps; 
-
-}*/
+  
+}
+*/

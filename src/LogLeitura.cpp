@@ -1,39 +1,27 @@
 #include "../include/LogLeitura.h"
+#include "../include/Log.h"
 #include "../include/Data.h"
+#include "../include/Usuario.h"
 #include <string>
 
-
-
 LogLeitura::LogLeitura(
-  std::string _user, 
-  Data* data, 
-  std::string entidade, 
-  std::string atributo):
-    Log(_user, data)
-{
-    this->entidade_acessada = entidade;
-    this->informacao_acessada = atributo;
+  Usuario usuario,
+  Data data,
+  std::string classeAcessada,
+  std::string metodoAcessado,
+  std::string nomeAtributoAcessado):
+  Log(usuario,data),
+  _classeAcessada(classeAcessada),
+  _metodoAcessado(metodoAcessado),
+  _nomeAtributoAcessado(nomeAtributoAcessado){}
+
+std::string LogLeitura::getClasse(){
+  return this->_classeAcessada;
+}
+std::string LogLeitura::getMetodo(){
+  return this->_metodoAcessado;
 }
 
-std::string LogLeitura::getUser()
-{
-  return this->user_usuario;
+std::string LogLeitura::getAtributoAcessado(){
+  return this->_nomeAtributoAcessado;
 }
-
-bool LogLeitura::salvarLog()
-{
-  ofstream arquivo;
-  arquivo.open("../log_leitura.txt", ios::app);
-
-  arquivo << getUser() << ",";
-  arquivo << this->data->getDia() <<"/"<< this->data->getMes() <<"/"<< this->data->getAno() <<" ";
-  arquivo << data->getHora()<<":"<<data->getMin()<<":"<<data->getSeg()<<",";
-  arquivo << this->entidade_acessada <<",";
-  arquivo << this->informacao_acessada << endl;
-
-  arquivo.close();
-
-  return true;
-}
-
-LogLeitura::~LogLeitura(){}

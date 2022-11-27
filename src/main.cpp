@@ -20,8 +20,8 @@
 #include "../include/Pagamento.h"
 
 
-#include <algorithm>
 
+#include <algorithm>
 #include <iostream>
 #include <vector>
 #include <string>
@@ -41,63 +41,6 @@ Usuario usermain("Main","admin","admin");
 Pagamento pagamento1("Cartão");
 Pagamento pagamento2("Boleto");
 
-
-void realizarOperacaoEscolhida(
-  Usuario *usuario, 
-  Data *data, 
-  string tipo_operacao,
-  string classe, 
-  string metodo, 
-  string atributo = "")
-{ /*
-  try 
-  {
-    if(usuario->getPermissao(classe, metodo) == false)
-      throw ExcecaoAcessoNegado(); // lança exceção se usuário tenta acessar método sem permissão
-    else
-    {
-      *data = *data->getData(); // atualiza hora
-      // Esse código acima tá dando erro
-      if(tipo_operacao == "acessar")  // Realiza operação necessária e salva o log
-      {
-        LogLeitura log_leitura(usuario->getUser(), data, classe, atributo);
-        //bool salvou = log_leitura.salvarLog();
-        log_leitura.salvarLog();
-        log_leitura.~LogLeitura();
-      }
-      
-      else
-      { // alterar
-                    // Realiza operação necessária e salva o log
-                    // ...
-                    // TODO: Definir maneira de invocar o método correto que fará a atualização do atributo
-
-        LogEscrita log_escrita(usuario->getUser(), data, classe, atributo, "Mariana", "Marianna");
-        //bool salvou = log_escrita.salvarLog
-        log_leitura.salvarLog();
-        log_escrita.~LogEscrita();
-      }
-    }
-      
-  } 
-  
-  catch (ExcecaoAcessoNegado& e) 
-  {
-    // Exemplo:
-    // Se usuário quer alterar nome de cliente, e não é permitido,
-    // Ou seja: permissoes_de_acesso[Cliente][setNome] = false;
-    // i.e, usuario.getPermissao("Cliente", "setNome") retorna false
-    // Então, a exceção será lançada e o log de acesso negado será chamado
-    cout<<endl<<"Usuário não pode acessar essa funcionalidade"<<endl;
-    LogAcessoNegado log_acesso_negado(usuario->getUser(), data, classe, metodo);
-    //bool salvou = log_acesso_negado.salvarLog();
-    //if(salvou != true)
-      //cout << "Erro ao salvar o arquivo" << endl; // mensagem genérica e arbitrária
-    log_leitura.salvarLog();
-    log_acesso_negado.~LogAcessoNegado();
-  }
-*/
-}
 
 bool validaCPF(std::string cpf)
 {
@@ -172,6 +115,18 @@ bool validaCNPJ(std::string vrCNPJ)
             return true;
         }
     }
+}
+
+void mostrarLogs(){
+  cout<<"LOGS DE ACESSO NEGADO:";
+  empresa->getLogsAcessoNegado();
+  coout<<endl;
+  cout<<"LOGS DE ESCRITA:";
+  empresa->getgetLogsEscrita();
+  coout<<endl;
+  cout<<"LOGS DE LEITURA:";
+  empresa->getgetLogsLeitura();
+  coout<<endl;
 }
 
 void cadastraFormaPagamento(){
@@ -433,14 +388,39 @@ void menuMateriaPrima()
 
     if(numx==1)
     {
-      cadastrarMateriaPrima();
-      //break;
+      if(usermain.getPermissao("Materia Prima","Cadastrar Materia Prima")==false){
+      system("clear");
+      cout<<"O usuário logado não tem permissão para cadastrar materia prima.";
+      Data data;
+      data.dateNow();
+      LogAcessoNegado logacessonegado(usermain,data,"Materia Prima","Cadastrar Materia Prima");
+      empresa->addLogAcessoNegado(logacessonegado);
+      a=1;
+      break;
+      }
+      else{
+        cadastrarMateriaPrima();
+        //break;
+      }
+      
     }
       
     else if(numx==2)
     {
-      alterarQtdMateriaMin();
-      //break;
+      if(usermain.getPermissao("Materia Prima","Alterar quantidade de materia prima.")==false){
+      system("clear");
+      cout<<"O usuário logado não tem permissão para alterar quantidade de materia prima.";
+      Data data;
+      data.dateNow();
+      LogAcessoNegado logacessonegado(usermain,data,"Materia Prima","Alterar quantidade de materia prima");
+      empresa->addLogAcessoNegado(logacessonegado);
+      a=1;
+      break;
+      }
+      else{
+        alterarQtdMateriaMin();
+        //break;
+      }
     }
 
     else if(numx==3)
@@ -813,20 +793,56 @@ void menuProduto(){
 
     if(numx==1)
     {
+      if(usermain.getPermissao("Produto","Cadastrar Produto")==true){
+      system("clear");
+      cout<<"O usuário logado não tem permissão para cadastrar produtos";
+      Data data;
+      data.dateNow();
+      LogAcessoNegado logacessonegado(usermain,data,"Produto","Cadastrar Produto");
+      empresa->addLogAcessoNegado(logacessonegado);
+      a=1;
+      break;
+      }
+      else{
       cadastrarProduto();
       a=1;
+      }
     }
       
     if(numx==2)
     {
+      if(usermain.getPermissao("Produto","Adicionar PrecoProduto")==false){
+      system("clear");
+      cout<<"O usuário logado não tem permissão para adicionar um novo preço ao produto";
+      Data data;
+      data.dateNow();
+      LogAcessoNegado logacessonegado(usermain,data,"Produto","Adicionar PrecoProduto");
+      empresa->addLogAcessoNegado(logacessonegado);
+      a=1;
+      break;
+      }
+      else{
       adicionarPrecoProduto();
       a=1;
+      }
     }
 
     if(numx==3)
     {
+      if(usermain.getPermissao("Produto","Adicionar Materia Prima Produto")==false){
+      system("clear");
+      cout<<"O usuário logado não tem permissão para adicionar uma nova matéria prima ao produto";
+      Data data;
+      data.dateNow();
+      LogAcessoNegado logacessonegado(usermain,data,"Produto","Adicionar Materia Prima Produto");
+      empresa->addLogAcessoNegado(logacessonegado);
+      a=1;
+      break;
+      }
+      else{
       adicionarMateriaPrimaProd();
       a=1;
+      }
     }
 
     if(numx==4)
@@ -918,24 +934,61 @@ void menuFornecedor()
 
     if(numx==1)
     {
+      if(usermain.getPermissao("Fornecedor","Cadastrar Fornecedor")==false){
+      system("clear");
+      cout<<"O usuário logado não tem permissão para cadastrar fornecedor.";
+      Data data;
+      data.dateNow();
+      LogAcessoNegado logacessonegado(usermain,data,"Fornecedor","Cadastrar Fornecedor");
+      empresa->addLogAcessoNegado(logacessonegado);
+      a=1;
+      break;
+    }
+    else{
       cadastrarFornecedor();
       a=1;
       break;
     }
-      
-    if(numx==2)
+  } 
+  
+  if(numx==2)
     {
+      if(usermain.getPermissao("Fornecedor","Adicionar materia prima fornecedor")==false){
+      system("clear");
+      cout<<"O usuário logado não tem permissão para adicionar materia prima fornecedor.";
+      Data data;
+      data.dateNow();
+      LogAcessoNegado logacessonegado(usermain,data,"Fornecedor","Adicionar materia prima fornecedor");
+      empresa->addLogAcessoNegado(logacessonegado);
+      a=1;
+      break;
+    }
+    else{
       adicionarMateriaPrimaFornecedor();
       a=1;
       break;
-    }
+    }   
+ }
 
     if(numx==3)
     {
-      alterarPrecoMateriaPrimaFornecedor();
+      if(usermain.getPermissao("Fornecedor","Alterar Preco Materia Prima Fornecedor")==false){
+      system("clear");
+      cout<<"O usuário logado não tem permissão para Alterar Preco Materia Prima Fornecedor.";
+      Data data;
+      data.dateNow();
+      LogAcessoNegado logacessonegado(usermain,data,"Fornecedor","Alterar Preco Materia Prima Fornecedor");
+      empresa->addLogAcessoNegado(logacessonegado);
       a=1;
       break;
     }
+    else{
+      alterarPrecoMateriaPrimaFornecedor();
+      a=1;
+      break;
+    }   
+     
+  }
 
     if(numx==4)
     {
@@ -1180,6 +1233,7 @@ void aplicarDissidio()
 
 void demitirFuncionario()
 {
+  
   empresa->getFuncionarios();
 
   int funcionario;
@@ -1451,44 +1505,117 @@ void menuFuncionario()
 
     if(numx==1)
     {
+      if(usermain.getPermissao("Funcionario","Cadastrar Funcionario")==false){
+      system("clear");
+      cout<<"O usuário logado não tem permissão para cadastrar funcionário";
+      Data data;
+      data.dateNow();
+      LogAcessoNegado logacessonegado(usermain,data,"Funcionario","Cadastrar Funcionario");
+      empresa->addLogAcessoNegado(logacessonegado);
+      a=1;
+      break;
+      }    
+      else{
       cadastrarFuncionario();
       a=1;
       break;
+      }
     }
       
     if(numx==2)
     {
+      if(usermain.getPermissao("Funcionario","Demitir Funcionario")==false){
+      system("clear");
+      cout<<"O usuário logado não tem permissão para demitir funcionário";
+      Data data;
+      data.dateNow();
+      LogAcessoNegado logacessonegado(usermain,data,"Funcionario","Demitir Funcionario");
+      empresa->addLogAcessoNegado(logacessonegado);
+      a=1;
+      break;
+      }    
+      else{
       demitirFuncionario();
       a=1;
       break;
+      }
     }
 
     if(numx==3)
     {
-      alterarSalario();
-      a=1;
-      break;
+      if(usermain.getPermissao("Funcionario","Alterar Salario")==false){
+        system("clear");
+        cout<<"O usuário logado não tem permissão para alterar salario.";
+        Data data;
+        data.dateNow();
+        LogAcessoNegado logacessonegado(usermain,data,"Funcionario","Alterar Salario");
+        empresa->addLogAcessoNegado(logacessonegado);
+        a=1;
+        break;
+      }    
+      else{
+        alterarSalario();
+        a=1;
+        break;
+      }  
     }
 
     if(numx==4)
     {
+      if(usermain.getPermissao("Funcionario","Dissídio Funcionario")==false){
+      system("clear");
+      cout<<"O usuário logado não tem permissão para aplicar dissídio funcionário";
+      Data data;
+      data.dateNow();
+      LogAcessoNegado logacessonegado(usermain,data,"Funcionario","Dissídio Funcionario");
+      empresa->addLogAcessoNegado(logacessonegado);
+      a=1;
+      break;
+      }  
+      else{
       aplicarDissidio();
       a=1;
       break;
+      }
     }
 
     if(numx==5)
     {
+      if(usermain.getPermissao("Funcionario","Consultar histórico de salário")==false){
+      system("clear");
+      cout<<"O usuário logado não tem permissão para consultar histórico de salário";
+      Data data;
+      data.dateNow();
+      LogAcessoNegado logacessonegado(usermain,data,"Funcionario","Consultar histórico de salário");
+      empresa->addLogAcessoNegado(logacessonegado);
+      a=1;
+      break;
+      }    
+      else{
       historicoSalarios();
       a=1;
       break;
+      }
     }
     
     if(numx==6)
     {
-      empresa->getFuncionarios();
+      if(usermain.getPermissao("Funcionario","Consultar Funcionários")==false){
+      system("clear");
+      cout<<"O usuário logado não tem permissão para consultar os funcionários";
+      Data data;
+      data.dateNow();
+      LogAcessoNegado logacessonegado(usermain,data,"Funcionario","Consultar Funcionários");
+      empresa->addLogAcessoNegado(logacessonegado);
       a=1;
       break;
+      }
+      else{
+      empresa->getFuncionarios();
+      a=1;
+      break; 
+      }
+
     }
 
     if(numx==7)
@@ -1530,7 +1657,7 @@ void case_1()
     cout <<"13- Orçamento" <<endl;
     cout <<"14- Cadastrar forma de pagamento" <<endl;
     cout <<"15- Venda" <<endl;
-    
+    cout <<"16- Logs" <<endl;
     cout <<"Digite uma das opcoes:" << endl;
   
     int numx=0;
@@ -1538,9 +1665,21 @@ void case_1()
 
     if(numx==1)
     {
+      if(usermain.getPermissao("Usuario","Cadastrar Usuario")==false){
+      system("clear");
+      cout<<"O usuário logado não tem permissão para cadastrar usuarios";
+      Data data;
+      data.dateNow();
+      LogAcessoNegado logacessonegado(usermain,data,"Usuario","Cadastrar Usuario");
+      empresa->addLogAcessoNegado(logacessonegado);
+      a=1;
+      break;
+      }    
+      else{
       cadastrarUsuario();
       a=1;
       break;
+      }
     }
       
     if(numx==2)
@@ -1559,30 +1698,78 @@ void case_1()
 
     if(numx==4)
     {
-      cadastrarCliente();
+      if(usermain.getPermissao("Cliente","Cadastrar Cliente")==false){
+      system("clear");
+      cout<<"O usuário logado não tem permissão para cadastrar clientes";
+      Data data;
+      data.dateNow();
+      LogAcessoNegado logacessonegado(usermain,data,"Cliente","Cadastrar Cliente");
+      empresa->addLogAcessoNegado(logacessonegado);
       a=1;
       break;
+      }
+      else{
+      cadastrarCliente();
+      a=1;
+      break; 
+      }
     }
 
     if(numx==5)
     {
+      if(usermain.getPermissao("Cargo","Cadastrar Cargo")==false){
+      system("clear");
+      cout<<"O usuário logado não tem permissão para cadastrar cargos";
+      Data data;
+      data.dateNow();
+      LogAcessoNegado logacessonegado(usermain,data,"Cargo","Cadastrar Cargo");
+      empresa->addLogAcessoNegado(logacessonegado);
+      a=1;
+      break;
+      }
+      else{
       cadastrarCargo();
       a=1;
       break;
+      }
     }
     
     if(numx==6)
     {
+       if(usermain.getPermissao("Departamento","Cadastrar Departamento")==false){
+      system("clear");
+      cout<<"O usuário logado não tem permissão para cadastrar departamentos";
+      Data data;
+      data.dateNow();
+      LogAcessoNegado logacessonegado(usermain,data,"Departamento","Cadastrar Departamento");
+      empresa->addLogAcessoNegado(logacessonegado);
+      a=1;
+      break;
+      }
+      else{
       cadastrarDepartamento();
       a=1;
       break;
+      }
     }
       
     if(numx==7)
     {
+      if(usermain.getPermissao("Categoria","Cadastrar Categoria")==false){
+      system("clear");
+      cout<<"O usuário logado não tem permissão para cadastrar categorias";
+      Data data;
+      data.dateNow();
+      LogAcessoNegado logacessonegado(usermain,data,"Categoria","Cadastrar Categoria");
+      empresa->addLogAcessoNegado(logacessonegado);
+      a=1;
+      break;
+      }
+      else{
       cadastrarCategoria();
       a=1;
       break;
+      }
     }
     
     if(numx==8)
@@ -1601,45 +1788,135 @@ void case_1()
 
     if(numx==10)
     {
+      if(usermain.getPermissao("Lote","Cadastrar Lote")==false){
+      system("clear");
+      cout<<"O usuário logado não tem permissão para cadastrar lotes";
+      Data data;
+      data.dateNow();
+      LogAcessoNegado logacessonegado(usermain,data,"Lote","Cadastrar Lote");
+      empresa->addLogAcessoNegado(logacessonegado);
+      a=1;
+      break;
+      }
+      else{
       cadastrarLote();
       a=1;
       break;
+      }
     }
     
     if(numx==11)
     {
+      if(usermain.getPermissao("Veiculo","Cadastrar Veiculo")==false){
+      system("clear");
+      cout<<"O usuário logado não tem permissão para cadastrar veiculos";
+      Data data;
+      data.dateNow();
+      LogAcessoNegado logacessonegado(usermain,data,"Veiculo","Cadastrar Veiculo");
+      empresa->addLogAcessoNegado(logacessonegado);
+      a=1;
+      break;
+      }
+      else{
       cadastrarVeiculo();
       a=1;
       break;
+      }
     }
       if(numx==12)
     {
+      if(usermain.getPermissao("Rota","Cadastrar Rota")==false){
+      system("clear");
+      cout<<"O usuário logado não tem permissão para cadastrar rotas";
+      Data data;
+      data.dateNow();
+      LogAcessoNegado logacessonegado(usermain,data,"Rota","Cadastrar Rota");
+      empresa->addLogAcessoNegado(logacessonegado);
+      a=1;
+      break;
+      }
+      else{
       cadastrarRota();
       a=1;
       break;
+      }  
     }
 
       if(numx==13)
     {
+      if(usermain.getPermissao("Orcamento","Cadastrar Orcamento")==false){
+      system("clear");
+      cout<<"O usuário logado não tem permissão para cadastrar orcamentos";
+      Data data;
+      data.dateNow();
+      LogAcessoNegado logacessonegado(usermain,data,"Orcamento","Cadastrar Orcamento");
+      empresa->addLogAcessoNegado(logacessonegado);
+      a=1;
+      break;
+      }
+      else{
       cadastraOrcamento();
       a=1;
       break;
+      }
     }
 
      if(numx==14)
     {
+      if(usermain.getPermissao("Pagamento","Cadastrar Forma Pagamento")==false){
+      system("clear");
+      cout<<"O usuário logado não tem permissão para cadastrar formas de pagamento";
+      Data data;
+      data.dateNow();
+      LogAcessoNegado logacessonegado(usermain,data,"Pagamento","Cadastrar Forma Pagamento");
+      empresa->addLogAcessoNegado(logacessonegado);
+      a=1;
+      break;
+      }
+      else{
       cadastraFormaPagamento();
       a=1;
       break;
+      }
     }
 
     if(numx==15)
     {
+      if(usermain.getPermissao("Venda","Realizar Venda")==false){
+      system("clear");
+      cout<<"O usuário logado não tem permissão para realizar uma venda";
+      Data data;
+      data.dateNow();
+      LogAcessoNegado logacessonegado(usermain,data,"Venda","Realizar Venda");
+      empresa->addLogAcessoNegado(logacessonegado);
+      a=1;
+      break;
+      }
+      else{
       realizarVenda();
       a=1;
       break;
+      }
     }
 
+    if(numx==16)
+    {
+      if(usermain.getPermissao("Log","Mostrar Logs")==false){
+      system("clear");
+      cout<<"O usuário logado não tem permissão para consultar os logs do sistema";
+      Data data;
+      data.dateNow();
+      LogAcessoNegado logacessonegado(usermain,data,"Log","Mostrar Logs");
+      empresa->addLogAcessoNegado(logacessonegado);
+      a=1;
+      break;
+      }
+      else{
+      mostrarLogs();
+      a=1;
+      break;
+      }
+    }  
     else
       cout << "Digite um valor valido!" << endl;
   }
@@ -1649,9 +1926,36 @@ void case_1()
 
 int main()
 {
+  
   empresa->addUsuario(usermain);
   empresa->addFormasPagamento(pagamento1);
   empresa->addFormasPagamento(pagamento2);
+  usermain.setPermissao("Funcionario","Demitir Funcionario",false);
+  usermain.setPermissao("Funcionario","Dissídio Funcionario",true);
+  usermain.setPermissao("Funcionario","Consultar histórico de salário",true);
+  usermain.setPermissao("Funcionario","Cadastrar Funcionario",true);
+  usermain.setPermissao("Funcionario","Alterar Salario",true);
+  usermain.setPermissao("Funcionario","Consultar Funcionários",true);
+  usermain.setPermissao("Cliente","Cadastrar Cliente",true);
+  usermain.setPermissao("Usuario","Cadastrar Usuario",true);
+  usermain.setPermissao("Cargo","Cadastrar Cargo",true);
+  usermain.setPermissao("Departamento","Cadastrar Departamento",true);
+  usermain.setPermissao("Categoria","Cadastrar Categoria",true);
+  usermain.setPermissao("Lote","Cadastrar Lote",true);
+  usermain.setPermissao("Veiculo","Cadastrar Veiculo",true);
+  usermain.setPermissao("Rota","Cadastrar Rota",true);
+  usermain.setPermissao("Orcamento","Cadastrar Orcamento",true);
+  usermain.setPermissao("Fornecedor","Alterar Preco Materia Prima Fornecedor",true);
+  usermain.setPermissao("Fornecedor","Cadastrar Fornecedor",true);
+  usermain.setPermissao("Fornecedor","Alterar Preco Materia Prima Fornecedor",true);
+  usermain.setPermissao("Pagamento","Cadastrar Forma Pagamento",true);
+  usermain.setPermissao("Venda","Realizar Venda",true);
+  usermain.setPermissao("Produto","Cadastrar Produto",true);
+  usermain.setPermissao("Produto","Adicionar PrecoProduto",true);
+  usermain.setPermissao("Produto","Adicionar Materia Prima Produto",true);
+  usermain.setPermissao("Materia Prima","Cadastrar Materia Prima", true);
+  usermain.setPermissao("Materia Prima","Alterar quantidade de materia prima.", true);
+  usermain.setPermissao("Log","Mostrar Logs", true);
   
   system("clear");
 

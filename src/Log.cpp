@@ -1,17 +1,17 @@
 #include "Log.h"
 #include "../include/Data.h"
+#include "../include/Usuario.h"
 #include <string>
 
 
-Log::Log(std::string _user, Data* data)
-{
-  this->user_usuario = _user;
-  this->data = data;
+Log::Log(Usuario usuario, Data data):
+  _usuario(usuario),
+  _data(data){}
+
+Usuario Log::getUsuario(){
+  return this->_usuario;
 }
 
-std::string Log::getUser()
-{
-  return this->user_usuario;
+Data Log::getData(){
+  return this->_data;
 }
-
-Log::~Log(){}

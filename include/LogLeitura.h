@@ -2,19 +2,28 @@
 #define LOGLEITURA_H
 
 #include "../include/Log.h"
+#include "../include/Data.h"
+#include "../include/Usuario.h"
 #include <string>
 
-class LogLeitura: public Log
-{
+class LogLeitura : public Log{
   private:
-    std::string entidade_acessada;
-    std::string informacao_acessada;
-    
+    std::string _classeAcessada;
+    std::string _metodoAcessado;
+    std::string _nomeAtributoAcessado;
+
   public:
-    LogLeitura(std::string, Data*, std::string, std::string);
-    ~LogLeitura();
-    bool salvarLog();  // true se log foi salvo, false se houve erro.
-    std::string getUser();
+    LogLeitura(
+     Usuario usuario,
+     Data data,
+     std::string classeAlterada,
+     std::string metodoAcessado,
+     std::string nomeAtributoAcessado
+   );
+  std::string getClasse();
+  std::string getMetodo();
+  std::string getAtributoAcessado();
 };
+
 
 #endif

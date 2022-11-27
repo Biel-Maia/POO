@@ -40,24 +40,16 @@ void Usuario::setPermissao(std::string classe, std::string metodo, bool permissa
 bool Usuario::getPermissao(std::string classe, std::string metodo)
 {
     int x=0;
-    int y=0;
     int tamClasse=_classe.size();
-    int tamMetodo=_classe.size();
 
-    bool z=0;
+    bool z=false;
   
     for(x=0;x<tamClasse;x++)
     {
-     for(y=0;y<tamMetodo;x++)
-     {
-       if(_classe[x]==classe && _metodo[x]==metodo && x==y)
+       if(_classe[x]==classe && _metodo[x]==metodo)
        {
         z=_permissao[x]; 
        }
-       else{
-       z=false;;
-       }
-     } 
     }
   return z;
 }
