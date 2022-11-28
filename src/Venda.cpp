@@ -17,14 +17,17 @@ Venda::Venda(
     _formapagamento(formapagamento),
     _parcelas(parcelas){}
 
-  void Venda::setCliente(Cliente cliente){
+void Venda::setCliente(Cliente cliente)
+{
   _cliente=cliente; 
-  }
+}
 
-double Venda::getValorParcelas(){
+double Venda::getValorParcelas()
+{
   return this->_valorparcelas;
 }
 
-void Venda::setValorParcelas(double valorParcelas){
+void Venda::setValorParcelas(double valorParcelas)
+{
   _valorparcelas = valorParcelas;
 }

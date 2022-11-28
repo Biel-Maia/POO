@@ -45,3 +45,15 @@ void Produto::setQuantidade(int quantidade){
 double Produto::getPreco(){
   return this->_preco;
 }
+
+int Produto::getTamVetor(){
+  return this->_materiaprima.size();
+}
+
+int Produto::getQuantidadeQueGasta(int posicao){
+  return this->_quantidade[posicao];
+}
+
+MateriaPrima Produto::getMateriaPrima(int posicao){
+  return this->_materiaprima[posicao];
+}

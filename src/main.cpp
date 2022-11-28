@@ -18,7 +18,8 @@
 #include "../include/Produto.h"
 #include "../include/Venda.h"
 #include "../include/Pagamento.h"
-
+#include "../include/OrdemProducao.h"
+#include "../include/OrdemCompra.h"
 
 
 #include <algorithm>
@@ -37,7 +38,8 @@ using namespace std;
 
 Empresa * empresa = Empresa::Instance();
 
-Usuario usermain("Main","admin","admin");
+Usuario usermain("admin","admin","admin");
+
 Pagamento pagamento1("Cartão");
 Pagamento pagamento2("Boleto");
 
@@ -118,15 +120,16 @@ bool validaCNPJ(std::string vrCNPJ)
 }
 
 void mostrarLogs(){
+  system("clear");
   cout<<"LOGS DE ACESSO NEGADO:";
   empresa->getLogsAcessoNegado();
-  coout<<endl;
+  cout<<endl;
   cout<<"LOGS DE ESCRITA:";
-  empresa->getgetLogsEscrita();
-  coout<<endl;
+  empresa->getLogsEscrita();
+  cout<<endl;
   cout<<"LOGS DE LEITURA:";
-  empresa->getgetLogsLeitura();
-  coout<<endl;
+  empresa->getLogsLeitura();
+  cout<<endl;
 }
 
 void cadastraFormaPagamento(){
@@ -137,7 +140,11 @@ void cadastraFormaPagamento(){
   getline(cin,nomeFormaPagamento);
   Pagamento pagamento(nomeFormaPagamento);
   empresa->addFormasPagamento(pagamento);
+  system("clear");
   cout << "Forma de pagamento criada com sucesso!" << endl;
+  std::this_thread::sleep_for(2s);
+  system("clear");
+  
 }
 
 void realizarVenda(){
@@ -201,6 +208,8 @@ void realizarVenda(){
   dataVenda.setAno(anoVenda);
     
 
+  Data dataLogLeitura;
+  dataLogLeitura.dateNow();
   
   
   int escolheCliente=0;
@@ -210,30 +219,37 @@ void realizarVenda(){
   double valorParcela=0;
   
   empresa->getClientes();
+  LogLeitura logleitura(usermain,dataLogLeitura,"Venda","Realizar Venda","Vector de Clientes da classe Empresa");
+ empresa->addLogLeitura(logleitura);
   cout << "Escolha o cliente que vai realizar a compra:" << endl;
   cin>>escolheCliente;
   escolheCliente--;
   cout << "Escolha o orçamento que vai ser feita a venda:" << endl;
-  Cliente cliente=empresa->getCliente(escolheCliente);
-  empresa->getOrcamentos(cliente);
+  empresa->getOrcamentos(empresa->getCliente(escolheCliente));
+  LogLeitura logleitura2(usermain,dataLogLeitura,"Venda","Realizar Venda","Vector de orçamentos de um cliente da classe Empresa");
+ empresa->addLogLeitura(logleitura2);
   cin>>escolheOrcamento;
   escolheOrcamento--;
   cout << "Escolha a quantidade de parcelas que deseja:" << endl;
   cin>>quantidadeParcelas;
-  valorTotal=(empresa->getOrcamento(cliente,escolheOrcamento).getValorTotal());
+  valorTotal=(empresa->getOrcamento(empresa->getCliente(escolheCliente),escolheOrcamento).getValorTotal());
   valorParcela=(valorTotal/quantidadeParcelas);
 
   int escolheFormaPagamento=0;
   empresa->getFormasPagamento();
+  LogLeitura logleitura3(usermain,dataLogLeitura,"Venda","Realizar Venda","Vector de formas de pagamento da empresa");
+ empresa->addLogLeitura(logleitura3);
   cin>>escolheFormaPagamento;
   escolheFormaPagamento--;
   
   
-  Venda venda(dataVenda,cliente,empresa->getOrcamento(cliente,escolheOrcamento),valorTotal,empresa->getFormaPagamento(escolheFormaPagamento),quantidadeParcelas);
+  Venda venda(dataVenda,empresa->getCliente(escolheCliente),empresa->getOrcamento(empresa->getCliente(escolheCliente),escolheOrcamento),valorTotal,empresa->getFormaPagamento(escolheFormaPagamento),quantidadeParcelas);
   system("clear");
   cout << "Venda realizada com sucesso:" << endl;
   cout << "O valor total é: "<<valorTotal<< endl;
   cout << "O valor de cada parcela é: "<<valorParcela<< endl;
+  std::this_thread::sleep_for(2s);
+  system("clear");
 }
 
 void cadastraOrcamento(){
@@ -242,6 +258,7 @@ void cadastraOrcamento(){
     int  mesOrcamento;
     int  anoOrcamento;
 
+    
      int d=0;
   while(d==0)
   {
@@ -295,8 +312,13 @@ void cadastraOrcamento(){
   dataOrcamento.setMes(mesOrcamento);
   dataOrcamento.setAno(anoOrcamento);
 
+  Data dataLogLeitura;
+  dataLogLeitura.dateNow();
+  
   int escolheCliente=0;
   empresa->getClientes();
+  LogLeitura logleitura(usermain,dataLogLeitura,"Orcamento","Cadastrar Orcamento","Vector de clientes da classe Empresa");
+ empresa->addLogLeitura(logleitura);
   cout << "Escolha o cliente que vai fazer o orçamento:" << endl;
   cin>>escolheCliente;
   escolheCliente--;
@@ -315,7 +337,20 @@ void cadastraOrcamento(){
    escolheProduto--;
    orcamento.setProduto(empresa->getProduto(escolheProduto));
    std::cout << "Digite a quantidade do produto: " << std::endl; 
-   cin>>quantidade;
+  cin>>quantidade;
+    int qtdProdEst=0;
+    int qtdProdEstMin=0;
+    std::string nome = empresa->getProduto(escolheProduto).getNome();
+    qtdProdEst=empresa->getEstoqueProd(nome).getEstoque();
+    qtdProdEstMin=empresa->getEstoqueProd(nome).getEstoqueMin();
+    
+    if((qtdProdEst-quantidade)<qtdProdEstMin){
+      OrdemProducao ordem_producao(dataOrcamento,empresa->getProduto(escolheProduto));
+      empresa->addOrdemProducao(ordem_producao);
+      cout<<"Ordem de produção criada, não temos essa quantidade do produto no estoque."<<endl;
+    }
+  
+    
    orcamento.setQuantidade(quantidade);
    valorTotal+=(empresa->getProduto(escolheProduto).getPreco())*(quantidade);
   std::cout << "Digite 0 para cancelar a operação ou 1 para escolher mais funcionários: " << std::endl; 
@@ -327,24 +362,43 @@ void cadastraOrcamento(){
     x=1;  
     }
   }
+  LogLeitura logleitura2(usermain,dataLogLeitura,"Orcamento","Cadastrar Orcamento","Vector de produtos da empresa");
+ empresa->addLogLeitura(logleitura2);
   orcamento.setValorTotal(valorTotal);
   system("clear");
   cout << "Orçamento realizado com sucesso!" << endl;
   cout << "O valor total ficou:" << valorTotal<<endl;
+  std::this_thread::sleep_for(2s);
+  system("clear");
 }
 
 void alterarQtdMateriaMin(){
   int escolheMateriaPrima;
   int quantidadeMin;
+  Data dataLogLeitura;
+  dataLogLeitura.dateNow();
   cout << "Escolha a matéria prima que deseja adicionar ao fornecedor:" << endl;
   empresa->getMateriasPrimas();
+  LogLeitura logleitura(usermain,dataLogLeitura,"Materia Prima","Alterar quantidade minima de matéria prima","Vector de matérias primas da empresa");
+ empresa->addLogLeitura(logleitura);
   cin>>escolheMateriaPrima;
   escolheMateriaPrima--;
   cout << "Digite a quantidade min da materia prima" << endl;
   cin>>quantidadeMin;
   empresa->getMateriaPrima(escolheMateriaPrima).setQtdMateriaMin(quantidadeMin);
   system("clear");
+
+  Data dataLogEscrita;
+  string a;
+  string b;
+  b=std::to_string(quantidadeMin);
+  dataLogEscrita.dateNow();
+  LogEscrita logescrita(usermain,dataLogEscrita,"Funcionario","Alterar Salario","Vector de salarios",a,b);
+ empresa->addLogEscrita(logescrita);
+  system("clear");
   cout << "Quantidade alterada com sucesso!" << endl;
+  std::this_thread::sleep_for(2s);
+  system("clear");
 }
 
 void cadastrarMateriaPrima(){
@@ -454,6 +508,8 @@ void cadastrarUsuario()
   empresa->addUsuario(cadUser);
   system("clear");
   cout << "Usuário cadastrado com sucesso!" << endl; 
+  std::this_thread::sleep_for(2s);
+  system("clear");
 }
 
 void cadastrarCategoria()
@@ -467,6 +523,8 @@ void cadastrarCategoria()
   empresa->addCategoria(categoria);
   system("clear");
   cout << "Categoria cadastrada com sucesso!" << endl; 
+  std::this_thread::sleep_for(2s);
+  system("clear");
 }
 
 void cadastrarCargo()
@@ -480,6 +538,8 @@ void cadastrarCargo()
   empresa->addCargo(cargo);
   system("clear");
   cout << "Cargo cadastrado com sucesso!" << endl; 
+  std::this_thread::sleep_for(2s);
+  system("clear");
 }
 
 void cadastrarVeiculo(){
@@ -499,6 +559,8 @@ void cadastrarVeiculo(){
   empresa->addVeiculo(veiculo);
   system("clear");
   cout << "Veiculo cadastrado com sucesso!" << endl;
+  std::this_thread::sleep_for(2s);
+  system("clear");
 }
 
 void cadastrarRota(){
@@ -509,6 +571,12 @@ void cadastrarRota(){
   system("clear");
   std::string turno;
   empresa->getVeiculos();
+  
+  Data dataLogLeitura;
+  dataLogLeitura.dateNow();
+  LogLeitura logleitura(usermain,dataLogLeitura,"Rota","Cadastrar Rota","Vector de veiculos da empresa.");
+  empresa->addLogLeitura(logleitura);
+  
   std::cout << "Digite o veiculo que vai ser responsável pela rota: " << std::endl;
   cin>>escolheVeiculo;
   escolheVeiculo--;
@@ -548,7 +616,11 @@ void cadastrarRota(){
     x=1;  
     }
   }
+  LogLeitura logleitura2(usermain,dataLogLeitura,"Rota","Cadastrar rota","Vector de funcionarios da empresa");
+ empresa->addLogLeitura(logleitura2);
   std::cout << "Rota cadastrada com sucesso! " << std::endl;
+  std::this_thread::sleep_for(2s);
+  system("clear");
 }
 
 void cadastrarLote(){
@@ -654,6 +726,12 @@ void cadastrarLote(){
 
   int escolherProduto=0;
   empresa->getProdutos();
+
+  Data dataLogLeitura;
+  dataLogLeitura.dateNow();
+  LogLeitura logleitura(usermain,dataLogLeitura,"Lote","Cadastrar lote","Vector de lote da classe empresa.");
+  empresa->addLogLeitura(logleitura);
+  
   cout << "Escolha o produto que foi produzido no lote:" << endl;
   cin >> escolherProduto;
   escolherProduto--;
@@ -662,6 +740,27 @@ void cadastrarLote(){
   cout << "Digite a quantidade do produto que foi produzido no lote:" << endl;
   cin >> quantidade;
 
+  int tam2=0;
+  tam2=empresa->getProduto(escolherProduto).getTamVetor();
+  int z=0;
+  int quantidadequegasta=0;
+  int quantidadequetenhoestoque=0;
+  int quantidademinima=0;
+
+  for(z=0;z<tam2;z++){
+  std::string nome = empresa->getProduto(escolherProduto).getMateriaPrima(z).getNome();
+  quantidadequegasta = empresa->getProduto(escolherProduto).getQuantidadeQueGasta(z);
+  quantidadequetenhoestoque = empresa->getProduto(escolherProduto).getMateriaPrima(z).getEstoque();
+  quantidademinima= empresa->getProduto(escolherProduto).getMateriaPrima(z).getEstoqueMin();
+  if((quantidadequetenhoestoque-(quantidadequegasta*quantidade))<quantidademinima){
+  OrdemCompra ordemCompra(dataLote);
+  ordemCompra.setMateria(nome);  
+  empresa->addOrdemCompra(ordemCompra);
+  cout << "A quantidade da matéria prima" << nome <<"é menor que a quantidade mínuma, uma ordem de produção foi gerada" <<endl;
+  }
+  }
+
+  
   Lote lote(dataLote,numLote,empresa->getProduto(escolherProduto),quantidade);
   empresa->addLote(lote);
 
@@ -673,10 +772,14 @@ void cadastrarLote(){
   empresa->getEstoque(a).setQuantidade(quantidade);
   }  
   }
+
+  
   
 
   system("clear");
   cout << "Lote produzido com sucesso!" << endl;
+  std::this_thread::sleep_for(2s);
+  system("clear");
 }
 
 void adicionarMateriaPrimaProd(){
@@ -685,10 +788,21 @@ void adicionarMateriaPrimaProd(){
   int quantidade=0;
   system("clear");
   empresa->getProdutos();
+
+  Data dataLogLeitura;
+  dataLogLeitura.dateNow();
+  
+  LogLeitura logleitura(usermain,dataLogLeitura,"Produto","Adicionar matéria prima ao produto","Vector de produtos da empresa");
+  empresa->addLogLeitura(logleitura);
   cout << "Escolha o produto que deseja adicionar matéria prima:" << endl;
   cin>>escolherProduto;
   escolherProduto--;
   empresa->getMateriasPrimas();
+
+   
+  LogLeitura logleitura2(usermain,dataLogLeitura,"Produto","Adicionar matéria prima ao produto","Vector de materias primas da empresa");
+  empresa->addLogLeitura(logleitura2);
+  
   cout << "Escolha a matéria prima que deseja adicionar:" << endl;
   cin>>escolherMateriaPrima;
   escolherMateriaPrima--;
@@ -698,6 +812,8 @@ void adicionarMateriaPrimaProd(){
   empresa->getProduto(escolherProduto).setQuantidade(quantidade);
   system("clear");
   cout << "Matéria prima adicionada com sucesso!" << endl;
+  std::this_thread::sleep_for(2s);
+  system("clear");
   
 }
 
@@ -705,6 +821,12 @@ void adicionarPrecoProduto(){
   int escolherProduto=0;
   system("clear");
   empresa->getProdutos();
+  Data dataLogLeitura;
+  dataLogLeitura.dateNow();
+
+  LogLeitura logleitura(usermain,dataLogLeitura,"Produto","Adicionar preco produto","Vector de produtos da empresa");
+  empresa->addLogLeitura(logleitura);
+  
   double preco;
   cout << "Escolha o produto que deseja alterar o preço:" << endl;
   cin>>escolherProduto;
@@ -712,7 +834,9 @@ void adicionarPrecoProduto(){
   cout << "Digite o novo valor do produto:" << endl;
   cin>>preco;
   empresa->getProduto(escolherProduto).setPreco(preco);
+  system("clear");
   cout << "Preço alterado com sucesso!" << endl;
+  std::this_thread::sleep_for(2s);
   system("clear");
   
 }
@@ -739,6 +863,13 @@ void cadastrarProduto(){
   cin>>estoque_min;
   cout << "Escolha a categoria do produto:" << endl;
   empresa->getCategorias();
+
+  Data dataLogLeitura;
+  dataLogLeitura.dateNow();
+
+  LogLeitura logleitura(usermain,dataLogLeitura,"Produto","Cadastrar produto","Vector de categorias da empresa");
+  empresa->addLogLeitura(logleitura);
+  
   cin>>escolherCategoria;
   escolherCategoria--;
   
@@ -770,10 +901,13 @@ void cadastrarProduto(){
     x=1;  
     }
   }
-  
+  LogLeitura logleitura2(usermain,dataLogLeitura,"Produto","Cadastrar produto","Vector de matérias primas da empresa");
+  empresa->addLogLeitura(logleitura2);
   
   system("clear");
   cout << "Produto cadastrado com sucesso!" << endl;
+  std::this_thread::sleep_for(2s);
+  system("clear");
   
 }
 
@@ -793,7 +927,7 @@ void menuProduto(){
 
     if(numx==1)
     {
-      if(usermain.getPermissao("Produto","Cadastrar Produto")==true){
+      if(usermain.getPermissao("Produto","Cadastrar Produto")==false){
       system("clear");
       cout<<"O usuário logado não tem permissão para cadastrar produtos";
       Data data;
@@ -868,6 +1002,8 @@ void cadastrarDepartamento()
   empresa->addDepartamento(departamento);
   system("clear");
   cout << "Departamento cadastrado com sucesso!" << endl;
+  std::this_thread::sleep_for(2s);
+  system("clear");
 }
 
 void alterarPrecoMateriaPrimaFornecedor(){
@@ -876,6 +1012,12 @@ void alterarPrecoMateriaPrimaFornecedor(){
   double preco;
   cout << "Escolha o fornecedor que deseja alterar o preço da matéria prima:" << endl;
   empresa->getFornecedores();
+  Data dataLogLeitura;
+  dataLogLeitura.dateNow();
+
+  LogLeitura logleitura(usermain,dataLogLeitura,"Fornecedor","Alterar preço da matéria prima do fornecedor","Vector de fornecedores");
+  empresa->addLogLeitura(logleitura);
+  
   cin>>escolheFornecedor;
   escolheFornecedor--;
   empresa->getFornecedor(escolheFornecedor).getMateriasPrimasFornecedor();
@@ -884,6 +1026,14 @@ void alterarPrecoMateriaPrimaFornecedor(){
   cout << "Digite o preço da unidade da matéria prima:" << endl;
   cin>>preco;
   empresa->getFornecedor(escolheFornecedor).setPrecoMateriaPrimaPosicao(escolheMateriaPrima,preco);
+
+  Data dataLogEscrita;
+  string a;
+  string b;
+  b=std::to_string(preco);
+  dataLogEscrita.dateNow();
+  LogEscrita logescrita(usermain,dataLogEscrita,"Fornecedor","Alterar Preco Materia Prima Fornecedor","Preco Materia Prima",a,b);
+ empresa->addLogEscrita(logescrita);
 }
 
 void adicionarMateriaPrimaFornecedor(){
@@ -892,10 +1042,20 @@ void adicionarMateriaPrimaFornecedor(){
   double preco;
   cout << "Escolha o fornecedor que deseja adicionar uma matéria prima:" << endl;
   empresa->getFornecedores();
+
+  Data dataLogLeitura;
+  dataLogLeitura.dateNow();
+  LogLeitura logleitura(usermain,dataLogLeitura,"Fornecedor","Adicionar materia prima fornecedor","Vector de fornecedores da empresa");
+  empresa->addLogLeitura(logleitura);
+  
   cin>>escolheFornecedor;
   escolheFornecedor--;
   cout << "Escolha a matéria prima que deseja adicionar ao fornecedor:" << endl;
   empresa->getMateriasPrimas();
+  
+  LogLeitura logleitura2(usermain,dataLogLeitura,"Fornecedor","Adicionar materia prima fornecedor","Vector de matérias primas da empresa");
+  empresa->addLogLeitura(logleitura2);
+  
   cin>>escolheMateriaPrima;
   escolheMateriaPrima--;
   cout << "Digite o preço da unidade da matéria prima:" << endl;
@@ -913,6 +1073,8 @@ void cadastrarFornecedor()
   Fornecedor fornecedor(nome);
   empresa->addFornecedor(fornecedor);
   cout << "Fornecedor cadastrado com sucesso" << endl;
+  std::this_thread::sleep_for(2s);
+  system("clear");
 }
 
 
@@ -1147,11 +1309,19 @@ void cadastrarCliente()
   empresa->addCliente(cliente);
   system("clear");
   cout << "Cliente cadastrado com sucesso!" << endl;
+  std::this_thread::sleep_for(2s);
+  system("clear");
 }
 
 void alterarSalario()
 {
   empresa->getFuncionarios();
+  
+  Data dataLogLeitura;
+  dataLogLeitura.dateNow();
+  LogLeitura logleitura(usermain,dataLogLeitura,"Funcionario","Alterar salario funcionario","Vector de funcionarios da empresa");
+  empresa->addLogLeitura(logleitura);
+  
   double salario;
   int funcionario;
   Data data;
@@ -1209,21 +1379,39 @@ void alterarSalario()
     else
       f=1;
   }
-
+  
   empresa->alterarSalario(funcionario,salario,data);
+
+  Data dataLogEscrita;
+  string a;
+  string b;
+  b=std::to_string(salario);
+  dataLogEscrita.dateNow();
+  LogEscrita logescrita(usermain,dataLogEscrita,"Funcionario","Alterar Salario","Vector de salarios",a,b);
+ empresa->addLogEscrita(logescrita);
+
+  
   system("clear");
   cout << "Salário alterado com sucesso!" << endl;
+  std::this_thread::sleep_for(2s);
+  system("clear");
 }
 
 void historicoSalarios()
 {
+Data dataLogLeitura;
+dataLogLeitura.dateNow();
 int funcionario=0;
 system("clear");
 empresa->getFuncionarios();
+LogLeitura logleitura(usermain,dataLogLeitura,"Funcionario","Historico de salários","Vector funcionarios da empresa");
+empresa->addLogLeitura(logleitura);
 cout <<"Escolha o funcionário"<< endl;
 cin>>funcionario;
 funcionario--;
 empresa->getFuncionario(funcionario).getSalarios();
+LogLeitura logleitura2(usermain,dataLogLeitura,"Funcionario","Historico de salários","Vector de salarios do funcionário");
+empresa->addLogLeitura(logleitura2);
 }
 
 void aplicarDissidio()
@@ -1236,6 +1424,11 @@ void demitirFuncionario()
   
   empresa->getFuncionarios();
 
+  Data dataLogLeitura;
+  dataLogLeitura.dateNow();
+  LogLeitura logleitura(usermain,dataLogLeitura,"Funcionario","Demitir funcionario","Vector de funcionarios da empresa");
+  empresa->addLogLeitura(logleitura);
+  
   int funcionario;
   Data data;
   int dia,mes,ano;
@@ -1292,12 +1485,22 @@ void demitirFuncionario()
     f=1;
   }
 
+  Data dataLogEscrita;
+  dataLogEscrita.dateNow();
+  string data2;
+  data2=data.getData();
+  LogEscrita logescrita(usermain,dataLogEscrita,"Funcionario","Demitir Funcionario","dataDemissao","nulo",data2);
+ empresa->addLogEscrita(logescrita); 
+
   system("clear");
   cout << "Funcionário demitido com sucesso!" << endl;
 }
 
 void cadastrarFuncionario()
 {
+  Data dataLogLeitura;
+  dataLogLeitura.dateNow();
+  
   string nome;
   string documento;
   string email;
@@ -1449,10 +1652,16 @@ void cadastrarFuncionario()
 
   cout << "Escolha um departamento:" << endl;
   empresa->getDepartamentos();
+  LogLeitura logleitura(usermain,dataLogLeitura,"Funcionario","Cadastrar funcionário","Vector de departamentos da empresa");
+empresa->addLogLeitura(logleitura);
   cin>>escolheDepartamento;
   escolheDepartamento--;
   cout << "Escolha um cargo" << endl;
   empresa->getCargos();
+
+  LogLeitura logleitura2(usermain,dataLogLeitura,"Funcionario","Cadastrar funcionario ","Vector de cargos da empresa");
+  empresa->addLogLeitura(logleitura2);
+  
   cin>>escolheCargo;
   escolheCargo--;
   cout << "Digite o salário do funcionário:" << endl;
@@ -1482,6 +1691,8 @@ void cadastrarFuncionario()
   funcionario.setSalarios(salario,dataAdmissao);
   system("clear");
   cout << "Funcionário cadastrado com sucesso!" << endl;
+  std::this_thread::sleep_for(2s);
+  system("clear");
 }
 
 void menuFuncionario()
@@ -1658,6 +1869,7 @@ void case_1()
     cout <<"14- Cadastrar forma de pagamento" <<endl;
     cout <<"15- Venda" <<endl;
     cout <<"16- Logs" <<endl;
+    cout <<"17- Logout" <<endl;
     cout <<"Digite uma das opcoes:" << endl;
   
     int numx=0;
@@ -1916,7 +2128,12 @@ void case_1()
       a=1;
       break;
       }
-    }  
+    }
+    if(numx==17){
+      a=1;
+      b=1;
+      break; 
+    }
     else
       cout << "Digite um valor valido!" << endl;
   }
@@ -1926,7 +2143,7 @@ void case_1()
 
 int main()
 {
-  
+  //teste singleton
   empresa->addUsuario(usermain);
   empresa->addFormasPagamento(pagamento1);
   empresa->addFormasPagamento(pagamento2);
@@ -1956,7 +2173,8 @@ int main()
   usermain.setPermissao("Materia Prima","Cadastrar Materia Prima", true);
   usermain.setPermissao("Materia Prima","Alterar quantidade de materia prima.", true);
   usermain.setPermissao("Log","Mostrar Logs", true);
-  
+
+ 
   system("clear");
 
   string user;
@@ -1979,6 +2197,10 @@ int main()
       {
         system("clear");
         cout<<"Login efetuado com sucesso!"<<endl;
+        //teste singleton usuario logado
+        std::cout << "Endereço singleton usuario: " << &usermain << std::endl;
+        std::this_thread::sleep_for(2s);
+        system("clear");
         case_1();
       }
         
@@ -1986,6 +2208,8 @@ int main()
       {
         system("clear");
         cout<<"Usuário e/ou senha não existem!"<<endl;
+        std::this_thread::sleep_for(2s);
+        system("clear");
       y=1;
       }
     }
@@ -1993,3 +2217,5 @@ int main()
   
   return 0;
 }
+
+

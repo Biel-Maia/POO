@@ -33,8 +33,6 @@ foi desenvolvido em sprints semanais, que envolveram a modelagem das
 classes para atender ao escopo da sprint e também a implementação
 dessas classes em C++. 
 
-## Requisitos
-
 ## Como instalar o programa
 - É necessário instalar em sua máquina um compilador c++, o cmake (gerador de sistema de compilação) e o git.
 - Após concluída as instalações, siga os passos abaixo:
@@ -55,7 +53,16 @@ dessas classes em C++.
     ```sh
     ./main
     ```
-
+## Como acessar o sistema
+- Para acessar o sistema o usuario cadastrado deve fazer login.
+- O nome padrão de usuario é
+  ```sh
+  admin
+  ```
+- A senha padrão de usuário é
+  ```sh
+  admin
+  ```
 
 
 

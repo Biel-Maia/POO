@@ -16,5 +16,8 @@ class Estoque{
     Produto getProduto();
     void setQuantidade(int quantidade);
     void setQuantidadeMin(int quantidade);
+    void verificaEstoque();
+    int getEstoqueMin();
+    int getEstoque();
 };
 #endif

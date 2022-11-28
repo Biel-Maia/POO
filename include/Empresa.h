@@ -21,6 +21,9 @@
 #include "../include/LogAcessoNegado.h"
 #include "../include/LogLeitura.h"
 #include "../include/LogEscrita.h"
+#include "../include/OrdemCompra.h"
+#include "../include/OrdemProducao.h"
+
 
 
 #include <vector>
@@ -51,6 +54,8 @@ class Empresa
     std::vector<LogAcessoNegado> _logsAcessoNegado;
     std::vector<LogEscrita> _logsEscrita;
     std::vector<LogLeitura> _logsLeitura;
+    std::vector<OrdemCompra> _ordensCompra; 
+    std::vector<OrdemProducao> _ordensProducao;
   
   public:
     static Empresa *Instance(void)
@@ -80,6 +85,8 @@ class Empresa
     void addLogAcessoNegado(LogAcessoNegado logAcessoNegado);
     void addLogEscrita(LogEscrita logEscrita);
     void addLogLeitura(LogLeitura logLeitura);
+    void addOrdemCompra(OrdemCompra ordemCompra);
+    void addOrdemProducao(OrdemProducao ordemProducao);
     int verificaLogin(std::string user, std::string senha);
     void getDepartamentos();
     void getCargos();
@@ -106,6 +113,7 @@ class Empresa
     Categoria getCategoria(int posicao);
     Lote getLote(int posicao);
     Estoque getEstoque(int posicao);
+    Estoque getEstoqueProd(std::string nome);
     Cliente getCliente(int posicao);
     Pagamento getFormaPagamento(int posicao);
     Orcamento getOrcamento(Cliente cliente,int posicao);

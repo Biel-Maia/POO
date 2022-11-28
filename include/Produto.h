@@ -38,6 +38,9 @@ class Produto
     void setMateriaPrima(MateriaPrima materiaprima);
     void setQuantidade(int quantidade);
     double getPreco();
+    int getTamVetor();
+    int getQuantidadeQueGasta(int posicao);
+    MateriaPrima getMateriaPrima(int posicao);
 };
 
 #endif

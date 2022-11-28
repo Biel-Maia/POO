@@ -15,6 +15,8 @@
 #include "../include/Estoque.h"
 #include "../include/Orcamento.h"
 #include "../include/Venda.h"
+#include "../include/OrdemCompra.h"
+#include "../include/OrdemProducao.h"
 
 #include <vector>
 #include <string>
@@ -24,6 +26,7 @@ Empresa *Empresa::ptr = 0;
 
 Empresa::Empresa()
 {
+  
 }
 
 void Empresa::addUsuario(Usuario usuario)
@@ -106,6 +109,14 @@ void Empresa::addLogEscrita(LogEscrita logEscrita){
 
 void Empresa::addLogLeitura(LogLeitura logLeitura){
   _logsLeitura.push_back(logLeitura);
+}
+
+void Empresa::addOrdemCompra(OrdemCompra ordemCompra){
+  _ordensCompra.push_back(ordemCompra);
+}
+
+void Empresa::addOrdemProducao(OrdemProducao ordemProducao){
+  _ordensProducao.push_back(ordemProducao);
 }
 
 
@@ -335,8 +346,22 @@ void Empresa::getLogsLeitura()
     cout<<_logsLeitura[x].getData().getAno();
     cout<<" Classe acessada: "<<_logsLeitura[x].getClasse();
     cout<<" Metodo acessado: "<<_logsLeitura[x].getMetodo();
-    cout<<" Atributo acessado: "_logsLeitura[x].getAtributoAcessado()<<endl;
+    cout<<" Atributo acessado: "<<_logsLeitura[x].getAtributoAcessado()<<endl;
   }
+}
+
+Estoque Empresa::getEstoqueProd(std::string nome){
+  int x=0;
+  int z=0;
+  int tam = this->_estoques.size();
+  std::string nome1;
+  for(x=0;x<tam;x++){
+    nome1=_estoques[x].getProduto().getNome();
+   if(nome1==nome){
+   z=x; 
+   } 
+  }
+  return _estoques[z];
 }
 
 Departamento Empresa::getDepartamento(int posicao)

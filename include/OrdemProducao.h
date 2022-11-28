@@ -16,6 +16,7 @@ class OrdemProducao
       Data data,
       Produto produto
     );
+    //void setProduto(Produto produto);
 };
 
 #endif
