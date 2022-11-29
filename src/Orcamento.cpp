@@ -21,14 +21,18 @@ void Orcamento::setQuantidade(int quantidade){
   _quantidades.push_back(quantidade);
 }
 
-void Orcamento::setValorTotal(double precoTotal){
-  _valorTotal=precoTotal;
-}
-
 Cliente Orcamento::getCliente(){
   return this->_cliente;
 }
 
 double Orcamento::getValorTotal(){
+  int x;
+  x=0;
+  int tam=0;
+  _valorTotal=0;
+  tam=_produtos.size();
+  for(x=0;x<tam;x++){
+  _valorTotal+=(_produtos[x].getPreco())*(_quantidades[x]);
+  }
   return this->_valorTotal;
 }

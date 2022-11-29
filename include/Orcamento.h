@@ -27,7 +27,6 @@ class Orcamento
     );
     void setProduto(Produto produto);
     void setQuantidade(int quantidade);
-    void setValorTotal(double precoTotal);
     Cliente getCliente();
     double getValorTotal();
 };

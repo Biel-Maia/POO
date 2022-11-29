@@ -285,21 +285,28 @@ void Empresa::getFormasPagamento()
   }
 }
 
-void Empresa::getOrcamentos(Cliente cliente)
-{
-  std::string nome1;
-  std::string nome2;
-  int x=0;
-  nome1=cliente.getNome();
-  int tamanho = this->_orcamentos.size();
-  int num=0;
-  for(x=0;x<tamanho;x++)
-  {
+Orcamento Empresa::getOrcamento(int posicao){
+  return _orcamentos[posicao];
+}
+
+void Empresa::getOrcamentos(Cliente cliente){
+  int x;
+  x=0;
+  int tamanho =0;
+  tamanho = this->_orcamentos.size();
+  int num;
+  num=0;
+
+
+  for(x=0;x<tamanho;x++){
+  
+  string nome;
+  nome=cliente.getNome();
+  string nome2;
   nome2=_orcamentos[x].getCliente().getNome();
-  if(nome1==nome2){
+  if(nome==nome2){
   num++;
-  cout<<num;
-  cout<<"- Orçamento"<< num<<endl;
+  cout<<num<<" - Orçamento"<<num<<" Valor: R$ "<<_orcamentos[x].getValorTotal()<<endl;
   }
   }
   }
@@ -421,26 +428,28 @@ Pagamento Empresa::getFormaPagamento(int posicao){
 }
 
 Orcamento Empresa::getOrcamento(Cliente cliente,int posicao){
-  std::string nome1;
-  std::string nome2;
-  nome1=cliente.getNome();
-  int tamanho = this->_orcamentos.size();
-  int num=0;
-  int numx=0;
   int x=0;
-  int y=0;
-  for(x=0;x<tamanho;x++)
-  {
-    nome2=_orcamentos[x].getCliente().getNome();
-    num++;
-    if(nome1==nome2){
-    numx++;
-    if(numx==posicao){
-    y=num;
-    }
-    }
-    }
-  return this->_orcamentos[y]; 
+  x=0;
+  int tamanho=0;
+  tamanho = this->_orcamentos.size();
+  int num;
+  num=0;
+  for(x=0;x<tamanho;x++){
+    
+  string nome;
+  nome = cliente.getNome();
+  string nome2;
+  nome2=_orcamentos[x].getCliente().getNome();
+  if(nome==nome2){
+  num++;
+  if(num==posicao){
+  cout<<_orcamentos[x].getValorTotal()<<endl;
+  return _orcamentos[x];
+  }
+  }
+  }
+  
+
 }
   
 void Empresa::alterarSalario(int funcionario, double salario, Data data)

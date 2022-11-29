@@ -149,6 +149,7 @@ void cadastraFormaPagamento(){
 
 void realizarVenda(){
   system("clear");
+
   Data dataVenda;
   int  diaVenda;
   int  mesVenda;
@@ -225,14 +226,14 @@ void realizarVenda(){
   cin>>escolheCliente;
   escolheCliente--;
   cout << "Escolha o orçamento que vai ser feita a venda:" << endl;
-  empresa->getOrcamentos(empresa->getCliente(escolheCliente));
+  Cliente cliente=empresa->getCliente(escolheCliente);
+  empresa->getOrcamentos(cliente);
   LogLeitura logleitura2(usermain,dataLogLeitura,"Venda","Realizar Venda","Vector de orçamentos de um cliente da classe Empresa");
  empresa->addLogLeitura(logleitura2);
   cin>>escolheOrcamento;
-  escolheOrcamento--;
   cout << "Escolha a quantidade de parcelas que deseja:" << endl;
   cin>>quantidadeParcelas;
-  valorTotal=(empresa->getOrcamento(empresa->getCliente(escolheCliente),escolheOrcamento).getValorTotal());
+  valorTotal=empresa->getOrcamento(cliente,escolheOrcamento).getValorTotal();
   valorParcela=(valorTotal/quantidadeParcelas);
 
   int escolheFormaPagamento=0;
@@ -248,11 +249,13 @@ void realizarVenda(){
   cout << "Venda realizada com sucesso:" << endl;
   cout << "O valor total é: "<<valorTotal<< endl;
   cout << "O valor de cada parcela é: "<<valorParcela<< endl;
-  std::this_thread::sleep_for(2s);
+  std::this_thread::sleep_for(5s);
   system("clear");
 }
 
 void cadastraOrcamento(){
+    system("clear");
+  
     Data dataOrcamento;
     int  diaOrcamento;
     int  mesOrcamento;
@@ -315,7 +318,8 @@ void cadastraOrcamento(){
   Data dataLogLeitura;
   dataLogLeitura.dateNow();
   
-  int escolheCliente=0;
+  int escolheCliente;
+  escolheCliente=0;
   empresa->getClientes();
   LogLeitura logleitura(usermain,dataLogLeitura,"Orcamento","Cadastrar Orcamento","Vector de clientes da classe Empresa");
  empresa->addLogLeitura(logleitura);
@@ -323,13 +327,20 @@ void cadastraOrcamento(){
   cin>>escolheCliente;
   escolheCliente--;
   Orcamento orcamento(dataOrcamento,empresa->getCliente(escolheCliente));
-  empresa->addOrcamento(orcamento);
-  int escolheProduto=0;
-  int quantidade=0;
-  int x=0;
-  double valorTotal=0;
+  int escolheProduto;
+  escolheProduto=0;
+  int quantidade;
+  quantidade=0;
+  int x;
+  x=0;
+  double valorTotal;
+  valorTotal=0;
+  
   while(x==0){
-   int sair=0; 
+   valorTotal=0;
+   quantidade=0;
+   int sair;
+   sair=0; 
    escolheProduto=0;
    empresa->getProdutos();
    std::cout << "Escolha um produto: " << std::endl;
@@ -337,24 +348,32 @@ void cadastraOrcamento(){
    escolheProduto--;
    orcamento.setProduto(empresa->getProduto(escolheProduto));
    std::cout << "Digite a quantidade do produto: " << std::endl; 
-  cin>>quantidade;
-    int qtdProdEst=0;
-    int qtdProdEstMin=0;
-    std::string nome = empresa->getProduto(escolheProduto).getNome();
+   cin>>quantidade;
+   orcamento.setQuantidade(quantidade);
+
+    
+    int qtdProdEst;
+    qtdProdEst=0;
+    int qtdProdEstMin;
+    qtdProdEstMin=0;
+    std::string nome;
+    nome = empresa->getProduto(escolheProduto).getNome();
     qtdProdEst=empresa->getEstoqueProd(nome).getEstoque();
     qtdProdEstMin=empresa->getEstoqueProd(nome).getEstoqueMin();
+    
+   double precoProd;
+   precoProd=0;
+   precoProd=empresa->getProduto(escolheProduto).getPreco();
     
     if((qtdProdEst-quantidade)<qtdProdEstMin){
       OrdemProducao ordem_producao(dataOrcamento,empresa->getProduto(escolheProduto));
       empresa->addOrdemProducao(ordem_producao);
       cout<<"Ordem de produção criada, não temos essa quantidade do produto no estoque."<<endl;
     }
-  
     
-   orcamento.setQuantidade(quantidade);
-   valorTotal+=(empresa->getProduto(escolheProduto).getPreco())*(quantidade);
-  std::cout << "Digite 0 para cancelar a operação ou 1 para escolher mais funcionários: " << std::endl; 
+   std::cout << "Digite 0 para cancelar a operação ou 1 para escolher mais funcionários: " << std::endl; 
    cin>>sair;
+    
     if(sair==1){
     x=0;
     }
@@ -362,12 +381,15 @@ void cadastraOrcamento(){
     x=1;  
     }
   }
+  
   LogLeitura logleitura2(usermain,dataLogLeitura,"Orcamento","Cadastrar Orcamento","Vector de produtos da empresa");
  empresa->addLogLeitura(logleitura2);
-  orcamento.setValorTotal(valorTotal);
   system("clear");
+
+  orcamento.getValorTotal();
+  empresa->addOrcamento(orcamento);
   cout << "Orçamento realizado com sucesso!" << endl;
-  cout << "O valor total ficou:" << valorTotal<<endl;
+  cout << "O valor total ficou:" <<orcamento.getValorTotal()<<endl;
   std::this_thread::sleep_for(2s);
   system("clear");
 }
@@ -843,7 +865,6 @@ void adicionarPrecoProduto(){
 
 void cadastrarProduto(){
   int escolherCategoria=0;
-  int escolherProduto=0;
   system("clear");
   string nome_p;
   cout << "Digite o nome do produto:" << endl;
@@ -890,8 +911,8 @@ void cadastrarProduto(){
    int quantidade = 0;
    cout << "Digite a quantidade de matéria prima:" << endl;
    cin>>quantidade;
-   empresa->getProduto(escolherProduto).setMateriaPrima(empresa->getMateriaPrima(escolherMateriasPrimas));
-   empresa->getProduto(escolherProduto).setQuantidade(quantidade);
+   produto.setMateriaPrima(empresa->getMateriaPrima(escolherMateriasPrimas));
+   produto.setQuantidade(quantidade);
    std::cout << "Digite 0 para cancelar a operação ou 1 para escolher mais materias primas: " << std::endl; 
    cin>>sair;
     if(sair==1){
@@ -2174,7 +2195,128 @@ int main()
   usermain.setPermissao("Materia Prima","Alterar quantidade de materia prima.", true);
   usermain.setPermissao("Log","Mostrar Logs", true);
 
- 
+
+  Cargo cargo("Cargo1");
+  empresa->addCargo(cargo);
+  Cargo cargo2("Cargo2");
+  empresa->addCargo(cargo2);
+  Cargo cargo3("Cargo3");
+  empresa->addCargo(cargo3);
+
+  Departamento departamento("Departamento1");
+  empresa->addDepartamento(departamento);
+  Departamento departamento2("Departamento1");
+  empresa->addDepartamento(departamento2);
+  Departamento departamento3("Departamento1");
+  empresa->addDepartamento(departamento3);
+
+
+  Data dataA;
+  dataA.setDia(12);
+  dataA.setMes(12);
+  dataA.setAno(2022);
+  
+  Data data1;
+  data1.setDia(01);
+  data1.setMes(01);
+  data1.setAno(2001);
+  double salario1=2001.00;
+  Data data2;
+  data2.setDia(02);
+  data2.setMes(02);
+  data2.setAno(2002);
+  double salario2=2002.00;
+  Data data3;
+  data3.setDia(03);
+  data3.setMes(03);
+  data3.setAno(2003);
+  double salario3=2003.00;
+
+  float xfuncionario1=-19.8736;
+  float yfuncionario1=-43.9725;
+  float xfuncionario2=-19.8659225;
+  float yfuncionario2=-43.973406;
+  float xfuncionario3=-19.8623356;
+  float yfuncionario3=-43.9740098;
+  
+  
+  Funcionario funcionario1(
+    "Funcionario1","123.123.123-12","funcionario1@gmail.com","Rua Funcionário1",data1,"91234-1234",
+    1234,dataA,departamento,
+     cargo,
+    salario1,"Ativo",xfuncionario1,yfuncionario1);
+    empresa->addFuncionario(funcionario1);
+    funcionario1.setSalarios(salario1,dataA);
+  Funcionario funcionario2(
+    "Funcionario2","123.123.123-13","funcionario2@gmail.com","Rua Funcionário2",data2,"91234-1235",
+    1235,dataA,departamento2,
+     cargo2,
+    salario2,"Ativo",xfuncionario2,yfuncionario2);
+    empresa->addFuncionario(funcionario2);
+    funcionario2.setSalarios(salario2,dataA);
+  Funcionario funcionario3(
+    "Funcionario3","123.123.123-14","funcionario3@gmail.com","Rua Funcionário3",data3,"91234-1236",
+    1236,dataA,departamento3,
+     cargo3,
+    salario3,"Ativo",xfuncionario3,yfuncionario3);
+    empresa->addFuncionario(funcionario3);
+    funcionario3.setSalarios(salario3,dataA);
+
+  
+  Data dataC1;
+  dataC1.setDia(11);
+  dataC1.setMes(11);
+  dataC1.setAno(2022);
+  Cliente cliente1("ClientePF","123.123.123-12","cliente1@gmail.com","Rua cliente1",dataC1,"94321-4321",true);
+  empresa->addCliente(cliente1);
+  Data dataC2;
+  dataC1.setDia(12);
+  dataC1.setMes(12);
+  dataC1.setAno(2022);
+  Cliente cliente2("ClientePJ","12.123.123/0001-12","cliente2@gmail.com","Rua cliente2",dataC2,"94321-4322",false);
+  empresa->addCliente(cliente2);
+
+
+  MateriaPrima materiaPrima1("Madeira","g",1000,1000);
+  empresa->addMateriaPrima(materiaPrima1);
+  MateriaPrima materiaPrima2("Plástico","g",1000,1000);
+  empresa->addMateriaPrima(materiaPrima2);
+  MateriaPrima materiaPrima3("Alumínio","g",1000,1000);
+  empresa->addMateriaPrima(materiaPrima3);
+  MateriaPrima materiaPrima4("Parafusos","Unidade",20,20);
+  empresa->addMateriaPrima(materiaPrima4);
+
+
+  Categoria categoria("Mesas");
+  empresa->addCategoria(categoria);
+  Produto mesa("Mesa",1234, 100.00, categoria, 20 , 20);
+  empresa->addProduto(mesa);
+  Estoque estoque(mesa);
+  empresa->addEstoque(estoque);
+  estoque.setQuantidadeMin(20);
+  mesa.setMateriaPrima(materiaPrima1);
+  mesa.setQuantidade(450);
+  mesa.setMateriaPrima(materiaPrima2);
+  mesa.setQuantidade(150);
+  mesa.setMateriaPrima(materiaPrima3);
+  mesa.setQuantidade(100);
+  mesa.setMateriaPrima(materiaPrima4);
+  mesa.setQuantidade(8);
+
+
+  Data dataLote;
+  dataLote.setDia(12);
+  dataLote.setMes(12);
+  dataLote.setAno(2022);
+  Lote lote1(dataLote,1234,mesa,10);
+  empresa->addLote(lote1);
+  estoque.setLote(lote1);
+  estoque.setQuantidade(10);
+  Lote lote2(dataLote,1235,mesa,10);
+  empresa->addLote(lote2);
+  estoque.setLote(lote2);
+  estoque.setQuantidade(10);
+  
   system("clear");
 
   string user;
@@ -2217,5 +2359,4 @@ int main()
   
   return 0;
 }
-
 

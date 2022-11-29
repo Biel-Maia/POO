@@ -103,6 +103,7 @@ class Empresa
     void getLogsLeitura();
     void getFormasPagamento();
     void getOrcamentos(Cliente cliente);
+    Orcamento getOrcamento(int posicao);
     Departamento getDepartamento(int posicao);
     Cargo getCargo(int posicao);
     MateriaPrima getMateriaPrima(int posicao);
