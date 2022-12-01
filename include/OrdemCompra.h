@@ -15,10 +15,8 @@ class OrdemCompra
     std::vector<Orcamento> _orcamento;
 
   public:
-    OrdemCompra
-    (     
-      Data data
-    );
+    OrdemCompra(Data data);
+    
     void setMateria(std::string nome_materiaprima);
 };
 

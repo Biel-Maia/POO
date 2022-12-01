@@ -8,7 +8,6 @@
 #include <vector>
 #include <string>
 
-using namespace std;
 
 class Orcamento
 {
@@ -25,8 +24,12 @@ class Orcamento
       Data data,
       Cliente cliente
     );
+    
     void setProduto(Produto produto);
     void setQuantidade(int quantidade);
+    Produto getProduto(int posicao);
+    int getQuantidade(int posicao);
+    int getTam();
     Cliente getCliente();
     double getValorTotal();
 };

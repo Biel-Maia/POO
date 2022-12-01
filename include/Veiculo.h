@@ -1,8 +1,8 @@
 #ifndef VEICULO_H
 #define VEICULO_H
 
-
 #include <string>
+
 
 class Veiculo 
 {
@@ -11,7 +11,7 @@ class Veiculo
     std::string _tipo;
     int _capacidade;
   
-public:
+  public:
     Veiculo
     (
       std::string placa,

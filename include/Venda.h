@@ -15,8 +15,9 @@ class Venda
     Orcamento _orcamento;
     double _valorFinal;
     Pagamento _formapagamento;
-    int       _parcelas;
-    double    _valorparcelas;
+    int _parcelas;
+    double _valorparcelas;
+  
   public:
     Venda
     (
@@ -27,8 +28,10 @@ class Venda
       Pagamento formapagamento,
       int parcelas
     );
+
     void setCliente(Cliente cliente);
     double getValorParcelas();
     void setValorParcelas(double valorParcelas);
 };
+
 #endif

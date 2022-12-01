@@ -4,6 +4,7 @@
 #include "../include/Data.h"
 #include "../include/Produto.h"
 
+
 class Lote
 {
   private:
@@ -13,15 +14,18 @@ class Lote
     int _quantidade;
   
   public:
-    Lote(
+    Lote
+    (
       Data dataproducao,
       int numerolote,
       Produto produto,
       int quantidade
     );
+    
     Data getDataproducao();
     Produto getProduto();
     int getQuantidade();
     int getNumeroLote();
 };
+
 #endif

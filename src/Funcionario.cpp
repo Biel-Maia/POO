@@ -22,8 +22,7 @@ Funcionario::Funcionario(
   double salario,
   std::string status,
   float xfuncionario,
-  float yfuncionario
-  ):
+  float yfuncionario):
     Pessoa(nome,documento,email,endereco,data,telefone),
     _matricula(matricula),
     _dataAdmissao(dataAdmissao),
@@ -32,17 +31,16 @@ Funcionario::Funcionario(
     _salario(salario),
     _status(status),
     _xfuncionario(xfuncionario),
-    _yfuncionario(yfuncionario) {}
-
+    _yfuncionario(yfuncionario){}
 
 void Funcionario::setSalario(double salario)
 {
-  this->_salario=salario;
+  this->_salario = salario;
 }
 
 void Funcionario::demiteFuncionario(Data dataDemissao)
 {
-  this->_dataDemissao=dataDemissao;   
+  this->_dataDemissao = dataDemissao;   
 }
 
 std::string Funcionario::getStatus()
@@ -50,32 +48,37 @@ std::string Funcionario::getStatus()
   return this->_status;
 }
 
-void Funcionario::setSalarios(double salario,Data data)
+void Funcionario::setSalarios(double salario, Data data)
 {
   _salarios.push_back(salario);
   _datas.push_back(salario);
 }
 
-void Funcionario::getSalarios(){
-  int tam=_salarios.size();
-  int x=0;
-  cout<<"Histórico de salários"<<endl;
-  for(x=0;x<tam;x++){
-  cout<<"Salário: ";
-  cout<<_salarios[x];  
-  cout<<"  Data: ";
-  cout<<_datas[x].getDia();
-    cout<<"/";
-  cout<<_datas[x].getMes();
-  cout<<"/";
-  cout<<_datas[x].getAno()<<endl;
+void Funcionario::getSalarios()
+{
+  int tam = _salarios.size();
+  int x = 0;
+  cout << "Histórico de salários" << endl;
+  
+  for(x = 0; x < tam; x++)
+  {
+    cout << "Salário: ";
+    cout << _salarios[x];  
+    cout << "  Data: ";
+    cout << _datas[x].getDia();
+    cout << "/";
+    cout << _datas[x].getMes();
+    cout << "/";
+    cout << _datas[x].getAno() << endl;
   }
 }
     
-float Funcionario::getXfuncionario(){
+float Funcionario::getXfuncionario()
+{
   return this->_xfuncionario;
 }
 
-float Funcionario::getYfuncionario(){
+float Funcionario::getYfuncionario()
+{
   return this->_yfuncionario;
 }

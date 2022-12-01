@@ -6,7 +6,9 @@
 #include <iostream>
 #include <vector>
 #include <string>
+
 using namespace std;
+
 
 Orcamento::Orcamento(
   Data data,
@@ -14,25 +16,45 @@ Orcamento::Orcamento(
     _data(data),
     _cliente(cliente){}
 
-void Orcamento::setProduto(Produto produto){
+void Orcamento::setProduto(Produto produto)
+{
   _produtos.push_back(produto);
 }
-void Orcamento::setQuantidade(int quantidade){
+
+void Orcamento::setQuantidade(int quantidade)
+{
   _quantidades.push_back(quantidade);
 }
 
-Cliente Orcamento::getCliente(){
+int Orcamento::getTam()
+{
+  return _produtos.size();
+}
+
+Cliente Orcamento::getCliente()
+{
   return this->_cliente;
 }
 
-double Orcamento::getValorTotal(){
-  int x;
-  x=0;
-  int tam=0;
-  _valorTotal=0;
-  tam=_produtos.size();
-  for(x=0;x<tam;x++){
-  _valorTotal+=(_produtos[x].getPreco())*(_quantidades[x]);
-  }
+double Orcamento::getValorTotal()
+{
+  int x = 0;
+  int tam = 0;
+  this->_valorTotal = 0;
+  tam = _produtos.size();
+  
+  for(x = 0; x < tam; x++)
+    this->_valorTotal += (_produtos[x].getPreco()) * (_quantidades[x]);
+  
   return this->_valorTotal;
+}
+
+Produto Orcamento::getProduto(int posicao)
+{
+  return _produtos[posicao];
+}
+
+int Orcamento::getQuantidade(int posicao)
+{
+  return _quantidades[posicao];
 }

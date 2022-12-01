@@ -6,6 +6,7 @@
 
 #include <string>
 #include <fstream>
+
 using namespace std;
 
 class Log
@@ -16,8 +17,9 @@ class Log
     
   public:
     Log(Usuario usuario, Data data);
+    
     Usuario getUsuario();
-    Data    getData();
+    Data getData();
 };
 
 #endif

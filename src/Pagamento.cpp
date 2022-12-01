@@ -1,12 +1,13 @@
 #include "../include/Pagamento.h"
+
 #include <string>
 
-Pagamento::Pagamento(
-    std::string nomeformapagamento
-    ):
+
+Pagamento::Pagamento(std::string nomeformapagamento):
     _nomeformapagamento(nomeformapagamento){}
 
-std::string Pagamento::getNomeFormaPagamento(){
+std::string Pagamento::getNomeFormaPagamento()
+{
   return this->_nomeformapagamento;
 }
 

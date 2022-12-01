@@ -30,30 +30,37 @@ void Produto::setPreco(double preco)
   _preco = preco;
 }
 
-std::string Produto::getNome(){
+std::string Produto::getNome()
+{
   return this->_nome;
 }
 
-void Produto::setMateriaPrima(MateriaPrima materiaprima){
+void Produto::setMateriaPrima(MateriaPrima materiaprima)
+{
   _materiaprima.push_back(materiaprima);
 }
 
-void Produto::setQuantidade(int quantidade){
+void Produto::setQuantidade(int quantidade)
+{
   _quantidade.push_back(quantidade);
 }
 
-double Produto::getPreco(){
+double Produto::getPreco()
+{
   return this->_preco;
 }
 
-int Produto::getTamVetor(){
+int Produto::getTamVetor()
+{
   return this->_materiaprima.size();
 }
 
-int Produto::getQuantidadeQueGasta(int posicao){
+int Produto::getQuantidadeQueGasta(int posicao)
+{
   return this->_quantidade[posicao];
 }
 
-MateriaPrima Produto::getMateriaPrima(int posicao){
+MateriaPrima Produto::getMateriaPrima(int posicao)
+{
   return this->_materiaprima[posicao];
 }

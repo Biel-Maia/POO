@@ -1,6 +1,7 @@
 #ifndef USUARIO_H
 #define USUARIO_H
 
+
 #include <map>
 #include <string>
 #include <vector>
@@ -25,7 +26,7 @@ class Usuario
     static Usuario* instancia_unica;
     std::vector<std::string> _classe;
     std::vector<std::string> _metodo;
-    std::vector<bool>        _permissao;
+    std::vector<bool> _permissao;
 
 
   public:

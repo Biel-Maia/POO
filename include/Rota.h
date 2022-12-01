@@ -8,6 +8,7 @@
 #include <vector>
 #include <string>
 
+
 class Rota 
 {
   private:
@@ -36,7 +37,6 @@ class Rota
     void calculaTempoPercurso();
     void listaSequenciaEmbarqueFuncionarios();
     void setFuncionarios(Funcionario funcionario);
-    //void mapa();
 };
 
 #endif

@@ -3,6 +3,7 @@
 
 #include <string>
 
+
 Veiculo::Veiculo(
   std::string placa,
   std::string tipo, 
@@ -11,9 +12,12 @@ Veiculo::Veiculo(
     _tipo(tipo),
      _capacidade(capacidade){}
 
-std::string Veiculo::getPlaca(){
+std::string Veiculo::getPlaca()
+{
   return this->_placa;
 }
-std::string Veiculo::getTipo(){
+
+std::string Veiculo::getTipo()
+{
   return this->_tipo;
 }

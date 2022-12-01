@@ -9,6 +9,7 @@
 #include <map>
 #include <vector>
 
+
 class Produto
 {
   private:
@@ -31,7 +32,8 @@ class Produto
       Categoria categoria,
       int lote_min,
       int estoque_min
-    );  
+    );
+
     int get_codigo();
     void setPreco(double preco);
     std::string getNome();

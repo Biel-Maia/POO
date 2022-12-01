@@ -11,12 +11,12 @@ Pessoa::Pessoa(
   std::string endereco,
   Data data,
   std::string telefone): 
-     _nome(nome),
-     _documento(documento),
-     _email(email),
-     _endereco(endereco),
-     _data(data),
-     _telefone(telefone){}
+    _nome(nome),
+    _documento(documento),
+    _email(email),
+    _endereco(endereco),
+    _data(data),
+    _telefone(telefone){}
 
 std::string Pessoa::getNome()
 {

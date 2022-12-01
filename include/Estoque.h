@@ -4,20 +4,28 @@
 #include "../include/Lote.h"
 #include "../include/Produto.h"
 
-class Estoque{
+
+class Estoque
+{
   private:
     Produto _produto;
     std::vector<Lote> _lotes;
     int _quantidade;
     int _quantidademin;
+
   public:
     Estoque(Produto produto);
+    
+    void realizarVenda(int qtd);
     void setLote(Lote lote);
     Produto getProduto();
     void setQuantidade(int quantidade);
     void setQuantidadeMin(int quantidade);
+    void iniciaEstoque();
+    void iniciaEstoqueMin();
     void verificaEstoque();
     int getEstoqueMin();
     int getEstoque();
 };
+
 #endif

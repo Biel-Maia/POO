@@ -3,19 +3,16 @@
 
 #include <string>
 
-using namespace std;
 
 class Pagamento
 {
   private:
-  string _nomeformapagamento;
+    std::string _nomeformapagamento;
 
   public:
-    Pagamento
-    (
-    string nomeformapagamento
-    );  
-  string getNomeFormaPagamento();
+    Pagamento(std::string nomeformapagamento);  
+  
+    std::string getNomeFormaPagamento();
 };
 
 #endif

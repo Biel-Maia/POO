@@ -12,18 +12,15 @@ class Fornecedor
   private:
     std::string _nome;
     std::vector<MateriaPrima> _materiaprima;
-    std::vector<double>       _precomateriaprima;
+    std::vector<double> _precomateriaprima;
 
   public:
-    Fornecedor
-    (
-      std::string nome
-    );
+    Fornecedor(std::string nome);
+    
     void setMateriaPrima(MateriaPrima materiaprima);
     void setPrecoMateriaPrima(double preco);
     void setPrecoMateriaPrimaPosicao(int posicao,double preco);
     void getMateriasPrimasFornecedor();
-  
     std::string getNome();
 };
 

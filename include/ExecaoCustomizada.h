@@ -7,6 +7,7 @@
 
 using namespace std;
 
+
 class ExecaoCustomizada : public exception
 {
   protected:

@@ -4,22 +4,24 @@ Lote::Lote(
   Data dataproducao,
   int numerolote,
   Produto produto,
-  int quantidade
-  ):
+  int quantidade):
     _dataproducao(dataproducao),
     _numerolote(numerolote),
     _produto(produto),
     _quantidade(quantidade){}
 
-Data Lote::getDataproducao(){
+Data Lote::getDataproducao()
+{
   return this->_dataproducao;
 }
 
-Produto Lote::getProduto(){
+Produto Lote::getProduto()
+{
   return this->_produto;
 }
 
-int Lote::getQuantidade(){
+int Lote::getQuantidade()
+{
   return this->_quantidade;
 }
 

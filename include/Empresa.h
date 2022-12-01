@@ -25,9 +25,9 @@
 #include "../include/OrdemProducao.h"
 
 
-
 #include <vector>
 #include <string>
+
 
 class Empresa
 {
@@ -91,6 +91,7 @@ class Empresa
     void getDepartamentos();
     void getCargos();
     void getFuncionarios();
+    int getTamFuncionarios();
     void getMateriasPrimas();
     void getFornecedores();
     void getVeiculos();
@@ -113,7 +114,7 @@ class Empresa
     Produto getProduto(int posicao);
     Categoria getCategoria(int posicao);
     Lote getLote(int posicao);
-    Estoque getEstoque(int posicao);
+    Estoque getEstoquex(int pos);
     Estoque getEstoqueProd(std::string nome);
     Cliente getCliente(int posicao);
     Pagamento getFormaPagamento(int posicao);

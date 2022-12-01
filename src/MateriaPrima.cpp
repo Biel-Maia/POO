@@ -45,7 +45,8 @@ void MateriaPrima::setEstoque(int estoque)
   _quantidade_estoque = estoque;
 }
 
-std::string MateriaPrima::getNome(){
+std::string MateriaPrima::getNome()
+{
   return this->_nome;
 }
 
@@ -59,6 +60,7 @@ int MateriaPrima::getEstoque()
   return this->_quantidade_estoque;
 }
 
-void MateriaPrima::setQtdMateriaMin(int qtdMin){
-  _quantidade_estoque_min=qtdMin;
+void MateriaPrima::setQtdMateriaMin(int qtdMin)
+{
+  _quantidade_estoque_min = qtdMin;
 }

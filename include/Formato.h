@@ -17,6 +17,7 @@ class Formato
   public:
     Formato();      //Construtor default
     Formato(string valNome);     //Construtor com parametro de nome
+    
     virtual ~Formato();     //Destrutor
     string getNome();
     string getSeparadorData();

@@ -21,7 +21,6 @@
 #include "../include/OrdemProducao.h"
 #include "../include/OrdemCompra.h"
 
-
 #include <algorithm>
 #include <iostream>
 #include <vector>
@@ -43,272 +42,336 @@ Usuario usermain("admin","admin","admin");
 Pagamento pagamento1("Cartão");
 Pagamento pagamento2("Boleto");
 
-
 bool validaCPF(std::string cpf)
 {
   int l, r, _l, _r;
 	bool b1, b2, b3, b4;
 
   b1 = b2 = b3 = b4 = false;
-		l = 1;
-		r = 9;
-		_l = _r = 0;
+	l = 1;
+	r = 9;
+	_l = _r = 0;
   
-		for (int i = 0; i < 11; ++i)
-		{
-			if(i != 3 && i != 7){
-				_l += (l * (cpf[i] - '0'));
-				_r += (r * (cpf[i] - '0'));
-				l++; r--;
-			}
+	for (int i = 0; i < 11; ++i)
+	{
+		if(i != 3 && i != 7)
+    {
+			_l += (l * (cpf[i] - '0'));
+			_r += (r * (cpf[i] - '0'));
+			l++; r--;
 		}
+	}
   
-		if(((cpf[12] - '0') == (_l % 11)) && ((cpf[13] - '0') == (_r % 11))) 
-			b1 = true;
+	if(((cpf[12] - '0') == (_l % 11)) && ((cpf[13] - '0') == (_r % 11))) 
+		b1 = true;
 
-		if(((cpf[12] - '0') == (_l % 11)) && ((cpf[13] - '0' == 0 && _r % 11 == 10))) 
-			b2 = true;
+	if(((cpf[12] - '0') == (_l % 11)) && ((cpf[13] - '0' == 0 && _r % 11 == 10))) 
+		b2 = true;
 
-		if(((cpf[13] - '0') == (_r % 11)) && ((cpf[12] - '0' == 0 && _l % 11 == 10))) 
-			b3 = true;
+	if(((cpf[13] - '0') == (_r % 11)) && ((cpf[12] - '0' == 0 && _l % 11 == 10))) 
+		b3 = true;
 
-		if(((cpf[12] - '0' == 0 && _l % 11 == 10)) && ((cpf[13] - '0' == 0 && _r % 11 == 10))) 
-			b4 = true;
+	if(((cpf[12] - '0' == 0 && _l % 11 == 10)) && ((cpf[13] - '0' == 0 && _r % 11 == 10))) 
+		b4 = true;
  
-		if(b1 || b2 || b3 || b4)
-			return true;
-		else
-			return false;
+	if(b1 || b2 || b3 || b4)
+		return true;
 	
+  else
+		return false;
 }
 
 bool validaCNPJ(std::string vrCNPJ)
 {
   vector<int> multiplicador = {6,5,4,3,2,9,8,7,6,5,4,3,2};
-    int soma = 0;
-    int aux, resto, cod_1, cod_2;
-    for(int i=0; i<12; i++){
-        aux = vrCNPJ[i] - '0';
-        soma += aux*multiplicador[i+1];
+  int soma = 0;
+  int aux, resto, cod_1, cod_2;
+  
+  for(int i = 0; i < 12; i++)
+  {
+    aux = vrCNPJ[i] - '0';
+    soma += aux * multiplicador[i+1];
+  }
+  
+  resto = soma % 11;
+  
+  if(resto < 2)
+    cod_1 = 0;
+  
+  else 
+    cod_1 = 11 - resto;
+  
+  if(cod_1 != (vrCNPJ[12] - '0'))
+    return false;
+  
+  else 
+  {
+    soma = 0;
+    for(int i = 0; i < 13; i++)
+    {
+      aux = vrCNPJ[i] - '0';
+      soma += aux * multiplicador[i];
     }
-    resto = soma%11;
-    if(resto < 2){
-        cod_1 = 0;
-    } else {
-        cod_1 = 11 - resto;
-    }
-    if(cod_1 != (vrCNPJ[12] - '0')){
-        return false;
-    } else {
-        soma = 0;
-        for(int i=0; i<13; i++){
-            aux = vrCNPJ[i] - '0';
-            soma += aux*multiplicador[i];
-        }
-        resto = soma%11;
-        if(resto < 2){
-            cod_2 = 0;
-        } else {
-            cod_2 = 11 - resto;
-        }
-        if(cod_2 != (vrCNPJ[13] - '0')){
-            return false;
-        } else {
-            return true;
-        }
-    }
+    
+    resto = soma % 11;
+    if(resto < 2)
+      cod_2 = 0;
+    
+    else
+      cod_2 = 11 - resto;
+        
+    if(cod_2 != (vrCNPJ[13] - '0'))
+      return false;
+    
+    else 
+      return true;
+  }
 }
 
-void mostrarLogs(){
+void mostrarLogs()
+{
   system("clear");
-  cout<<"LOGS DE ACESSO NEGADO:";
+  cout << "LOGS DE ACESSO NEGADO:";
   empresa->getLogsAcessoNegado();
-  cout<<endl;
-  cout<<"LOGS DE ESCRITA:";
+  cout << endl;
+  
+  cout << "LOGS DE ESCRITA:";
   empresa->getLogsEscrita();
-  cout<<endl;
-  cout<<"LOGS DE LEITURA:";
+  cout << endl;
+  
+  cout << "LOGS DE LEITURA:";
   empresa->getLogsLeitura();
-  cout<<endl;
+  cout << endl;
 }
 
-void cadastraFormaPagamento(){
+void cadastraFormaPagamento()
+{
   system("clear");
   string nomeFormaPagamento;
+  
   cout << "Digite o nome da forma de pagamento:" << endl;
   cin.ignore();
-  getline(cin,nomeFormaPagamento);
+  getline(cin, nomeFormaPagamento);
   Pagamento pagamento(nomeFormaPagamento);
   empresa->addFormasPagamento(pagamento);
+  
   system("clear");
   cout << "Forma de pagamento criada com sucesso!" << endl;
   std::this_thread::sleep_for(2s);
   system("clear");
-  
 }
 
-void realizarVenda(){
+void realizarVenda()
+{
   system("clear");
 
   Data dataVenda;
-  int  diaVenda;
-  int  mesVenda;
-  int  anoVenda;
+  int diaVenda;
+  int mesVenda;
+  int anoVenda;
 
-  int d=0;
-  while(d==0)
+  int d = 0;
+  while(d == 0)
   {
     cout << "Digite o dia que a venda foi feita:" << endl;
-    cin>>diaVenda;
+    cin >> diaVenda;
 
-    if(diaVenda>31)
+    if(diaVenda > 31)
     {
       cout << "Digite um dia válido:" << endl;  
-      d=0;
+      d = 0;
     }
 
     else
-      d=1;  
-
+      d = 1;  
   }
 
-  int e=0;
-  while(e==0)
+  int e = 0;
+  while(e == 0)
   {
     cout << "Digite o mês que a venda foi feita:" << endl;
-    cin>>mesVenda;
+    cin >> mesVenda;
 
-    if(mesVenda>12)
+    if(mesVenda > 12)
     {
       cout << "Digite um mês válido:" << endl;
-      e=0;
+      e = 0;
     }
 
     else
-      e=1;  
+      e = 1;  
   }
 
-  int f=0;
-  while(f==0)
+  int f = 0;
+  while(f == 0)
   {
     cout << "Digite o ano que a venda foi feita:" << endl;
-    cin>>anoVenda;
+    cin >> anoVenda;
 
-    if(anoVenda<1900)
+    if(anoVenda < 1900)
     {
       cout << "Digite um ano válido" << endl;  
-      f=0;
+      f = 0;
     }
 
     else
-      f=1;
+      f = 1;
   }
 
   dataVenda.setDia(diaVenda);
   dataVenda.setMes(mesVenda);
   dataVenda.setAno(anoVenda);
     
-
   Data dataLogLeitura;
   dataLogLeitura.dateNow();
   
-  
-  int escolheCliente=0;
-  int escolheOrcamento=0;
-  int quantidadeParcelas=0;
-  double valorTotal=0;
-  double valorParcela=0;
+  int escolheCliente = 0;
+  int escolheOrcamento = 0;
+  int quantidadeParcelas = 0;
+  double valorTotal = 0;
+  double valorParcela = 0;
   
   empresa->getClientes();
   LogLeitura logleitura(usermain,dataLogLeitura,"Venda","Realizar Venda","Vector de Clientes da classe Empresa");
  empresa->addLogLeitura(logleitura);
   cout << "Escolha o cliente que vai realizar a compra:" << endl;
-  cin>>escolheCliente;
+  cin >> escolheCliente;
   escolheCliente--;
+  
   cout << "Escolha o orçamento que vai ser feita a venda:" << endl;
-  Cliente cliente=empresa->getCliente(escolheCliente);
+  Cliente cliente = empresa->getCliente(escolheCliente);
   empresa->getOrcamentos(cliente);
   LogLeitura logleitura2(usermain,dataLogLeitura,"Venda","Realizar Venda","Vector de orçamentos de um cliente da classe Empresa");
  empresa->addLogLeitura(logleitura2);
-  cin>>escolheOrcamento;
+  
+  cin >> escolheOrcamento;
   cout << "Escolha a quantidade de parcelas que deseja:" << endl;
-  cin>>quantidadeParcelas;
-  valorTotal=empresa->getOrcamento(cliente,escolheOrcamento).getValorTotal();
-  valorParcela=(valorTotal/quantidadeParcelas);
+  cin >> quantidadeParcelas;
+  valorTotal = empresa->getOrcamento(cliente,escolheOrcamento).getValorTotal();
+  valorParcela = (valorTotal/quantidadeParcelas);
 
-  int escolheFormaPagamento=0;
+  int escolheFormaPagamento = 0;
   empresa->getFormasPagamento();
   LogLeitura logleitura3(usermain,dataLogLeitura,"Venda","Realizar Venda","Vector de formas de pagamento da empresa");
  empresa->addLogLeitura(logleitura3);
-  cin>>escolheFormaPagamento;
+  cin >> escolheFormaPagamento;
   escolheFormaPagamento--;
+
+  int z = 0;
+  Orcamento orcamentox = empresa->getOrcamento(empresa->getCliente(escolheCliente),escolheOrcamento);
+  int tam = orcamentox.getTam();
+  int m = 0;
+  int quantidade;
+  int qtdEstoque;
+
+  for(z = 0; z < tam; z++)
+  {
+    quantidade = 0;
+    Produto produtox = orcamentox.getProduto(z);
+    string prod = produtox.getNome();
+    Estoque estoque = empresa->getEstoqueProd(prod);
+    quantidade = orcamentox.getQuantidade(z);
+
+    qtdEstoque = 0;
+    qtdEstoque = estoque.getEstoque();
+    
+    if(qtdEstoque < quantidade)
+    {
+      cout << "Não temos essa quantidade do produto " << prod << " em nosso estoque!" << endl;  
+      m++;
+    }
+  }
+
+  if(m != 0)
+  {
+    cout << "A compra não pode ser feita"<<endl;  
+    std::this_thread::sleep_for(2s);
+    system("clear");
+  }
   
-  
-  Venda venda(dataVenda,empresa->getCliente(escolheCliente),empresa->getOrcamento(empresa->getCliente(escolheCliente),escolheOrcamento),valorTotal,empresa->getFormaPagamento(escolheFormaPagamento),quantidadeParcelas);
-  system("clear");
-  cout << "Venda realizada com sucesso:" << endl;
-  cout << "O valor total é: "<<valorTotal<< endl;
-  cout << "O valor de cada parcela é: "<<valorParcela<< endl;
-  std::this_thread::sleep_for(5s);
-  system("clear");
+  if(m == 0)
+  {
+    int z = 0; 
+    for(z = 0; z < tam; z++)
+    {
+      quantidade = 0;
+      Produto produtox = orcamentox.getProduto(z);
+      string prod = produtox.getNome();
+      Estoque estoque = empresa->getEstoqueProd(prod);
+      quantidade = orcamentox.getQuantidade(z);
+
+      qtdEstoque = 0;
+      qtdEstoque = estoque.getEstoque();
+      int t = 0;
+      t = qtdEstoque-quantidade;
+      estoque.iniciaEstoque();
+      estoque.realizarVenda(t);
+    }
+    
+    Venda venda(dataVenda,empresa->getCliente(escolheCliente),empresa->getOrcamento(empresa->getCliente(escolheCliente),escolheOrcamento),valorTotal,empresa->getFormaPagamento(escolheFormaPagamento),quantidadeParcelas);
+    cout << "Venda realizada com sucesso:" << endl;
+    cout << "O valor total é: " << valorTotal << endl;
+    cout << "O valor de cada parcela é: " << valorParcela << endl;
+    std::this_thread::sleep_for(3s);
+    system("clear");
+  }
 }
 
-void cadastraOrcamento(){
-    system("clear");
+void cadastraOrcamento()
+{
+  system("clear");
   
-    Data dataOrcamento;
-    int  diaOrcamento;
-    int  mesOrcamento;
-    int  anoOrcamento;
+  Data dataOrcamento;
+  int  diaOrcamento;
+  int  mesOrcamento;
+  int  anoOrcamento;
 
-    
-     int d=0;
-  while(d==0)
+  int d = 0;
+  while(d == 0)
   {
     cout << "Digite o dia que o orçamento foi feito:" << endl;
-    cin>>diaOrcamento;
+    cin >> diaOrcamento;
 
-    if(diaOrcamento>31)
+    if(diaOrcamento > 31)
     {
       cout << "Digite um dia válido:" << endl;  
-      d=0;
+      d = 0;
     }
 
     else
-      d=1;  
-
+      d = 1;
   }
 
-  int e=0;
-  while(e==0)
+  int e = 0;
+  while(e == 0)
   {
     cout << "Digite o mês que o orçamento foi feito:" << endl;
-    cin>>mesOrcamento;
+    cin >> mesOrcamento;
 
-    if(mesOrcamento>12)
+    if(mesOrcamento > 12)
     {
       cout << "Digite um mês válido:" << endl;
-      e=0;
+      e = 0;
     }
 
     else
-      e=1;  
+      e = 1;  
   }
 
-  int f=0;
-  while(f==0)
+  int f = 0;
+  while(f == 0)
   {
     cout << "Digite o ano que o orçamento foi feito:" << endl;
-    cin>>anoOrcamento;
+    cin >> anoOrcamento;
 
-    if(anoOrcamento<1900)
+    if(anoOrcamento < 1900)
     {
       cout << "Digite um ano válido" << endl;  
-      f=0;
+      f = 0;
     }
 
     else
-      f=1;
+      f = 1;
   }
 
   dataOrcamento.setDia(diaOrcamento);
@@ -318,129 +381,130 @@ void cadastraOrcamento(){
   Data dataLogLeitura;
   dataLogLeitura.dateNow();
   
-  int escolheCliente;
-  escolheCliente=0;
+  int escolheCliente = 0;
   empresa->getClientes();
   LogLeitura logleitura(usermain,dataLogLeitura,"Orcamento","Cadastrar Orcamento","Vector de clientes da classe Empresa");
  empresa->addLogLeitura(logleitura);
   cout << "Escolha o cliente que vai fazer o orçamento:" << endl;
-  cin>>escolheCliente;
+  cin >> escolheCliente;
   escolheCliente--;
-  Orcamento orcamento(dataOrcamento,empresa->getCliente(escolheCliente));
-  int escolheProduto;
-  escolheProduto=0;
-  int quantidade;
-  quantidade=0;
-  int x;
-  x=0;
-  double valorTotal;
-  valorTotal=0;
   
-  while(x==0){
-   valorTotal=0;
-   quantidade=0;
-   int sair;
-   sair=0; 
-   escolheProduto=0;
-   empresa->getProdutos();
-   std::cout << "Escolha um produto: " << std::endl;
-   cin>>escolheProduto;
-   escolheProduto--;
-   orcamento.setProduto(empresa->getProduto(escolheProduto));
-   std::cout << "Digite a quantidade do produto: " << std::endl; 
-   cin>>quantidade;
-   orcamento.setQuantidade(quantidade);
+  Orcamento orcamento(dataOrcamento,empresa->getCliente(escolheCliente));
+  int escolheProduto = 0;
+  int quantidade = 0;
+  int x = 0;
+  double valorTotal = 0;
+  
+  while(x==0)
+  {
+    valorTotal = 0;
+    quantidade = 0;
+    int sair = 0; 
+    escolheProduto = 0;
+    empresa->getProdutos();
+    std::cout << "Escolha um produto: " << std::endl;
+    cin >> escolheProduto;
+    escolheProduto--;
+    orcamento.setProduto(empresa->getProduto(escolheProduto));
+    std::cout << "Digite a quantidade do produto: " << std::endl; 
+    cin >> quantidade;
+    orcamento.setQuantidade(quantidade);
 
+    int qtdProdEst = 0;
+    int qtdProdEstMin = 0;
     
-    int qtdProdEst;
-    qtdProdEst=0;
-    int qtdProdEstMin;
-    qtdProdEstMin=0;
-    std::string nome;
-    nome = empresa->getProduto(escolheProduto).getNome();
-    qtdProdEst=empresa->getEstoqueProd(nome).getEstoque();
-    qtdProdEstMin=empresa->getEstoqueProd(nome).getEstoqueMin();
+    qtdProdEst = empresa->getEstoquex(escolheProduto).getEstoque();
+    qtdProdEstMin = empresa->getEstoquex(escolheProduto).getEstoqueMin();
+
+    int t = 0;
+    t = qtdProdEst - quantidade;
     
-   double precoProd;
-   precoProd=0;
-   precoProd=empresa->getProduto(escolheProduto).getPreco();
-    
-    if((qtdProdEst-quantidade)<qtdProdEstMin){
+    if(t < qtdProdEstMin)
+    {
       OrdemProducao ordem_producao(dataOrcamento,empresa->getProduto(escolheProduto));
       empresa->addOrdemProducao(ordem_producao);
-      cout<<"Ordem de produção criada, não temos essa quantidade do produto no estoque."<<endl;
+      cout<<"Ordem de produção criada, o produto atingiu uma quantidade menor que o estoque mínimo"<<endl;
     }
     
-   std::cout << "Digite 0 para cancelar a operação ou 1 para escolher mais funcionários: " << std::endl; 
-   cin>>sair;
+    std::cout << "Digite 0 para cancelar a operação ou 1 para escolher mais funcionários: " << std::endl; 
+    cin >> sair;
     
-    if(sair==1){
-    x=0;
-    }
-    else{
-    x=1;  
-    }
+    if(sair == 1)
+      x = 0;
+
+    else
+      x = 1;  
   }
   
   LogLeitura logleitura2(usermain,dataLogLeitura,"Orcamento","Cadastrar Orcamento","Vector de produtos da empresa");
- empresa->addLogLeitura(logleitura2);
+  empresa->addLogLeitura(logleitura2);
+  
   system("clear");
-
   orcamento.getValorTotal();
   empresa->addOrcamento(orcamento);
   cout << "Orçamento realizado com sucesso!" << endl;
-  cout << "O valor total ficou:" <<orcamento.getValorTotal()<<endl;
+  cout << "O valor total ficou:" << orcamento.getValorTotal() << endl;
   std::this_thread::sleep_for(2s);
   system("clear");
 }
 
-void alterarQtdMateriaMin(){
+void alterarQtdMateriaMin()
+{
+  system("clear");
   int escolheMateriaPrima;
   int quantidadeMin;
   Data dataLogLeitura;
+  
   dataLogLeitura.dateNow();
   cout << "Escolha a matéria prima que deseja adicionar ao fornecedor:" << endl;
   empresa->getMateriasPrimas();
   LogLeitura logleitura(usermain,dataLogLeitura,"Materia Prima","Alterar quantidade minima de matéria prima","Vector de matérias primas da empresa");
- empresa->addLogLeitura(logleitura);
-  cin>>escolheMateriaPrima;
+  empresa->addLogLeitura(logleitura);
+  cin >> escolheMateriaPrima;
   escolheMateriaPrima--;
   cout << "Digite a quantidade min da materia prima" << endl;
-  cin>>quantidadeMin;
+  cin >> quantidadeMin;
   empresa->getMateriaPrima(escolheMateriaPrima).setQtdMateriaMin(quantidadeMin);
-  system("clear");
 
   Data dataLogEscrita;
   string a;
   string b;
-  b=std::to_string(quantidadeMin);
+  b = std::to_string(quantidadeMin);
   dataLogEscrita.dateNow();
   LogEscrita logescrita(usermain,dataLogEscrita,"Funcionario","Alterar Salario","Vector de salarios",a,b);
- empresa->addLogEscrita(logescrita);
+  empresa->addLogEscrita(logescrita);
+  
   system("clear");
   cout << "Quantidade alterada com sucesso!" << endl;
   std::this_thread::sleep_for(2s);
   system("clear");
 }
 
-void cadastrarMateriaPrima(){
+void cadastrarMateriaPrima()
+{
   system("clear");
   std::string nome;
   std::string unidadeMedida;
-  int quantidadeEstoque=0;
-  int quantidadeEstoqueMin=0;
+  int quantidadeEstoque = 0;
+  int quantidadeEstoqueMin = 0;
+  
   cout << "Digite o nome da matéria prima:" << endl;
   cin.ignore();
   getline(cin,nome);
+  
   cout << "Digite a unidade de medida:" << endl;
   cin.ignore();
   getline(cin,unidadeMedida);
+  
   cout << "Quantidade que o estoque possui:" << endl;
-  cin>>quantidadeEstoque;
+  cin >> quantidadeEstoque;
+  
   cout << "Quantidade minima estoque" << endl;
-  cin>>quantidadeEstoqueMin;
+  cin >> quantidadeEstoqueMin;
+  
   MateriaPrima materiaPrima(nome,unidadeMedida,quantidadeEstoque,quantidadeEstoqueMin);
   empresa->addMateriaPrima(materiaPrima);
+  
   system("clear");
   cout << "Matéria prima cadastrada com sucesso!" << endl;
   std::this_thread::sleep_for(2s);
@@ -450,68 +514,65 @@ void cadastrarMateriaPrima(){
 void menuMateriaPrima()
 {
   system("clear");
-  int a=0;
-  while(a==0)
-  {
-    cout <<"Matéria Prima:"<< endl;
-    cout <<"1- Cadastrar matéria prima"<< endl;
-    cout <<"2- Atualizar quantidade minima de estoque"<< endl;
-    cout <<"3- Voltar ao menu"<<endl;
-    cout <<"Digite uma das opcoes:" << endl;
   
-    int numx=0;
+  int a = 0;
+  while(a == 0)
+  {
+    cout << "Matéria Prima:" << endl;
+    cout << "1- Cadastrar matéria prima" << endl;
+    cout << "2- Atualizar quantidade minima de estoque" << endl;
+    cout << "3- Voltar ao menu" <<endl;
+    cout << "Digite uma das opcoes:" << endl;
+  
+    int numx = 0;
     cin >> numx;
 
-    if(numx==1)
+    if(numx == 1)
     {
-      if(usermain.getPermissao("Materia Prima","Cadastrar Materia Prima")==false){
-      system("clear");
-      cout<<"O usuário logado não tem permissão para cadastrar materia prima.";
-      Data data;
-      data.dateNow();
-      LogAcessoNegado logacessonegado(usermain,data,"Materia Prima","Cadastrar Materia Prima");
-      empresa->addLogAcessoNegado(logacessonegado);
-      a=1;
-      break;
+      if(usermain.getPermissao("Materia Prima","Cadastrar Materia Prima")==false)
+      {
+        system("clear");
+        cout << "O usuário logado não tem permissão para cadastrar materia prima.";
+        Data data;
+        data.dateNow();
+        LogAcessoNegado logacessonegado(usermain,data,"Materia Prima","Cadastrar Materia Prima");
+        empresa->addLogAcessoNegado(logacessonegado);
+        a = 1;
+        break;
       }
-      else{
+        
+      else
         cadastrarMateriaPrima();
-        //break;
-      }
-      
     }
       
-    else if(numx==2)
+    else if(numx == 2)
     {
-      if(usermain.getPermissao("Materia Prima","Alterar quantidade de materia prima.")==false){
-      system("clear");
-      cout<<"O usuário logado não tem permissão para alterar quantidade de materia prima.";
-      Data data;
-      data.dateNow();
-      LogAcessoNegado logacessonegado(usermain,data,"Materia Prima","Alterar quantidade de materia prima");
-      empresa->addLogAcessoNegado(logacessonegado);
-      a=1;
-      break;
+      if(usermain.getPermissao("Materia Prima","Alterar quantidade de materia prima.")==false)
+      {
+        system("clear");
+        cout << "O usuário logado não tem permissão para alterar quantidade de materia prima.";
+        Data data;
+        data.dateNow();
+        LogAcessoNegado logacessonegado(usermain,data,"Materia Prima","Alterar quantidade de materia prima");
+        empresa->addLogAcessoNegado(logacessonegado);
+        a = 1;
+        break;
       }
-      else{
+        
+      else
         alterarQtdMateriaMin();
-        //break;
-      }
     }
 
-    else if(numx==3)
+    else if(numx == 3)
     {
       system("clear");
-      a=1;
-      //break;
+      a = 1;
     }
-
 
     else
       cout << "Digite um valor valido!" << endl;
   }
 }
-
 
 void cadastrarUsuario()
 {
@@ -520,14 +581,15 @@ void cadastrarUsuario()
   string user;
   string senha;
 
-  cout<<"Digite o tipo de Usuário:"<<endl;
-  cin>>tipo;
-  cout<<"Digite seu login:"<<endl;
-  cin>>user;
-  cout<<"Digite sua senha:"<<endl;
-  cin>>senha;
+  cout << "Digite o tipo de Usuário:" << endl;
+  cin >> tipo;
+  cout << "Digite seu login:" << endl;
+  cin >> user;
+  cout << "Digite sua senha:" << endl;
+  cin >> senha;
   Usuario cadUser(tipo,user,senha);
   empresa->addUsuario(cadUser);
+  
   system("clear");
   cout << "Usuário cadastrado com sucesso!" << endl; 
   std::this_thread::sleep_for(2s);
@@ -538,11 +600,13 @@ void cadastrarCategoria()
 {
   system("clear");
   string nome_categoria;
+  
   cout << "Digite o nome da categoria:" << endl;
   cin.ignore();
   getline(cin,nome_categoria);
   Categoria categoria(nome_categoria);
   empresa->addCategoria(categoria);
+  
   system("clear");
   cout << "Categoria cadastrada com sucesso!" << endl; 
   std::this_thread::sleep_for(2s);
@@ -553,44 +617,52 @@ void cadastrarCargo()
 {
   system("clear");
   string nome_cargo;
+  
   cout << "Digite o nome do cargo:" << endl;
   cin.ignore();
   getline(cin,nome_cargo);
   Cargo cargo(nome_cargo);
   empresa->addCargo(cargo);
+  
   system("clear");
   cout << "Cargo cadastrado com sucesso!" << endl; 
   std::this_thread::sleep_for(2s);
   system("clear");
 }
 
-void cadastrarVeiculo(){
-  std::string placa;
+void cadastrarVeiculo()
+{
   system("clear");
+  std::string placa;
   std::string tipo;
+  
   std::cout << "Digite a placa do veículo: " << std::endl;
   cin.ignore();
   getline(cin,placa);
+  
   std::cout << "Digite o tipo do veiculo: " << std::endl;
   cin.ignore();
   getline(cin,tipo);
+  
   int capacidade;
   std::cout << "Digite a capacidade do veiculo: " << std::endl;
   cin >> capacidade;
   Veiculo veiculo(placa,tipo, capacidade);
   empresa->addVeiculo(veiculo);
+  
   system("clear");
   cout << "Veiculo cadastrado com sucesso!" << endl;
   std::this_thread::sleep_for(2s);
   system("clear");
 }
 
-void cadastrarRota(){
-  int escolheVeiculo=0;
-  int escolheFuncionarios=0;
-  int x=0;
-  Data horario;
+void cadastrarRota()
+{
   system("clear");
+  int escolheVeiculo = 0;
+  int escolheFuncionarios = 0;
+  int x = 0;
+  Data horario;
   std::string turno;
   empresa->getVeiculos();
   
@@ -600,53 +672,61 @@ void cadastrarRota(){
   empresa->addLogLeitura(logleitura);
   
   std::cout << "Digite o veiculo que vai ser responsável pela rota: " << std::endl;
-  cin>>escolheVeiculo;
+  cin >> escolheVeiculo;
   escolheVeiculo--;
+  
   std::cout << "Digite o turno da rota: " << std::endl;
   cin.ignore();
   getline(cin,turno);
+  
   int hora, min;
   std::cout << "Digite as horas: " << std::endl;
-  cin>>hora;
+  cin >> hora;
+  
   horario.setHora(hora);
   std::cout << "Digite os minutos: " << std::endl;
-  cin>>min;
+  cin >> min;
   horario.setMin(min);
+  
   float latitude;
   std::cout << "Digite latitude da empresa: " << std::endl;
-  cin>>latitude;
+  cin >> latitude;
+  
   float longitude;
   std::cout << "Digite longitude da empresa: " << std::endl;
-  cin>>longitude;
+  cin >> longitude;
   Rota rota(empresa->getVeiculo(escolheVeiculo),turno,horario,latitude,longitude);
   empresa->addRota(rota);
-  while(x==0){
-   int sair=0;
+  
+  while(x == 0)
+  {
+   int sair = 0;
    system("clear"); 
-   escolheFuncionarios=0;
+   escolheFuncionarios = 0;
    empresa->getFuncionarios();
    std::cout << "Escolha um funcionario: " << std::endl;
    cin>>escolheFuncionarios;
    escolheFuncionarios--;
    rota.setFuncionarios(empresa->getFuncionario(escolheFuncionarios));
-  std::cout << "Digite 0 para cancelar a operação ou 1 para escolher mais funcionários: " << std::endl; 
-   cin>>sair;
-    if(sair==1){
-    x=0;
-    }
-    else{
-    x=1;  
-    }
+   std::cout << "Digite 0 para cancelar a operação ou 1 para escolher mais funcionários: " << std::endl; 
+   cin >> sair;
+    
+    if(sair == 1)
+      x = 0;
+    
+    else
+    x = 1;    
   }
+  
   LogLeitura logleitura2(usermain,dataLogLeitura,"Rota","Cadastrar rota","Vector de funcionarios da empresa");
- empresa->addLogLeitura(logleitura2);
+  empresa->addLogLeitura(logleitura2);
   std::cout << "Rota cadastrada com sucesso! " << std::endl;
   std::this_thread::sleep_for(2s);
   system("clear");
 }
 
-void cadastrarLote(){
-
+void cadastrarLote()
+{
   system("clear");
   
   Data dataLote;
@@ -656,97 +736,97 @@ void cadastrarLote(){
   int  horaLote;
   int  minutoLote;
 
-  int d=0;
-  while(d==0)
+  int d = 0;
+  while(d == 0)
   {
     cout << "Digite o dia de produção do lote:" << endl;
-    cin>>diaLote;
+    cin >> diaLote;
 
-    if(diaLote>31)
+    if(diaLote > 31)
     {
       cout << "Digite um dia válido:" << endl;  
-      d=0;
+      d = 0;
     }
 
     else
-      d=1;  
-
+      d = 1;  
   }
 
-  int e=0;
-  while(e==0)
+  int e = 0;
+  while(e == 0)
   {
     cout << "Digite o mês de produção do lote:" << endl;
-    cin>>mesLote;
+    cin >> mesLote;
 
     if(mesLote>12)
     {
       cout << "Digite um mês válido:" << endl;
-      e=0;
+      e = 0;
     }
 
     else
-      e=1;  
+      e = 1;  
   }
 
-  int f=0;
-  while(f==0)
+  int f = 0;
+  while(f == 0)
   {
     cout << "Digite o ano  de produção do lote:" << endl;
-    cin>>anoLote;
+    cin >> anoLote;
 
-    if(anoLote<1900)
+    if(anoLote < 1900)
     {
       cout << "Digite um ano válido" << endl;  
-      f=0;
+      f = 0;
     }
 
     else
-      f=1;
+      f = 1;
   }
 
-  int g=0;
-  while(g==0)
+  int g = 0;
+  while(g == 0)
   {
     cout << "Digite a hora em que o lote foi produzido:" << endl;
-    cin>>horaLote;
+    cin >> horaLote;
 
-    if(horaLote>24)
+    if(horaLote > 24)
     {
       cout << "Digite uma hora válida" << endl;  
-      g=0;
+      g = 0;
     }
 
     else
-      g=1;
+      g = 1;
   }
 
-  int h=0;
-  while(h==0)
+  int h = 0;
+  while(h == 0)
   {
     cout << "Digite o minuto em que o lote foi produzido:" << endl;
-    cin>>minutoLote;
+    cin >> minutoLote;
 
-    if(minutoLote>60)
+    if(minutoLote > 60)
     {
       cout << "Digite um minuto válido" << endl;  
-      h=0;
+      h = 0;
     }
 
     else
-      h=1;
+      h = 1;
   }
+  
   dataLote.setDia(diaLote);
   dataLote.setMes(mesLote);
   dataLote.setAno(anoLote);
   dataLote.setHora(horaLote);
   dataLote.setMin(minutoLote);
 
-  int numLote=0;
+  int numLote = 0;
   cout << "Digite o número do lote:" << endl;
-  cin >>numLote;
+  cin >> numLote;
 
-  int escolherProduto=0;
+  int escolherProduto = 0;
   empresa->getProdutos();
 
   Data dataLogLeitura;
@@ -758,45 +838,45 @@ void cadastrarLote(){
   cin >> escolherProduto;
   escolherProduto--;
 
-  int quantidade=0;
+  int quantidade = 0;
   cout << "Digite a quantidade do produto que foi produzido no lote:" << endl;
   cin >> quantidade;
 
-  int tam2=0;
-  tam2=empresa->getProduto(escolherProduto).getTamVetor();
-  int z=0;
-  int quantidadequegasta=0;
-  int quantidadequetenhoestoque=0;
-  int quantidademinima=0;
+  int tam2 = 0;
+  tam2 = empresa->getProduto(escolherProduto).getTamVetor();
+  int z = 0;
+  int quantidadequegasta = 0;
+  int quantidadequetenhoestoque = 0;
+  int quantidademinima = 0;
 
-  for(z=0;z<tam2;z++){
-  std::string nome = empresa->getProduto(escolherProduto).getMateriaPrima(z).getNome();
-  quantidadequegasta = empresa->getProduto(escolherProduto).getQuantidadeQueGasta(z);
-  quantidadequetenhoestoque = empresa->getProduto(escolherProduto).getMateriaPrima(z).getEstoque();
-  quantidademinima= empresa->getProduto(escolherProduto).getMateriaPrima(z).getEstoqueMin();
-  if((quantidadequetenhoestoque-(quantidadequegasta*quantidade))<quantidademinima){
-  OrdemCompra ordemCompra(dataLote);
-  ordemCompra.setMateria(nome);  
-  empresa->addOrdemCompra(ordemCompra);
-  cout << "A quantidade da matéria prima" << nome <<"é menor que a quantidade mínuma, uma ordem de produção foi gerada" <<endl;
-  }
+  for(z = 0; z < tam2; z++)
+  {
+    std::string nome = empresa->getProduto(escolherProduto).getMateriaPrima(z).getNome();
+    quantidadequegasta = empresa->getProduto(escolherProduto).getQuantidadeQueGasta(z);
+    quantidadequetenhoestoque = empresa->getProduto(escolherProduto).getMateriaPrima(z).getEstoque();
+    quantidademinima= empresa->getProduto(escolherProduto).getMateriaPrima(z).getEstoqueMin();
+    if((quantidadequetenhoestoque-(quantidadequegasta*quantidade))<quantidademinima)
+    {
+      OrdemCompra ordemCompra(dataLote);
+      ordemCompra.setMateria(nome);  
+      empresa->addOrdemCompra(ordemCompra);
+      cout << "A quantidade da matéria prima" << nome <<"é menor que a quantidade mínuma, uma ordem de produção foi gerada" << endl;
+    }
   }
 
-  
   Lote lote(dataLote,numLote,empresa->getProduto(escolherProduto),quantidade);
   empresa->addLote(lote);
 
-  int a=0;
-  int tam=empresa->getTamEstoque();
-  for(a=0;a<tam;a++){
-  if(empresa->getEstoque(a).getProduto().getNome() == empresa->getProduto(escolherProduto).getNome()){
-  empresa->getEstoque(a).setLote(lote);
-  empresa->getEstoque(a).setQuantidade(quantidade);
-  }  
+  int a = 0;
+  int tam = empresa->getTamEstoque();
+  for(a = 0; a < tam; a++)
+  {
+    if(empresa->getEstoquex(a).getProduto().getNome() == empresa->getProduto(escolherProduto).getNome())  
+    {
+      empresa->getEstoquex(a).setLote(lote);
+      empresa->getEstoquex(a).setQuantidade(quantidade);
+    }  
   }
-
-  
-  
 
   system("clear");
   cout << "Lote produzido com sucesso!" << endl;
@@ -804,10 +884,11 @@ void cadastrarLote(){
   system("clear");
 }
 
-void adicionarMateriaPrimaProd(){
-  int escolherProduto=0;
-  int escolherMateriaPrima=0;
-  int quantidade=0;
+void adicionarMateriaPrimaProd()
+{
+  int escolherProduto = 0;
+  int escolherMateriaPrima = 0;
+  int quantidade = 0;
   system("clear");
   empresa->getProdutos();
 
@@ -817,7 +898,7 @@ void adicionarMateriaPrimaProd(){
   LogLeitura logleitura(usermain,dataLogLeitura,"Produto","Adicionar matéria prima ao produto","Vector de produtos da empresa");
   empresa->addLogLeitura(logleitura);
   cout << "Escolha o produto que deseja adicionar matéria prima:" << endl;
-  cin>>escolherProduto;
+  cin >> escolherProduto;
   escolherProduto--;
   empresa->getMateriasPrimas();
 
@@ -826,20 +907,22 @@ void adicionarMateriaPrimaProd(){
   empresa->addLogLeitura(logleitura2);
   
   cout << "Escolha a matéria prima que deseja adicionar:" << endl;
-  cin>>escolherMateriaPrima;
+  cin >> escolherMateriaPrima;
   escolherMateriaPrima--;
+  
   cout << "Digite a quantidade de matéria prima:" << endl;
-  cin>>quantidade;
+  cin >> quantidade;
   empresa->getProduto(escolherProduto).setMateriaPrima(empresa->getMateriaPrima(escolherMateriaPrima));
   empresa->getProduto(escolherProduto).setQuantidade(quantidade);
+  
   system("clear");
   cout << "Matéria prima adicionada com sucesso!" << endl;
   std::this_thread::sleep_for(2s);
-  system("clear");
-  
+  system("clear"); 
 }
 
-void adicionarPrecoProduto(){
+void adicionarPrecoProduto()
+{
   int escolherProduto=0;
   system("clear");
   empresa->getProdutos();
@@ -851,11 +934,13 @@ void adicionarPrecoProduto(){
   
   double preco;
   cout << "Escolha o produto que deseja alterar o preço:" << endl;
-  cin>>escolherProduto;
+  cin >> escolherProduto;
   escolherProduto--;
+  
   cout << "Digite o novo valor do produto:" << endl;
-  cin>>preco;
+  cin >> preco;
   empresa->getProduto(escolherProduto).setPreco(preco);
+  
   system("clear");
   cout << "Preço alterado com sucesso!" << endl;
   std::this_thread::sleep_for(2s);
@@ -863,25 +948,30 @@ void adicionarPrecoProduto(){
   
 }
 
-void cadastrarProduto(){
-  int escolherCategoria=0;
+void cadastrarProduto()
+{
+  int escolherCategoria = 0;
   system("clear");
   string nome_p;
   cout << "Digite o nome do produto:" << endl;
   cin.ignore();
   getline(cin,nome_p);
+  
   int codigo;
   cout << "Digite o codigo do produto:" << endl;
-  cin>>codigo;
+  cin >> codigo;
   double preco;
   cout << "Digite o preco do produto:" << endl;
-  cin>>preco;
+  cin >> preco;
+  
   int lote_min;
   cout << "Digite o lote mínimo que o produto deve ter:" << endl;
-  cin>>lote_min;
+  cin >> lote_min;
+  
   int estoque_min;
   cout << "Digite o estoque mínimo que o produto deve ter:" << endl;
-  cin>>estoque_min;
+  
+  cin >> estoque_min;
   cout << "Escolha a categoria do produto:" << endl;
   empresa->getCategorias();
 
@@ -891,7 +981,7 @@ void cadastrarProduto(){
   LogLeitura logleitura(usermain,dataLogLeitura,"Produto","Cadastrar produto","Vector de categorias da empresa");
   empresa->addLogLeitura(logleitura);
   
-  cin>>escolherCategoria;
+  cin >> escolherCategoria;
   escolherCategoria--;
   
   Produto produto(nome_p, codigo, preco, empresa->getCategoria(escolherCategoria), lote_min, estoque_min);
@@ -900,28 +990,30 @@ void cadastrarProduto(){
   empresa->addEstoque(estoque);
   estoque.setQuantidadeMin(estoque_min);
 
-   int x=0;
-   while(x==0){
-   int sair=0;
-   system("clear"); 
-   int escolherMateriasPrimas=0;
-   empresa->getMateriasPrimas();
-   cin>>escolherMateriasPrimas;
-   escolherMateriasPrimas--;
-   int quantidade = 0;
-   cout << "Digite a quantidade de matéria prima:" << endl;
-   cin>>quantidade;
-   produto.setMateriaPrima(empresa->getMateriaPrima(escolherMateriasPrimas));
-   produto.setQuantidade(quantidade);
-   std::cout << "Digite 0 para cancelar a operação ou 1 para escolher mais materias primas: " << std::endl; 
-   cin>>sair;
-    if(sair==1){
-    x=0;
-    }
-    else{
-    x=1;  
-    }
+   int x = 0;
+   while(x == 0)
+   {
+     int sair=0;
+     system("clear"); 
+     int escolherMateriasPrimas=0;
+     empresa->getMateriasPrimas();
+     cin>>escolherMateriasPrimas;
+     escolherMateriasPrimas--;
+     int quantidade = 0;
+     cout << "Digite a quantidade de matéria prima:" << endl;
+     cin>>quantidade;
+     produto.setMateriaPrima(empresa->getMateriaPrima(escolherMateriasPrimas));
+     produto.setQuantidade(quantidade);
+     
+     std::cout << "Digite 0 para cancelar a operação ou 1 para escolher mais materias primas: " << std::endl; 
+     cin >> sair;
+     if(sair == 1)
+       x = 0;
+    
+     else
+       x = 1;  
   }
+  
   LogLeitura logleitura2(usermain,dataLogLeitura,"Produto","Cadastrar produto","Vector de matérias primas da empresa");
   empresa->addLogLeitura(logleitura2);
   
@@ -929,13 +1021,13 @@ void cadastrarProduto(){
   cout << "Produto cadastrado com sucesso!" << endl;
   std::this_thread::sleep_for(2s);
   system("clear");
-  
 }
 
-void menuProduto(){
+void menuProduto()
+{
   system("clear");
-  int a=0;
-  while(a==0)
+  int a = 0;
+  while(a == 0)
   {
     cout <<"Produto:"<< endl;
     cout <<"1- Cadastrar produto"<< endl;
@@ -943,67 +1035,76 @@ void menuProduto(){
     cout <<"3- Adicionar matéria prima e quantidade"<< endl;
     cout <<"Digite uma das opcoes:" << endl;
   
-    int numx=0;
+    int numx = 0;
     cin >> numx;
 
-    if(numx==1)
+    if(numx == 1)
     {
-      if(usermain.getPermissao("Produto","Cadastrar Produto")==false){
-      system("clear");
-      cout<<"O usuário logado não tem permissão para cadastrar produtos";
-      Data data;
-      data.dateNow();
-      LogAcessoNegado logacessonegado(usermain,data,"Produto","Cadastrar Produto");
-      empresa->addLogAcessoNegado(logacessonegado);
-      a=1;
-      break;
+      if(usermain.getPermissao("Produto","Cadastrar Produto")==false)
+      {
+        system("clear");
+        cout<<"O usuário logado não tem permissão para cadastrar produtos";
+        Data data;
+        data.dateNow();
+        LogAcessoNegado logacessonegado(usermain,data,"Produto","Cadastrar Produto");
+        empresa->addLogAcessoNegado(logacessonegado);
+        a = 1;
+        break;
       }
-      else{
-      cadastrarProduto();
-      a=1;
+      
+      else
+      {
+        cadastrarProduto();
+        a = 1;
       }
     }
       
     if(numx==2)
     {
-      if(usermain.getPermissao("Produto","Adicionar PrecoProduto")==false){
-      system("clear");
-      cout<<"O usuário logado não tem permissão para adicionar um novo preço ao produto";
-      Data data;
-      data.dateNow();
-      LogAcessoNegado logacessonegado(usermain,data,"Produto","Adicionar PrecoProduto");
-      empresa->addLogAcessoNegado(logacessonegado);
-      a=1;
-      break;
+      if(usermain.getPermissao("Produto","Adicionar PrecoProduto")==false)
+      {
+        system("clear");
+        cout<<"O usuário logado não tem permissão para adicionar um novo preço ao produto";
+        Data data;
+        data.dateNow();
+        LogAcessoNegado logacessonegado(usermain,data,"Produto","Adicionar PrecoProduto");
+        empresa->addLogAcessoNegado(logacessonegado);
+        a = 1;
+        break;
       }
-      else{
-      adicionarPrecoProduto();
-      a=1;
-      }
-    }
-
-    if(numx==3)
-    {
-      if(usermain.getPermissao("Produto","Adicionar Materia Prima Produto")==false){
-      system("clear");
-      cout<<"O usuário logado não tem permissão para adicionar uma nova matéria prima ao produto";
-      Data data;
-      data.dateNow();
-      LogAcessoNegado logacessonegado(usermain,data,"Produto","Adicionar Materia Prima Produto");
-      empresa->addLogAcessoNegado(logacessonegado);
-      a=1;
-      break;
-      }
-      else{
-      adicionarMateriaPrimaProd();
-      a=1;
+      
+      else
+      {
+        adicionarPrecoProduto();
+        a = 1;
       }
     }
 
-    if(numx==4)
+    if(numx == 3)
+    {
+      if(usermain.getPermissao("Produto","Adicionar Materia Prima Produto")==false)
+      {
+        system("clear");
+        cout<<"O usuário logado não tem permissão para adicionar uma nova matéria prima ao produto";
+        Data data;
+        data.dateNow();
+        LogAcessoNegado logacessonegado(usermain,data,"Produto","Adicionar Materia Prima Produto");
+        empresa->addLogAcessoNegado(logacessonegado);
+        a = 1;
+        break;
+      }
+        
+      else
+      {
+        adicionarMateriaPrimaProd();
+        a = 1;
+      }
+    }
+
+    if(numx == 4)
     {
       system("clear");
-      a=1;
+      a = 1;
       break;
     }
 
@@ -1021,13 +1122,15 @@ void cadastrarDepartamento()
   getline(cin,nome_depart);
   Departamento departamento(nome_depart);
   empresa->addDepartamento(departamento);
+  
   system("clear");
   cout << "Departamento cadastrado com sucesso!" << endl;
   std::this_thread::sleep_for(2s);
   system("clear");
 }
 
-void alterarPrecoMateriaPrimaFornecedor(){
+void alterarPrecoMateriaPrimaFornecedor()
+{
   int escolheFornecedor;
   int escolheMateriaPrima;
   double preco;
@@ -1057,7 +1160,8 @@ void alterarPrecoMateriaPrimaFornecedor(){
  empresa->addLogEscrita(logescrita);
 }
 
-void adicionarMateriaPrimaFornecedor(){
+void adicionarMateriaPrimaFornecedor()
+{
   int escolheFornecedor;
   int escolheMateriaPrima;
   double preco;
@@ -1093,11 +1197,11 @@ void cadastrarFornecedor()
   getline(cin,nome);
   Fornecedor fornecedor(nome);
   empresa->addFornecedor(fornecedor);
+  system("clear");
   cout << "Fornecedor cadastrado com sucesso" << endl;
   std::this_thread::sleep_for(2s);
   system("clear");
 }
-
 
 void menuFornecedor()
 {
@@ -1117,61 +1221,69 @@ void menuFornecedor()
 
     if(numx==1)
     {
-      if(usermain.getPermissao("Fornecedor","Cadastrar Fornecedor")==false){
-      system("clear");
-      cout<<"O usuário logado não tem permissão para cadastrar fornecedor.";
-      Data data;
-      data.dateNow();
-      LogAcessoNegado logacessonegado(usermain,data,"Fornecedor","Cadastrar Fornecedor");
-      empresa->addLogAcessoNegado(logacessonegado);
-      a=1;
-      break;
-    }
-    else{
-      cadastrarFornecedor();
-      a=1;
-      break;
-    }
-  } 
+      if(usermain.getPermissao("Fornecedor","Cadastrar Fornecedor")==false)
+      {
+        system("clear");
+        cout<<"O usuário logado não tem permissão para cadastrar fornecedor.";
+        Data data;
+        data.dateNow();
+        LogAcessoNegado logacessonegado(usermain,data,"Fornecedor","Cadastrar Fornecedor");
+        empresa->addLogAcessoNegado(logacessonegado);
+        a=1;
+        break;
+      }
+      
+      else
+      {
+        cadastrarFornecedor();
+        a=1;
+        break;
+      }
+    } 
   
-  if(numx==2)
+    if(numx==2)
     {
-      if(usermain.getPermissao("Fornecedor","Adicionar materia prima fornecedor")==false){
-      system("clear");
-      cout<<"O usuário logado não tem permissão para adicionar materia prima fornecedor.";
-      Data data;
-      data.dateNow();
-      LogAcessoNegado logacessonegado(usermain,data,"Fornecedor","Adicionar materia prima fornecedor");
-      empresa->addLogAcessoNegado(logacessonegado);
-      a=1;
-      break;
+      if(usermain.getPermissao("Fornecedor","Adicionar materia prima fornecedor")==false)
+      {
+        system("clear");
+        cout<<"O usuário logado não tem permissão para adicionar materia prima fornecedor.";
+        Data data;
+        data.dateNow();
+        LogAcessoNegado logacessonegado(usermain,data,"Fornecedor","Adicionar materia prima fornecedor");
+        empresa->addLogAcessoNegado(logacessonegado);
+        a=1;
+        break;
+      }
+        
+      else
+      {
+        adicionarMateriaPrimaFornecedor();
+        a=1;
+        break;
+      }   
     }
-    else{
-      adicionarMateriaPrimaFornecedor();
-      a=1;
-      break;
-    }   
- }
 
     if(numx==3)
     {
-      if(usermain.getPermissao("Fornecedor","Alterar Preco Materia Prima Fornecedor")==false){
-      system("clear");
-      cout<<"O usuário logado não tem permissão para Alterar Preco Materia Prima Fornecedor.";
-      Data data;
-      data.dateNow();
-      LogAcessoNegado logacessonegado(usermain,data,"Fornecedor","Alterar Preco Materia Prima Fornecedor");
-      empresa->addLogAcessoNegado(logacessonegado);
-      a=1;
-      break;
+      if(usermain.getPermissao("Fornecedor","Alterar Preco Materia Prima Fornecedor")==false)
+      {
+        system("clear");
+        cout<<"O usuário logado não tem permissão para Alterar Preco Materia Prima Fornecedor.";
+        Data data;
+        data.dateNow();
+        LogAcessoNegado logacessonegado(usermain,data,"Fornecedor","Alterar Preco Materia Prima Fornecedor");
+        empresa->addLogAcessoNegado(logacessonegado);
+        a=1;
+        break;
+      }
+    
+      else
+      {
+        alterarPrecoMateriaPrimaFornecedor();
+        a=1;
+        break;
+      }    
     }
-    else{
-      alterarPrecoMateriaPrimaFornecedor();
-      a=1;
-      break;
-    }   
-     
-  }
 
     if(numx==4)
     {
@@ -1209,7 +1321,6 @@ void cadastrarCliente()
   cin.ignore();
   getline(cin,endereco);
 
-  
   int d=0;
   while(d==0)
   {
@@ -1224,7 +1335,6 @@ void cadastrarCliente()
 
     else
       d=1;  
-
   }
 
   int e=0;
@@ -1259,7 +1369,6 @@ void cadastrarCliente()
       f=1;
   }
 
-  
   cout << "Digite o telefone do cliente:" << endl;
   cin.ignore();
   getline(cin,telefone); 
@@ -1294,33 +1403,34 @@ void cadastrarCliente()
   }
   
   int z=0;
-  while(z==0){
-  cout << "Digite o documento do cliente:" << endl;
-  cin>>documento;
+  while(z==0)
+  {
+    cout << "Digite o documento do cliente:" << endl;
+    cin>>documento;
 
-  if(tipo==true){
-  if(validaCPF(documento)==true)
-      z=1; 
-
-    else
+    if(tipo==true)
     {
-      cout << "Digite um CPF válido" << endl;  
-      z=0;
-    }    
-  }
-    
-  if(tipo==false){
-  if(validaCNPJ(documento)==true)
-      z=1; 
+      if(validaCPF(documento)==true)
+        z=1; 
 
-    else
+      else
+      {
+        cout << "Digite um CPF válido" << endl;  
+        z=0;
+      }    
+    }
+    
+    if(tipo==false)
     {
-      cout << "Digite um CNPJ válido" << endl;  
-      z=0;
-    }    
-  }
-    
-    
+      if(validaCNPJ(documento)==true)
+        z=1; 
+
+      else
+      {
+        cout << "Digite um CNPJ válido" << endl;  
+        z=0;
+      }    
+    }
   }
 
   data.setDia(dia);
@@ -1328,6 +1438,7 @@ void cadastrarCliente()
   data.setAno(ano);
   Cliente cliente(nome,documento,email,endereco,data,telefone,tipo);
   empresa->addCliente(cliente);
+  
   system("clear");
   cout << "Cliente cadastrado com sucesso!" << endl;
   std::this_thread::sleep_for(2s);
@@ -1350,7 +1461,7 @@ void alterarSalario()
   cout <<"Escolha o funcionário"<< endl;
   cin>>funcionario;
   funcionario--;
-  cout <<"Digite um novo salário<< endl";
+  cout <<"Digite um novo salário"<< endl;
   cin>>salario;
 
   int d=0;
@@ -1411,7 +1522,6 @@ void alterarSalario()
   LogEscrita logescrita(usermain,dataLogEscrita,"Funcionario","Alterar Salario","Vector de salarios",a,b);
  empresa->addLogEscrita(logescrita);
 
-  
   system("clear");
   cout << "Salário alterado com sucesso!" << endl;
   std::this_thread::sleep_for(2s);
@@ -1420,29 +1530,107 @@ void alterarSalario()
 
 void historicoSalarios()
 {
-Data dataLogLeitura;
-dataLogLeitura.dateNow();
-int funcionario=0;
-system("clear");
-empresa->getFuncionarios();
-LogLeitura logleitura(usermain,dataLogLeitura,"Funcionario","Historico de salários","Vector funcionarios da empresa");
-empresa->addLogLeitura(logleitura);
-cout <<"Escolha o funcionário"<< endl;
-cin>>funcionario;
-funcionario--;
-empresa->getFuncionario(funcionario).getSalarios();
-LogLeitura logleitura2(usermain,dataLogLeitura,"Funcionario","Historico de salários","Vector de salarios do funcionário");
-empresa->addLogLeitura(logleitura2);
+  Data dataLogLeitura;
+  dataLogLeitura.dateNow();
+  int funcionario=0;
+  system("clear");
+  empresa->getFuncionarios();
+  LogLeitura logleitura(usermain,dataLogLeitura,"Funcionario","Historico de salários","Vector funcionarios da empresa");
+  empresa->addLogLeitura(logleitura);
+  
+  cout <<"Escolha o funcionário"<< endl;
+  cin>>funcionario;
+  funcionario--;
+  empresa->getFuncionario(funcionario).getSalarios();
+  LogLeitura logleitura2(usermain,dataLogLeitura,"Funcionario","Historico de salários","Vector de salarios do funcionário");
+  empresa->addLogLeitura(logleitura2);
 }
 
 void aplicarDissidio()
-{
+{  
+  Data dataLogLeitura;
+  dataLogLeitura.dateNow();
+  LogLeitura logleitura(usermain,dataLogLeitura,"Funcionario","Alterar salario funcionario","Vector de funcionarios da empresa");
+  empresa->addLogLeitura(logleitura);
+  
+  double salario;
+  int funcionario;
+  int tam = 0;
+  Data data;
+  int dia,mes,ano;
+  cout <<"Digite um novo salário"<< endl;
+  cin>>salario;
 
+  int d=0;
+  while(d==0)
+  {
+    cout << "Digite o dia de aplicação do dissídio:" << endl;
+    cin>>dia;
+
+    if(dia>31)
+    {
+      cout << "Digite um dia válido:" << endl;  
+      d=0;
+    }
+
+    else
+      d=1;  
+  }  
+
+  int e=0;
+  while(e==0)
+  {
+    cout << "Digite o mês de aplicação do dissídio:" << endl;
+    cin>>mes;
+
+    if(mes>12)
+    {
+      cout << "Digite um mês válido:" << endl;
+      e=0;
+    }
+
+    else
+      e=1;  
+  }
+
+  int f=0;
+  while(f==0)
+  {
+    cout << "Digite o ano de aplicação do dissídio:" << endl;
+    cin>>ano;
+
+    if(ano<1900)
+    {
+      cout << "Digite um ano válido" << endl;  
+      f=0;
+    }
+
+    else
+      f=1;
+  }
+
+  tam = empresa->getTamFuncionarios();
+  for(funcionario = 0; funcionario < tam; funcionario++)
+  {
+    empresa->alterarSalario(funcionario,salario,data);
+  }
+  
+  Data dataLogEscrita;
+  string a;
+  string b;
+  b=std::to_string(salario);
+  dataLogEscrita.dateNow();
+  LogEscrita logescrita(usermain,dataLogEscrita,"Funcionario","Alterar Salario","Vector de salarios",a,b);
+ empresa->addLogEscrita(logescrita);
+
+  system("clear");
+  cout << "Dissídio aplicado com sucesso!" << endl;
+  std::this_thread::sleep_for(2s);
+  system("clear");
 }
 
 void demitirFuncionario()
 {
-  
   empresa->getFuncionarios();
 
   Data dataLogLeitura;
@@ -1585,7 +1773,6 @@ void cadastrarFuncionario()
 
     else
       d=1;  
-
   }
 
   int e=0;
@@ -1702,6 +1889,7 @@ empresa->addLogLeitura(logleitura);
   dataAdmissao.setDia(diaAdmiss);
   dataAdmissao.setMes(mesAdmiss);
   dataAdmissao.setAno(anoAdmiss);
+  
   Funcionario funcionario(
     nome,documento,email,endereco,dataNasc,telefone,
     matricula,dataAdmissao,
@@ -1710,6 +1898,7 @@ empresa->addLogLeitura(logleitura);
     salario,status,xfuncionario,yfuncionario);
   empresa->addFuncionario(funcionario);
   funcionario.setSalarios(salario,dataAdmissao);
+  
   system("clear");
   cout << "Funcionário cadastrado com sucesso!" << endl;
   std::this_thread::sleep_for(2s);
@@ -1737,45 +1926,52 @@ void menuFuncionario()
 
     if(numx==1)
     {
-      if(usermain.getPermissao("Funcionario","Cadastrar Funcionario")==false){
-      system("clear");
-      cout<<"O usuário logado não tem permissão para cadastrar funcionário";
-      Data data;
-      data.dateNow();
-      LogAcessoNegado logacessonegado(usermain,data,"Funcionario","Cadastrar Funcionario");
-      empresa->addLogAcessoNegado(logacessonegado);
-      a=1;
-      break;
-      }    
-      else{
-      cadastrarFuncionario();
-      a=1;
-      break;
+      if(usermain.getPermissao("Funcionario","Cadastrar Funcionario")==false)
+      {
+        system("clear");
+        cout<<"O usuário logado não tem permissão para cadastrar funcionário";
+        Data data;
+        data.dateNow();
+        LogAcessoNegado logacessonegado(usermain,data,"Funcionario","Cadastrar Funcionario");
+        empresa->addLogAcessoNegado(logacessonegado);
+        a=1;
+        break;
+      } 
+        
+      else
+      {
+        cadastrarFuncionario();
+        a=1;
+        break;
       }
     }
       
     if(numx==2)
     {
-      if(usermain.getPermissao("Funcionario","Demitir Funcionario")==false){
-      system("clear");
-      cout<<"O usuário logado não tem permissão para demitir funcionário";
-      Data data;
-      data.dateNow();
-      LogAcessoNegado logacessonegado(usermain,data,"Funcionario","Demitir Funcionario");
-      empresa->addLogAcessoNegado(logacessonegado);
-      a=1;
-      break;
-      }    
-      else{
-      demitirFuncionario();
-      a=1;
-      break;
+      if(usermain.getPermissao("Funcionario","Demitir Funcionario")==false)
+      {
+        system("clear");
+        cout<<"O usuário logado não tem permissão para demitir funcionário";
+        Data data;
+        data.dateNow();
+        LogAcessoNegado logacessonegado(usermain,data,"Funcionario","Demitir Funcionario");
+        empresa->addLogAcessoNegado(logacessonegado);
+        a=1;
+        break;
+      } 
+        
+      else
+      {
+        demitirFuncionario();
+        a=1;
+        break;
       }
     }
 
     if(numx==3)
     {
-      if(usermain.getPermissao("Funcionario","Alterar Salario")==false){
+      if(usermain.getPermissao("Funcionario","Alterar Salario")==false)
+      {
         system("clear");
         cout<<"O usuário logado não tem permissão para alterar salario.";
         Data data;
@@ -1784,8 +1980,10 @@ void menuFuncionario()
         empresa->addLogAcessoNegado(logacessonegado);
         a=1;
         break;
-      }    
-      else{
+      } 
+        
+      else
+      {
         alterarSalario();
         a=1;
         break;
@@ -1794,60 +1992,68 @@ void menuFuncionario()
 
     if(numx==4)
     {
-      if(usermain.getPermissao("Funcionario","Dissídio Funcionario")==false){
-      system("clear");
-      cout<<"O usuário logado não tem permissão para aplicar dissídio funcionário";
-      Data data;
-      data.dateNow();
-      LogAcessoNegado logacessonegado(usermain,data,"Funcionario","Dissídio Funcionario");
-      empresa->addLogAcessoNegado(logacessonegado);
-      a=1;
-      break;
-      }  
-      else{
-      aplicarDissidio();
-      a=1;
-      break;
+      if(usermain.getPermissao("Funcionario","Dissídio Funcionario")==false)
+      {
+        system("clear");
+        cout<<"O usuário logado não tem permissão para aplicar dissídio funcionário";
+        Data data;
+        data.dateNow();
+        LogAcessoNegado logacessonegado(usermain,data,"Funcionario","Dissídio Funcionario");
+        empresa->addLogAcessoNegado(logacessonegado);
+        a=1;
+        break;
+      } 
+        
+      else
+      {
+        aplicarDissidio();
+        a=1;
+        break;
       }
     }
 
     if(numx==5)
     {
-      if(usermain.getPermissao("Funcionario","Consultar histórico de salário")==false){
-      system("clear");
-      cout<<"O usuário logado não tem permissão para consultar histórico de salário";
-      Data data;
-      data.dateNow();
-      LogAcessoNegado logacessonegado(usermain,data,"Funcionario","Consultar histórico de salário");
-      empresa->addLogAcessoNegado(logacessonegado);
-      a=1;
-      break;
-      }    
-      else{
-      historicoSalarios();
-      a=1;
-      break;
+      if(usermain.getPermissao("Funcionario","Consultar histórico de salário")==false)
+      {
+        system("clear");
+        cout<<"O usuário logado não tem permissão para consultar histórico de salário";
+        Data data;
+        data.dateNow();
+        LogAcessoNegado logacessonegado(usermain,data,"Funcionario","Consultar histórico de salário");
+        empresa->addLogAcessoNegado(logacessonegado);
+        a=1;
+        break;
+      } 
+          
+      else
+      {
+        historicoSalarios();
+        a=1;
+        break;
       }
     }
     
     if(numx==6)
     {
-      if(usermain.getPermissao("Funcionario","Consultar Funcionários")==false){
-      system("clear");
-      cout<<"O usuário logado não tem permissão para consultar os funcionários";
-      Data data;
-      data.dateNow();
-      LogAcessoNegado logacessonegado(usermain,data,"Funcionario","Consultar Funcionários");
-      empresa->addLogAcessoNegado(logacessonegado);
-      a=1;
-      break;
+      if(usermain.getPermissao("Funcionario","Consultar Funcionários")==false)
+      {
+        system("clear");
+        cout<<"O usuário logado não tem permissão para consultar os funcionários";
+        Data data;
+        data.dateNow();
+        LogAcessoNegado logacessonegado(usermain,data,"Funcionario","Consultar Funcionários");
+        empresa->addLogAcessoNegado(logacessonegado);
+        a=1;
+        break;
       }
-      else{
-      empresa->getFuncionarios();
-      a=1;
-      break; 
+        
+      else
+      {
+        empresa->getFuncionarios();
+        a=1;
+        break; 
       }
-
     }
 
     if(numx==7)
@@ -1869,302 +2075,345 @@ void case_1()
   int a=0;
   int b=0;
 
-  while(b==0){
-  a=0;
-  while(a==0){
-  
-    cout <<"." << endl;
-    cout <<"1- Usuário" << endl;
-    cout <<"2- Funcionário" << endl;
-    cout <<"3- Fornecedor" << endl;
-    cout <<"4- Cadastrar cliente"<<endl;
-    cout <<"5- Cargo"<<endl;
-    cout <<"6- Departamento"<<endl;
-    cout <<"7- Categoria" <<endl;
-    cout <<"8- Matéria Prima" <<endl;
-    cout <<"9- Produto" <<endl;
-    cout <<"10- Lote" <<endl;
-    cout <<"11- Veículo" <<endl;
-    cout <<"12- Rota" <<endl;
-    cout <<"13- Orçamento" <<endl;
-    cout <<"14- Cadastrar forma de pagamento" <<endl;
-    cout <<"15- Venda" <<endl;
-    cout <<"16- Logs" <<endl;
-    cout <<"17- Logout" <<endl;
-    cout <<"Digite uma das opcoes:" << endl;
-  
-    int numx=0;
-    cin >> numx;
-
-    if(numx==1)
+  while(b==0)
+  {
+    a=0;
+    while(a==0)
     {
-      if(usermain.getPermissao("Usuario","Cadastrar Usuario")==false){
-      system("clear");
-      cout<<"O usuário logado não tem permissão para cadastrar usuarios";
-      Data data;
-      data.dateNow();
-      LogAcessoNegado logacessonegado(usermain,data,"Usuario","Cadastrar Usuario");
-      empresa->addLogAcessoNegado(logacessonegado);
-      a=1;
-      break;
+      cout <<"." << endl;
+      cout <<"1- Usuário" << endl;
+      cout <<"2- Funcionário" << endl;
+      cout <<"3- Fornecedor" << endl;
+      cout <<"4- Cadastrar cliente"<<endl;
+      cout <<"5- Cargo"<<endl;
+      cout <<"6- Departamento"<<endl;
+      cout <<"7- Categoria" <<endl;
+      cout <<"8- Matéria Prima" <<endl;
+      cout <<"9- Produto" <<endl;
+      cout <<"10- Lote" <<endl;
+      cout <<"11- Veículo" <<endl;
+      cout <<"12- Rota" <<endl;
+      cout <<"13- Orçamento" <<endl;
+      cout <<"14- Cadastrar forma de pagamento" <<endl;
+      cout <<"15- Venda" <<endl;
+      cout <<"16- Logs" <<endl;
+      cout <<"17- Logout" <<endl;
+      cout <<"Digite uma das opcoes:" << endl;
+  
+      int numx=0;
+      cin >> numx;
+
+      if(numx==1)
+      {
+        if(usermain.getPermissao("Usuario","Cadastrar Usuario")==false){
+        system("clear");
+        cout<<"O usuário logado não tem permissão para cadastrar usuarios";
+        Data data;
+        data.dateNow();
+        LogAcessoNegado logacessonegado(usermain,data,"Usuario","Cadastrar Usuario");
+        empresa->addLogAcessoNegado(logacessonegado);
+        a=1;
+        break;
       }    
-      else{
-      cadastrarUsuario();
-      a=1;
-      break;
-      }
-    }
       
-    if(numx==2)
-    {
-      menuFuncionario();
-      a=1;
-      break;
-    }
-
-    if(numx==3)
-    {
-      menuFornecedor();
-      a=1;
-      break;
-    }
-
-    if(numx==4)
-    {
-      if(usermain.getPermissao("Cliente","Cadastrar Cliente")==false){
-      system("clear");
-      cout<<"O usuário logado não tem permissão para cadastrar clientes";
-      Data data;
-      data.dateNow();
-      LogAcessoNegado logacessonegado(usermain,data,"Cliente","Cadastrar Cliente");
-      empresa->addLogAcessoNegado(logacessonegado);
-      a=1;
-      break;
+        else
+        {
+          cadastrarUsuario();
+          a=1;
+          break;
+        }
       }
-      else{
-      cadastrarCliente();
-      a=1;
-      break; 
-      }
-    }
-
-    if(numx==5)
-    {
-      if(usermain.getPermissao("Cargo","Cadastrar Cargo")==false){
-      system("clear");
-      cout<<"O usuário logado não tem permissão para cadastrar cargos";
-      Data data;
-      data.dateNow();
-      LogAcessoNegado logacessonegado(usermain,data,"Cargo","Cadastrar Cargo");
-      empresa->addLogAcessoNegado(logacessonegado);
-      a=1;
-      break;
-      }
-      else{
-      cadastrarCargo();
-      a=1;
-      break;
-      }
-    }
-    
-    if(numx==6)
-    {
-       if(usermain.getPermissao("Departamento","Cadastrar Departamento")==false){
-      system("clear");
-      cout<<"O usuário logado não tem permissão para cadastrar departamentos";
-      Data data;
-      data.dateNow();
-      LogAcessoNegado logacessonegado(usermain,data,"Departamento","Cadastrar Departamento");
-      empresa->addLogAcessoNegado(logacessonegado);
-      a=1;
-      break;
-      }
-      else{
-      cadastrarDepartamento();
-      a=1;
-      break;
-      }
-    }
       
-    if(numx==7)
-    {
-      if(usermain.getPermissao("Categoria","Cadastrar Categoria")==false){
-      system("clear");
-      cout<<"O usuário logado não tem permissão para cadastrar categorias";
-      Data data;
-      data.dateNow();
-      LogAcessoNegado logacessonegado(usermain,data,"Categoria","Cadastrar Categoria");
-      empresa->addLogAcessoNegado(logacessonegado);
-      a=1;
-      break;
+      if(numx==2)
+      {
+        menuFuncionario();
+        a=1;
+        break;
       }
-      else{
-      cadastrarCategoria();
-      a=1;
-      break;
-      }
-    }
-    
-    if(numx==8)
-    {
-      menuMateriaPrima();
-      a=1;
-      break;
-    }
-    
-    if(numx==9)
-    {
-      menuProduto();
-      a=1;
-      break;
-    }
 
-    if(numx==10)
-    {
-      if(usermain.getPermissao("Lote","Cadastrar Lote")==false){
-      system("clear");
-      cout<<"O usuário logado não tem permissão para cadastrar lotes";
-      Data data;
-      data.dateNow();
-      LogAcessoNegado logacessonegado(usermain,data,"Lote","Cadastrar Lote");
-      empresa->addLogAcessoNegado(logacessonegado);
-      a=1;
-      break;
+      if(numx==3)
+      {
+        menuFornecedor();
+        a=1;
+        break;
       }
-      else{
-      cadastrarLote();
-      a=1;
-      break;
+
+      if(numx==4)
+      {
+        if(usermain.getPermissao("Cliente","Cadastrar Cliente")==false)
+        {
+          system("clear");
+          cout<<"O usuário logado não tem permissão para cadastrar clientes";
+          Data data;
+          data.dateNow();
+          LogAcessoNegado logacessonegado(usermain,data,"Cliente","Cadastrar Cliente");
+          empresa->addLogAcessoNegado(logacessonegado);
+          a=1;
+          break;
+        }
+        
+        else
+        {
+          cadastrarCliente();
+          a=1;
+          break; 
+        }
       }
-    }
+
+      if(numx==5)
+      {
+        if(usermain.getPermissao("Cargo","Cadastrar Cargo")==false)
+        {
+          system("clear");
+          cout<<"O usuário logado não tem permissão para cadastrar cargos";
+          Data data;
+          data.dateNow();
+          LogAcessoNegado logacessonegado(usermain,data,"Cargo","Cadastrar Cargo");
+          empresa->addLogAcessoNegado(logacessonegado);
+          a=1;
+          break;
+        }
+      
+        else
+        {
+          cadastrarCargo();
+          a=1;
+          break;
+        }
+      }
     
-    if(numx==11)
-    {
-      if(usermain.getPermissao("Veiculo","Cadastrar Veiculo")==false){
-      system("clear");
-      cout<<"O usuário logado não tem permissão para cadastrar veiculos";
-      Data data;
-      data.dateNow();
-      LogAcessoNegado logacessonegado(usermain,data,"Veiculo","Cadastrar Veiculo");
-      empresa->addLogAcessoNegado(logacessonegado);
-      a=1;
-      break;
+      if(numx==6)
+      {
+        if(usermain.getPermissao("Departamento","Cadastrar Departamento")==false)
+        {
+          system("clear");
+          cout<<"O usuário logado não tem permissão para cadastrar departamentos";
+          Data data;
+          data.dateNow();
+          LogAcessoNegado logacessonegado(usermain,data,"Departamento","Cadastrar Departamento");
+          empresa->addLogAcessoNegado(logacessonegado);
+          a=1;
+          break;
+        }
+          
+        else
+        {
+          cadastrarDepartamento();
+          a=1;
+          break;
+        }
       }
-      else{
-      cadastrarVeiculo();
-      a=1;
-      break;
+      
+      if(numx==7)
+      {
+        if(usermain.getPermissao("Categoria","Cadastrar Categoria")==false)
+        {
+          system("clear");
+          cout<<"O usuário logado não tem permissão para cadastrar categorias";
+          Data data;
+          data.dateNow();
+          LogAcessoNegado logacessonegado(usermain,data,"Categoria","Cadastrar Categoria");
+          empresa->addLogAcessoNegado(logacessonegado);
+          a=1;
+          break;
+        }
+        
+        else
+        {
+          cadastrarCategoria();
+          a=1;
+          break;
+        }
       }
-    }
+    
+      if(numx==8)
+      {
+        menuMateriaPrima();
+        a=1;
+        break;
+      }
+    
+      if(numx==9)
+      {
+        menuProduto();
+        a=1;
+        break;
+      }
+
+      if(numx==10)
+      {
+        if(usermain.getPermissao("Lote","Cadastrar Lote")==false)
+        {
+          system("clear");
+          cout<<"O usuário logado não tem permissão para cadastrar lotes";
+          Data data;
+          data.dateNow();
+          LogAcessoNegado logacessonegado(usermain,data,"Lote","Cadastrar Lote");
+          empresa->addLogAcessoNegado(logacessonegado);
+          a=1;
+          break;
+        }
+        
+        else
+        {
+          cadastrarLote();
+          a=1;
+          break;
+        }
+      }
+    
+      if(numx==11)
+      {
+        if(usermain.getPermissao("Veiculo","Cadastrar Veiculo")==false)
+        {
+          system("clear");
+          cout<<"O usuário logado não tem permissão para cadastrar veiculos";
+          Data data;
+          data.dateNow();
+          LogAcessoNegado logacessonegado(usermain,data,"Veiculo","Cadastrar Veiculo");
+          empresa->addLogAcessoNegado(logacessonegado);
+          a=1;
+          break;
+        }
+        
+        else
+        {
+          cadastrarVeiculo();
+          a=1;
+          break;
+        }
+      }
+    
       if(numx==12)
-    {
-      if(usermain.getPermissao("Rota","Cadastrar Rota")==false){
-      system("clear");
-      cout<<"O usuário logado não tem permissão para cadastrar rotas";
-      Data data;
-      data.dateNow();
-      LogAcessoNegado logacessonegado(usermain,data,"Rota","Cadastrar Rota");
-      empresa->addLogAcessoNegado(logacessonegado);
-      a=1;
-      break;
+      {
+        if(usermain.getPermissao("Rota","Cadastrar Rota")==false)
+        {
+          system("clear");
+          cout<<"O usuário logado não tem permissão para cadastrar rotas";
+          Data data;
+          data.dateNow();
+          LogAcessoNegado logacessonegado(usermain,data,"Rota","Cadastrar Rota");
+          empresa->addLogAcessoNegado(logacessonegado);
+          a=1;
+          break;
+        }
+        
+        else
+        {
+          cadastrarRota();
+          a=1;
+          break;
+        }  
       }
-      else{
-      cadastrarRota();
-      a=1;
-      break;
-      }  
-    }
 
       if(numx==13)
-    {
-      if(usermain.getPermissao("Orcamento","Cadastrar Orcamento")==false){
-      system("clear");
-      cout<<"O usuário logado não tem permissão para cadastrar orcamentos";
-      Data data;
-      data.dateNow();
-      LogAcessoNegado logacessonegado(usermain,data,"Orcamento","Cadastrar Orcamento");
-      empresa->addLogAcessoNegado(logacessonegado);
-      a=1;
-      break;
+      {
+        if(usermain.getPermissao("Orcamento","Cadastrar Orcamento")==false)
+        {
+          system("clear");
+          cout<<"O usuário logado não tem permissão para cadastrar orcamentos";
+          Data data;
+          data.dateNow();
+          LogAcessoNegado logacessonegado(usermain,data,"Orcamento","Cadastrar Orcamento");
+          empresa->addLogAcessoNegado(logacessonegado);
+          a=1;
+          break;
+        }
+        
+        else  
+        {
+          cadastraOrcamento();
+          a=1;
+          break;
+        }
       }
-      else{
-      cadastraOrcamento();
-      a=1;
-      break;
-      }
-    }
 
-     if(numx==14)
-    {
-      if(usermain.getPermissao("Pagamento","Cadastrar Forma Pagamento")==false){
-      system("clear");
-      cout<<"O usuário logado não tem permissão para cadastrar formas de pagamento";
-      Data data;
-      data.dateNow();
-      LogAcessoNegado logacessonegado(usermain,data,"Pagamento","Cadastrar Forma Pagamento");
-      empresa->addLogAcessoNegado(logacessonegado);
-      a=1;
-      break;
+      if(numx==14)
+      {
+        if(usermain.getPermissao("Pagamento","Cadastrar Forma Pagamento")==false)
+        {
+          system("clear");
+          cout<<"O usuário logado não tem permissão para cadastrar formas de pagamento";
+          Data data;
+          data.dateNow();
+          LogAcessoNegado logacessonegado(usermain,data,"Pagamento","Cadastrar Forma Pagamento");
+          empresa->addLogAcessoNegado(logacessonegado);
+          a=1;
+          break;
+        }
+        
+        else  
+        {
+          cadastraFormaPagamento();
+          a=1;
+          break;
+        }
       }
-      else{
-      cadastraFormaPagamento();
-      a=1;
-      break;
-      }
-    }
 
-    if(numx==15)
-    {
-      if(usermain.getPermissao("Venda","Realizar Venda")==false){
-      system("clear");
-      cout<<"O usuário logado não tem permissão para realizar uma venda";
-      Data data;
-      data.dateNow();
-      LogAcessoNegado logacessonegado(usermain,data,"Venda","Realizar Venda");
-      empresa->addLogAcessoNegado(logacessonegado);
-      a=1;
-      break;
+      if(numx==15)
+      {
+        if(usermain.getPermissao("Venda","Realizar Venda")==false)
+        {
+          system("clear");
+          cout<<"O usuário logado não tem permissão para realizar uma venda";
+          Data data;
+          data.dateNow();
+          LogAcessoNegado logacessonegado(usermain,data,"Venda","Realizar Venda");
+          empresa->addLogAcessoNegado(logacessonegado);
+          a=1;
+          break;
+        }
+        
+        else  
+        {
+          realizarVenda();
+          a=1;
+          break;
+        }
       }
-      else{
-      realizarVenda();
-      a=1;
-      break;
-      }
-    }
 
-    if(numx==16)
-    {
-      if(usermain.getPermissao("Log","Mostrar Logs")==false){
-      system("clear");
-      cout<<"O usuário logado não tem permissão para consultar os logs do sistema";
-      Data data;
-      data.dateNow();
-      LogAcessoNegado logacessonegado(usermain,data,"Log","Mostrar Logs");
-      empresa->addLogAcessoNegado(logacessonegado);
-      a=1;
-      break;
+      if(numx==16)
+      {
+        if(usermain.getPermissao("Log","Mostrar Logs")==false)
+        {
+          system("clear");
+          cout<<"O usuário logado não tem permissão para consultar os logs do sistema";
+          Data data;
+          data.dateNow();
+          LogAcessoNegado logacessonegado(usermain,data,"Log","Mostrar Logs");
+          empresa->addLogAcessoNegado(logacessonegado);
+          a=1;
+          break;
+        }
+        
+        else
+        {
+          mostrarLogs();
+          a=1;
+          break;
+        }
       }
-      else{
-      mostrarLogs();
-      a=1;
-      break;
+      
+      if(numx==17)
+      {
+        a=1;
+        b=1;
+        break; 
       }
+      
+      else
+        cout << "Digite um valor valido!" << endl;
     }
-    if(numx==17){
-      a=1;
-      b=1;
-      break; 
-    }
-    else
-      cout << "Digite um valor valido!" << endl;
   }
-    }
 }
-
 
 int main()
 {
   //teste singleton
+  //Empresa * usuario = Empresa::Instance();
+  //cout << usuario->getUser() << endl;
+  //cout << usuario->getSenha() << endl;
+  
   empresa->addUsuario(usermain);
   empresa->addFormasPagamento(pagamento1);
   empresa->addFormasPagamento(pagamento2);
@@ -2210,7 +2459,6 @@ int main()
   Departamento departamento3("Departamento1");
   empresa->addDepartamento(departamento3);
 
-
   Data dataA;
   dataA.setDia(12);
   dataA.setMes(12);
@@ -2239,7 +2487,6 @@ int main()
   float xfuncionario3=-19.8623356;
   float yfuncionario3=-43.9740098;
   
-  
   Funcionario funcionario1(
     "Funcionario1","123.123.123-12","funcionario1@gmail.com","Rua Funcionário1",data1,"91234-1234",
     1234,dataA,departamento,
@@ -2262,7 +2509,6 @@ int main()
     empresa->addFuncionario(funcionario3);
     funcionario3.setSalarios(salario3,dataA);
 
-  
   Data dataC1;
   dataC1.setDia(11);
   dataC1.setMes(11);
@@ -2276,7 +2522,6 @@ int main()
   Cliente cliente2("ClientePJ","12.123.123/0001-12","cliente2@gmail.com","Rua cliente2",dataC2,"94321-4322",false);
   empresa->addCliente(cliente2);
 
-
   MateriaPrima materiaPrima1("Madeira","g",1000,1000);
   empresa->addMateriaPrima(materiaPrima1);
   MateriaPrima materiaPrima2("Plástico","g",1000,1000);
@@ -2286,13 +2531,13 @@ int main()
   MateriaPrima materiaPrima4("Parafusos","Unidade",20,20);
   empresa->addMateriaPrima(materiaPrima4);
 
-
   Categoria categoria("Mesas");
   empresa->addCategoria(categoria);
-  Produto mesa("Mesa",1234, 100.00, categoria, 20 , 20);
+  Produto mesa("Mesa",1234, 100.00, categoria, 20 , 20 );
   empresa->addProduto(mesa);
   Estoque estoque(mesa);
-  empresa->addEstoque(estoque);
+  estoque.iniciaEstoque();
+  estoque.iniciaEstoqueMin();
   estoque.setQuantidadeMin(20);
   mesa.setMateriaPrima(materiaPrima1);
   mesa.setQuantidade(450);
@@ -2302,8 +2547,6 @@ int main()
   mesa.setQuantidade(100);
   mesa.setMateriaPrima(materiaPrima4);
   mesa.setQuantidade(8);
-
-
   Data dataLote;
   dataLote.setDia(12);
   dataLote.setMes(12);
@@ -2316,9 +2559,11 @@ int main()
   empresa->addLote(lote2);
   estoque.setLote(lote2);
   estoque.setQuantidade(10);
+
+  empresa->addEstoque(estoque);
   
   system("clear");
-
+  
   string user;
   string senha;
   int x=0;
@@ -2339,8 +2584,6 @@ int main()
       {
         system("clear");
         cout<<"Login efetuado com sucesso!"<<endl;
-        //teste singleton usuario logado
-        std::cout << "Endereço singleton usuario: " << &usermain << std::endl;
         std::this_thread::sleep_for(2s);
         system("clear");
         case_1();
@@ -2352,7 +2595,7 @@ int main()
         cout<<"Usuário e/ou senha não existem!"<<endl;
         std::this_thread::sleep_for(2s);
         system("clear");
-      y=1;
+        y=1;
       }
     }
   }

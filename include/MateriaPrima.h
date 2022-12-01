@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 
+
 class MateriaPrima
 {
   private:
@@ -15,7 +16,8 @@ class MateriaPrima
     std::vector<int> _orcamento;
 
   public:
-    MateriaPrima(
+    MateriaPrima
+    (
       std::string nome,
       std::string unidade_medida,
       int quantidade_estoque,
@@ -29,8 +31,7 @@ class MateriaPrima
     int getEstoque();
     int getEstoqueMin();
     void cadastraFornecedor(int posicaoFornecedor);
-    void cadastraOrcamento(int posicaoOrcamento);
-    
+    void cadastraOrcamento(int posicaoOrcamento);  
 };
 
 #endif

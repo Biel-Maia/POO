@@ -2,7 +2,9 @@
 #include "../include/Log.h"
 #include "../include/Data.h"
 #include "../include/Usuario.h"
+
 #include <string>
+
 
 LogLeitura::LogLeitura(
   Usuario usuario,
@@ -10,18 +12,21 @@ LogLeitura::LogLeitura(
   std::string classeAcessada,
   std::string metodoAcessado,
   std::string nomeAtributoAcessado):
-  Log(usuario,data),
-  _classeAcessada(classeAcessada),
-  _metodoAcessado(metodoAcessado),
-  _nomeAtributoAcessado(nomeAtributoAcessado){}
+    Log(usuario,data),
+    _classeAcessada(classeAcessada),
+    _metodoAcessado(metodoAcessado),
+    _nomeAtributoAcessado(nomeAtributoAcessado){}
 
-std::string LogLeitura::getClasse(){
+std::string LogLeitura::getClasse()
+{
   return this->_classeAcessada;
 }
-std::string LogLeitura::getMetodo(){
+std::string LogLeitura::getMetodo()
+{
   return this->_metodoAcessado;
 }
 
-std::string LogLeitura::getAtributoAcessado(){
+std::string LogLeitura::getAtributoAcessado()
+{
   return this->_nomeAtributoAcessado;
 }
